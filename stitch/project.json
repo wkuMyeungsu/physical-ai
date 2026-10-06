@@ -1,0 +1,17 @@
+{
+  "projectId": "3633446895609201717",
+  "title": "Neck & Mouth AI Coach Showcase",
+  "visibility": "PRIVATE",
+  "projectType": "TEXT_TO_UI_PRO",
+  "deviceType": "DESKTOP",
+  "createTime": "2026-10-06T05:30:19.458770Z",
+  "updateTime": "2026-10-06T05:32:47.961719Z",
+  "screen": {
+    "id": "642113ad07594a329b84e20418869cfa",
+    "name": "projects/3633446895609201717/screens/642113ad07594a329b84e20418869cfa",
+    "title": "거북목 & 입벌림 AI 코치 제품 소개",
+    "width": 2560,
+    "height": 12252,
+    "deviceType": "DESKTOP"
+  }
+}

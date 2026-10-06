@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <!-- Dark LCD Display Screen Background -->
+    <linearGradient id="screenBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#141c2e"/>
+    </linearGradient>
+
+    <!-- Warm Emoji Gradient -->
+    <linearGradient id="emojiYellow2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+
+    <!-- Alert Glow Filter -->
+    <filter id="alertGlow2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Drop Shadow for UI Elements -->
+    <filter id="pillShadow2" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- 2.0" LCD Display Frame -->
+  <rect width="400" height="300" rx="20" fill="url(#screenBg2)"/>
+
+  <!-- Subtle Tech Grid Lines -->
+  <line x1="24" y1="42" x2="376" y2="42" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+  <!-- Top Status Bar -->
+  <circle cx="36" cy="24" r="4.5" fill="#f97316" filter="url(#alertGlow2)"/>
+  <text x="48" y="28" fill="#fdba74" font-family="'Pretendard', sans-serif" font-size="11" font-weight="700" letter-spacing="0.5">ALERT • 구강 호흡 감지 (MAR 0.65)</text>
+  <text x="365" y="28" text-anchor="end" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">30 FPS AI CAM</text>
+
+  <!-- EMOJI MASCOT: Cute Mochi / Bear Emoji (Front View Mouth Breathing) -->
+  <g id="emojiMouth">
+    <!-- Body / Torso (Teal Sweatshirt Base) -->
+    <path d="M 130 240 
+             C 145 185 172 175 200 175 
+             C 228 175 255 185 270 240 Z" 
+          fill="#0d9488" stroke="#134e4a" stroke-width="4" stroke-linejoin="round"/>
+    
+    <!-- Collar Line -->
+    <path d="M 182 178 Q 200 188 218 178" fill="none" stroke="#5eead4" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Cute Short Neck -->
+    <path d="M 186 142 L 186 178 C 193 181 207 181 214 178 L 214 142 Z" 
+          fill="url(#emojiYellow2)" stroke="#ca8a04" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Ears (Cute Bear / Mochi Ears on Top) -->
+    <g>
+      <circle cx="156" cy="68" r="14" fill="url(#emojiYellow2)" stroke="#ca8a04" stroke-width="3.5"/>
+      <circle cx="156" cy="68" r="7" fill="#fde047"/>
+
+      <circle cx="244" cy="68" r="14" fill="url(#emojiYellow2)" stroke="#ca8a04" stroke-width="3.5"/>
+      <circle cx="244" cy="68" r="7" fill="#fde047"/>
+    </g>
+
+    <!-- Round Cute Emoji Face -->
+    <circle cx="200" cy="106" r="48" fill="url(#emojiYellow2)" stroke="#ca8a04" stroke-width="4"/>
+
+    <!-- Comical Dazed Eyebrows (멍때리는 눈썹 \ /) -->
+    <path d="M 170 86 Q 178 82 186 87" fill="none" stroke="#854d0e" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 214 87 Q 222 82 230 86" fill="none" stroke="#854d0e" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Big Funny Blank Eyes (멍하니 동그란 눈 • •) -->
+    <circle cx="178" cy="98" r="5.5" fill="#854d0e"/>
+    <circle cx="180" cy="96" r="2" fill="#ffffff"/>
+    
+    <circle cx="222" cy="98" r="5.5" fill="#854d0e"/>
+    <circle cx="224" cy="96" r="2" fill="#ffffff"/>
+
+    <!-- Cute Nose Dot -->
+    <circle cx="200" cy="106" r="2.5" fill="#854d0e"/>
+
+    <!-- Rosy Cheek Blush (발그레 볼터치) -->
+    <ellipse cx="162" cy="114" rx="8.5" ry="6.5" fill="#fb7185" opacity="0.75"/>
+    <ellipse cx="238" cy="114" rx="8.5" ry="6.5" fill="#fb7185" opacity="0.75"/>
+
+    <!-- Open Mouth : O (멍하니 떡 벌어진 입) -->
+    <g transform="translate(200, 124)">
+      <!-- Outer Mouth Border & Red Fill -->
+      <ellipse cx="0" cy="0" rx="10" ry="13" fill="#be123c" stroke="#854d0e" stroke-width="3.5"/>
+      <!-- Small Tongue -->
+      <path d="M -6 6 Q 0 2 6 6 Q 0 12 -6 6 Z" fill="#fb7185"/>
+
+      <!-- Stylized Breath Puffs (입호흡 바람 ~ 💨) -->
+      <path d="M 12 -2 Q 22 -8 30 -2 Q 38 4 28 8" fill="none" stroke="#38bdf8" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="3 3"/>
+      <circle cx="35" cy="1" r="2.5" fill="#38bdf8" opacity="0.85"/>
+      <circle cx="42" cy="7" r="1.5" fill="#38bdf8" opacity="0.6"/>
+    </g>
+
+    <!-- Face Mesh MAR Tag Box (깔끔한 우측 배치) -->
+    <g transform="translate(254, 122)">
+      <rect x="0" y="0" width="62" height="22" rx="6" fill="#f97316"/>
+      <text x="31" y="15" fill="#ffffff" font-family="'Pretendard', sans-serif" font-size="10.5" font-weight="900" text-anchor="middle">MAR 0.65</text>
+      <!-- Dashed Line to Mouth -->
+      <line x1="0" y1="11" x2="-38" y2="-4" stroke="#f97316" stroke-width="1.8" stroke-dasharray="2 2"/>
+    </g>
+  </g>
+
+  <!-- Bottom Alert Pill Banner (입벌림 감지 전면 표시) -->
+  <g transform="translate(200, 262)" filter="url(#pillShadow2)">
+    <rect x="-105" y="-18" width="210" height="36" rx="18" fill="#f97316"/>
+    <!-- Warning Icon Bubble -->
+    <circle cx="-80" cy="0" r="10" fill="#ffffff"/>
+    <path d="M -80 -5 L -80 1 M -80 4 L -80 5.5" stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Bold Text -->
+    <text x="14" y="5" fill="#ffffff" font-family="'Pretendard', sans-serif" font-size="16" font-weight="900" text-anchor="middle" letter-spacing="1.5">입벌림 감지</text>
+  </g>
+</svg>

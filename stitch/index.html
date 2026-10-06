@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>거북목 &amp; 입벌림 AI 코치 (Neck &amp; Mouth AI Coach)</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#111c2d", "surface-container": "#e7eeff", "secondary-container": "#fe9572", "error": "#ba1a1a", "error-container": "#ffdad6", "primary": "#215542", "on-secondary-fixed": "#390b00", "on-tertiary-fixed": "#001e31", "secondary-fixed": "#ffdbd0", "surface-container-low": "#f0f3ff", "tertiary-fixed-dim": "#afcae3", "surface-container-highest": "#d8e3fb", "on-primary": "#ffffff", "surface-dim": "#cfdaf2", "on-surface-variant": "#404944", "outline-variant": "#c0c9c2", "surface-variant": "#d8e3fb", "on-secondary-container": "#762c12", "inverse-primary": "#9cd2b9", "on-primary-fixed": "#002115", "primary-container": "#3b6e59", "secondary-fixed-dim": "#ffb59e", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "secondary": "#99462a", "surface": "#f9f9ff", "surface-bright": "#f9f9ff", "tertiary-container": "#4d677d", "on-error": "#ffffff", "primary-fixed-dim": "#9cd2b9", "on-primary-fixed-variant": "#1b503c", "primary-fixed": "#b8eed4", "surface-container-high": "#dee8ff", "tertiary": "#354f65", "inverse-on-surface": "#ecf1ff", "on-tertiary-fixed-variant": "#2f495f", "tertiary-fixed": "#cbe6ff", "outline": "#707974", "inverse-surface": "#263143", "on-background": "#111c2d", "on-secondary-fixed-variant": "#7a2f15", "surface-tint": "#356853", "background": "#f9f9ff", "on-tertiary-container": "#cae5ff", "surface-container-lowest": "#ffffff", "on-primary-container": "#b7eed4", "on-secondary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "2rem", "space-sm": "0.5rem", "gutter": "1.5rem", "gutter-sm": "1rem", "space-xl": "2.5rem", "margin-sm": "1.25rem" }, "fontFamily": { "body-sm": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "display": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "counter-xl": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "display-mobile": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "label-lg": [ "Plus Jakarta Sans" ] }, "fontSize": { "body-sm": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "display": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" } ], "counter-xl": [ "64px", { "lineHeight": "68px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "display-mobile": [ "38px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" } ], "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-md": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">smart_toy</span></div><span class="font-headline-sm text-headline-sm text-primary font-bold">거북목 &amp; 입벌림 AI 코치</span></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-full"><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-surface-container-high text-on-surface font-semibold rounded-full" href="#overview">제품 소개</a><a class="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" href="#key-features">핵심 기능</a><a class="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" href="#how-it-works">사용 방법</a><a class="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" href="#tech-specs">기술 스펙</a><a class="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" href="#habit-effects">습관 개선 효과</a></nav><div class="flex items-center gap-space-md"><a class="inline-flex items-center justify-center px-space-lg py-space-sm rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary transition-all duration-200" href="#pre-order">얼리버드 사전 예약</a><div class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface"><div class="flex flex-col w-full">
+<!-- HERO SECTION -->
+<section class="relative w-full overflow-hidden bg-surface py-space-xl lg:py-24" id="overview">
+<!-- Ambient organic gradient blurs behind hero -->
+<div class="absolute -top-32 -left-20 w-96 h-96 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/3 -right-24 w-80 h-80 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-12 items-center">
+<!-- Left: Copy & CTA -->
+<div class="lg:col-span-6 flex flex-col items-start gap-space-md">
+<!-- Tag Badge -->
+<div class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high text-primary font-label-md text-label-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>몸에 아무것도 걸치지 않는 비침습 온디바이스 에지 AI</span>
+</div>
+<!-- Main Catchphrase -->
+<h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
+            모니터 위에 <br class="hidden sm:inline"/>
+<span class="text-primary-container">가볍게 얹어두는</span><br/>
+            나만의 자세 &amp; 호흡 AI 코치
+          </h1>
+<!-- Description -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+            모니터에 몰입하는 순간 무의식적으로 튀어나오는 거북목과 입벌림 습관.
+            신체 착용 없이 독립 Vision NPU가 실시간 감지하여, 귀여운 만화 캐릭터 그래픽으로 다정하게 바른 자세와 코호흡을 이끌어줍니다.
+          </p>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-xs w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all duration-200" href="#pre-order">
+<span>얼리버드 예약 신청</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-3.5 rounded-full bg-surface-container-lowest text-on-surface font-label-lg text-label-lg shadow-sm hover:bg-surface-container-low transition-colors" href="#key-features">
+<span class="material-symbols-outlined text-[18px] text-tertiary">play_circle</span>
+<span>핵심 기능 둘러보기</span>
+</a>
+</div>
+<!-- Micro Privacy Guarantee Highlight -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md pt-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">shield</span>
+<span>클라우드 전송 제로 • 영상 메모리 즉시 소멸 • 100% 로컬 프라이버시 보호</span>
+</div>
+</div>
+<!-- Right: Real Scene Photo & Floating AI Status Badges -->
+<div class="lg:col-span-6 relative">
+<div class="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container-high">
+<img alt="데스크 모니터 상단에 거치된 친근한 미소의 AI 코치 단말기 디스플레이" class="w-full h-[380px] sm:h-[460px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCwvWT8RBk0lK2Ac2YttrFLOHgRuTxrJlA7P6ORxjKWeSptLFC_em-fHVCKhqc2GZeH3_uxZjHZWYZGhPVN5RwmIntuw5SAa_VMsJi6-KMQYiblJ2sLukmEOX4ZZNTVuy1SxTEVtlUNSKKzQTsRUu06BeKuBpe9SmOE4Xjue2u1PwmUjTkwgVFE6x4mqDpZsc67tw2cS1B_hjqDF-J9Vk3Y30R31IrtQCv1jguryTIZAHtUzyUEU8L"/>
+<!-- Floating Status Capsule 1: On-device Edge Engine -->
+<div class="absolute top-4 left-4 inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface/90 backdrop-blur-md shadow-md text-on-surface font-label-md text-label-md">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-semibold text-primary">0.5 TOPs NPU 실시간 가동</span>
+<span class="text-on-surface-variant">| 30 FPS</span>
+</div>
+<!-- Floating Status Capsule 2: Privacy Guarantee -->
+<div class="absolute bottom-4 right-4 inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-on-surface/85 backdrop-blur-md text-surface font-label-md text-label-md shadow-lg">
+<span class="material-symbols-outlined text-inverse-primary text-[18px]">videocam_off</span>
+<span>외부 영상 전송 차단 (No-Cloud)</span>
+</div>
+<!-- Mini Feedback Card Overlay (Interactive Preview State) -->
+<div class="absolute bottom-4 left-4 p-space-sm rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-lg flex items-center gap-space-sm max-w-[240px]">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]">sentiment_satisfied</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold">바른 자세 유지 중</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">경추 각도 8° (정상 범위)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Metrics Row (Trust Bar) -->
+<div class="mt-space-xl grid grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-primary">
+<span class="font-counter-xl text-headline-lg font-bold">95%</span>
+<span class="material-symbols-outlined text-[28px] opacity-80">accessibility_new</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">거북목 정밀 감지율</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">귀-어깨선 15° 기준 3초 감지</span>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-counter-xl text-headline-lg font-bold">93%</span>
+<span class="material-symbols-outlined text-[28px] opacity-80">air</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">입벌림(MAR) 감지율</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">대화/음수 동작 3% 미만 오탐 필터링</span>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-primary-container">
+<span class="font-counter-xl text-headline-lg font-bold">100ms</span>
+<span class="material-symbols-outlined text-[28px] opacity-80">speed</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">초저지연 시각 피드백</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">불량 습관 즉시 LCD 화면 전환</span>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-tertiary">
+<span class="font-counter-xl text-headline-lg font-bold">0%</span>
+<span class="material-symbols-outlined text-[28px] opacity-80">cloud_off</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">PC 자원 점유 &amp; 영상 전송</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">완전 독립형 H/W 신경망 추론</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 2: PROBLEM & DIFFERENTIATION -->
+<section class="w-full bg-surface-container-low py-space-xl lg:py-24">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<span class="font-label-lg text-label-lg text-secondary uppercase tracking-wider font-semibold">Comparison &amp; Innovation</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">
+            왜 기존 자세 교정 제품들은 <br/>
+            결국 서랍 속에 들어가고 말았을까요?
+          </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+          피부에 닿는 답답함이나 불안한 웹캠 감시 없이, 편안하고 자연스럽게 집중을 돕는 독립형 에지 AI 코치의 차이를 경험해 보세요.
+        </p>
+</div>
+<!-- 3 Limitation vs 1 Solution Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Card 1 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md px-2.5 py-1 rounded-full bg-surface-container text-tertiary">기존 한계 01</span>
+<span class="material-symbols-outlined text-outline">timer_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">단순 고정 타이머 앱</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              “50분마다 스트레칭하세요”라는 일률적 푸시는 실제 불량 자세가 일어난 순간을 감지하지 못해 작업 도중 방해만 되고 무시됩니다.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-md text-label-md text-primary font-bold">AI 코치의 해법</span>
+<span class="font-body-sm text-body-sm text-on-surface">불량 각도가 3초 이상 지속되는 바로 그 순간, 100ms 이내에 즉각 감지하여 습관 고착화를 막아줍니다.</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md px-2.5 py-1 rounded-full bg-surface-container text-tertiary">기존 한계 02</span>
+<span class="material-symbols-outlined text-outline">watch_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">착용형 웨어러블 센서</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              목에 걸거나 등에 붙이는 센서는 이물감과 잦은 충전이 번거롭고, 정작 얼굴 형태를 바꾸는 ‘입벌림/구강호흡’은 측정이 불가능합니다.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-md text-label-md text-primary font-bold">AI 코치의 해법</span>
+<span class="font-body-sm text-body-sm text-on-surface">신체 접촉 0%. 모니터 위에 가볍게 얹어두기만 하면 상체 골격과 구강 안면 랜드마크를 함께 분석합니다.</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md px-2.5 py-1 rounded-full bg-surface-container text-tertiary">기존 한계 03</span>
+<span class="material-symbols-outlined text-outline">security_update_warning</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">웹캠 PC 프로그램</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              PC 성능을 갉아먹어 팬 소음과 렉을 유발하고, 웹캠 화면이 소프트웨어 메모리를 거치며 사생활 노출 우려가 항상 뒤따릅니다.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-md text-label-md text-primary font-bold">AI 코치의 해법</span>
+<span class="font-body-sm text-body-sm text-on-surface">독립 Rockchip NPU로 PC 부담 0%. 영상은 기기 밖으로 단 1프레임도 전송되지 않는 100% 로컬 연산입니다.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 3: DUAL DETECTION SCENARIOS -->
+<section class="w-full bg-surface py-space-xl lg:py-24" id="key-features">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+<div class="text-center max-w-2xl mx-auto flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-primary font-semibold">Dual Behavioral AI Care</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">현대인의 2대 악습관을 과학적으로 정조준</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          목 디스크의 주원인 ‘경추 전방 돌출(거북목)’과 안면 균형 및 집중력을 해치는 ‘무의식적 구강 호흡’을 정밀 포착합니다.
+        </p>
+</div>
+<!-- Feature Deep-Dives (Two Big Columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Feature 1: Turtle Neck -->
+<div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-lg">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">accessibility</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary font-bold">CORE CARE 01</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Forward Head Posture (거북목 실시간 교정)</h3>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              모니터 쪽으로 고개가 15도 이상 쏠리면 경추가 받는 하중은 최대 27kg까지 치솟습니다.
+              내장 AI 엔진은 상체 랜드마크를 3D 공간 벡터로 변환하여 귀와 어깨선의 중심 각도를 실시간 추적합니다.
+            </p>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">감지 기준</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">경추 각도 15° 초과</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">지속 임계치</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">3.0초 지속 시 알림</span>
+</div>
+</div>
+</div>
+<!-- LCD Screen Simulated State Preview -->
+<div class="p-space-md rounded-xl bg-surface-container-high flex flex-col sm:flex-row items-center gap-space-md">
+<div class="w-full sm:w-44 h-32 rounded-xl overflow-hidden shadow-md shrink-0 border border-secondary/30 bg-slate-900 flex items-center justify-center">
+<img alt="거북목 감지 LCD 화면 그래픽" class="w-full h-full object-contain" src="./turtle_neck.svg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">2.0인치 LCD 측면 클로즈업 피드백</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">쇄골부터 턱까지 목 라인을 집중 조명하여, 15도 이상 앞으로 쏠린 상태와 증가된 경추 하중을 직관적으로 보여주며 턱을 당기도록 유도합니다.</span>
+</div>
+</div>
+</div>
+<!-- Feature 2: Mouth Breathing -->
+<div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-lg">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">air</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary font-bold">CORE CARE 02</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Mouth Aspect Ratio (입벌림 &amp; 구강 호흡 차단)</h3>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              업무나 게임에 깊이 몰입할 때 턱 근육이 풀리며 나타나는 무의식적 입벌림은 구강 건조와 안면 윤곽 변형을 유발합니다.
+              Face Mesh 입술 랜드마크 비율(MAR)을 통해 멍하니 벌어진 입을 정확히 감지합니다.
+            </p>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">오탐 필터링</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">대화/물마시기 3% 미만</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">습관 개선 효과</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">건강한 코호흡 회복</span>
+</div>
+</div>
+</div>
+<!-- LCD Screen Simulated State Preview -->
+<div class="p-space-md rounded-xl bg-surface-container-high flex flex-col sm:flex-row items-center gap-space-md">
+<div class="w-full sm:w-44 h-32 rounded-xl overflow-hidden shadow-md shrink-0 border border-secondary/30 bg-slate-900 flex items-center justify-center">
+<img alt="입벌림 감지 LCD 화면 그래픽" class="w-full h-full object-contain" src="./mouth_breathing.svg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">2.0인치 LCD 전면 표정 피드백</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">머리 끝부터 목까지 전면 모습을 담아 멍하니 벌어진 입술을 실시간 표시하며, 소음 없이 다정하게 입을 다물고 코로 호흡하도록 돕습니다.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 3 State Interactive Preview Row -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low flex flex-col gap-space-md">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold text-center">디스플레이 3단 실시간 반응 화면</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="w-full h-36 rounded-lg overflow-hidden bg-slate-900 border border-primary/30">
+<img alt="1단계: 바른 자세 유지 중" class="w-full h-full object-contain" src="./posture_aligned.svg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">1단계: 바른 정렬 유지</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">환한 미소 &amp; '바른 정렬 유지 중' 응원 화면</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="w-full h-36 rounded-lg overflow-hidden bg-slate-900 border border-secondary/30">
+<img alt="2단계: 거북목 감지" class="w-full h-full object-contain" src="./turtle_neck.svg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary font-bold">2단계: 거북목 감지 (15°+)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">쇄골~턱 클로즈업 '거북목 감지' 경고 화면</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="w-full h-36 rounded-lg overflow-hidden bg-slate-900 border border-secondary/30">
+<img alt="3단계: 입벌림 감지" class="w-full h-full object-contain" src="./mouth_breathing.svg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary font-bold">3단계: 입벌림 감지 (MAR)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">전면 얼굴 '입벌림 감지' 및 코호흡 유도 화면</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 4: HOW IT WORKS (USER JOURNEY 4 STEPS) -->
+<section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="how-it-works">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs text-center max-w-2xl mx-auto">
+<span class="font-label-lg text-label-lg text-primary font-semibold uppercase tracking-wider">Simple 4-Step Flow</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">복잡한 설정 없이 30초 만에 시작하는 바른 습관</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          귀찮은 회원가입이나 앱 연동 스트레스 없이, 모니터 위에 얹고 케이블만 연결하면 즉시 AI 코칭이 시작됩니다.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Step 1 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-headline-sm text-[16px] flex items-center justify-center font-bold">1</span>
+<span class="material-symbols-outlined text-outline">usb</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">가볍게 거치 &amp; USB 연결</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              논슬립 실리콘 힌지 마운트로 모니터 상단에 안정적으로 얹어두고 USB 케이블만 꽂으면 즉시 켜집니다.
+            </p>
+</div>
+<span class="font-label-md text-label-md text-tertiary">플러그앤플레이 지원</span>
+</div>
+<!-- Step 2 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-headline-sm text-[16px] flex items-center justify-center font-bold">2</span>
+<span class="material-symbols-outlined text-outline">tune</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">3초 중립 자세 영점 조절</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              정면을 편안하게 바라보고 3초간 머물면, 내 체형과 모니터 높이에 맞춘 기준 영점이 자동 보정됩니다.
+            </p>
+</div>
+<span class="font-label-md text-label-md text-tertiary">스마트 오토 캘리브레이션</span>
+</div>
+<!-- Step 3 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-headline-sm text-[16px] flex items-center justify-center font-bold">3</span>
+<span class="material-symbols-outlined text-outline">memory</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">에지 NPU 실시간 분석</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              단말기 내부 Vision NPU가 초당 30프레임으로 목 각도와 입술 모양을 분석하며 PC 성능은 일절 소모하지 않습니다.
+            </p>
+</div>
+<span class="font-label-md text-label-md text-tertiary">100% 독립 온디바이스</span>
+</div>
+<!-- Step 4 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-headline-sm text-[16px] flex items-center justify-center font-bold">4</span>
+<span class="material-symbols-outlined text-outline">emoji_events</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">자가 교정 &amp; 로컬 리포트</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              화면 속 캐릭터를 보고 자세를 고치면 칭찬 그래픽으로 전환되며, 하루 습관 데이터가 로컬 앱에 안전하게 저장됩니다.
+            </p>
+</div>
+<span class="font-label-md text-label-md text-tertiary">자연스러운 습관 형성</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 5: HARDWARE & TECHNOLOGY SPECS -->
+<section class="w-full bg-surface py-space-xl lg:py-24" id="tech-specs">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<span class="font-label-lg text-label-lg text-primary uppercase font-semibold">Technical Specifications</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">정밀하고 안전한 온디바이스 하드웨어</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+          인체공학적 시야각 설계와 외부 통신선이 완전히 배제된 철저한 개인정보 보호 아키텍처.
+        </p>
+</div>
+<!-- Specs Table Grid -->
+<div class="rounded-2xl bg-surface-container-lowest shadow-sm overflow-hidden">
+<div class="p-space-md bg-surface-container-high flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">AI 코치 단말기 사양표 (Model: PCM-100)</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold">
+<span class="material-symbols-outlined text-[16px]">verified</span> KC / CE / FCC 인증 완료
+</span>
+</div>
+<div class="divide-y divide-surface-container/60">
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-lowest">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">비전 센서 (Vision Sensor)</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">1080p FHD @ 30fps Sony IMX 센서 (저조도 및 모니터 역광 환경 자동 HDR 보정)</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-low">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">NPU 및 SoC 아키텍처</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">Rockchip RV1106 독립 신경망 프로세서 (0.5 TOPs Vision AI NPU 탑재, 초저발열 설계)</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-lowest">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">디스플레이 인터페이스</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">2.0인치 광시야각 IPS TFT-LCD (320 × 240 QVGA), 눈부심 없는 안티글레어 매트 처리</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-low">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">AI 모델 및 추론 파이프라인</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">RKNN Toolkit-Lite 가속, INT8 양자화 초경량 MobileNetV3 백본 기반 포즈/입술 랜드마크 추출</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-lowest">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">보안 및 개인정보 보호</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">100% 로컬 프레임 버퍼 휘발 (영상 파일 저장 불가), 자세 통계 수치만 PC 로컬 SQLite에 보관</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 p-space-md items-center bg-surface-container-low">
+<div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold uppercase">규격 및 연결 방식</div>
+<div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">USB Type-C 유선 연결 (소모전력 4.5W 이하), 68 × 62 × 54 mm, 중량 115g, 틸트 각도 조절 힌지 마운트</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 6: DAILY HABIT TRANSFORMATION & USER BENEFITS -->
+<section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="habit-effects">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs text-center max-w-3xl mx-auto">
+<span class="font-label-lg text-label-lg text-primary uppercase font-semibold">Habit Transformation</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">
+          매일 컴퓨터 앞에서 보내는 시간, <br class="hidden sm:inline"/>
+          몸이 가벼워지고 집중력이 달라집니다
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          억지로 참는 교정이 아닌, 시선 끝에서 자연스럽게 반응하며 만들어가는 기분 좋은 건강 루틴을 경험해 보세요.
+        </p>
+</div>
+<!-- Highlight User Benefits 3 Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col items-center text-center gap-space-xs">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-2">
+<span class="material-symbols-outlined text-[32px]">health_and_safety</span>
+</div>
+<span class="font-counter-xl text-counter-xl text-primary font-extrabold leading-none">-38%</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold uppercase pt-2">목·어깨 피로 하중 감소</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">고개가 앞으로 쏠리는 시간을 실시간으로 차단하여 하루 끝 퇴근길 목 뻐근함이 크게 줄어듭니다.</p>
+</div>
+<div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col items-center text-center gap-space-xs">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary mb-2">
+<span class="material-symbols-outlined text-[32px]">sentiment_very_satisfied</span>
+</div>
+<span class="font-counter-xl text-counter-xl text-secondary font-extrabold leading-none">80%<span class="text-headline-md">+</span></span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold uppercase pt-2">5초 내 자가 교정 순응도</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">친근한 캐릭터 알림을 보는 순간, 잔소리 스트레스 없이 스스로 턱을 당기고 입을 다물게 됩니다.</p>
+</div>
+<div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col items-center text-center gap-space-xs">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center text-tertiary mb-2">
+<span class="material-symbols-outlined text-[32px]">verified_user</span>
+</div>
+<span class="font-counter-xl text-counter-xl text-tertiary font-extrabold leading-none">100%</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold uppercase pt-2">철저한 사생활 보호</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">카메라 영상은 기기 밖으로 절대 나가지 않으며, 오직 나만의 자세 통계 점수만 안전하게 기록됩니다.</p>
+</div>
+</div>
+<!-- Real User Everyday Experience Cards -->
+<div class="rounded-2xl bg-surface-container-lowest shadow-sm p-space-lg flex flex-col gap-space-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">이런 분들께 매일 든든한 코치가 되어 드립니다</h3>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">laptop_mac</span>
+<span class="font-label-md text-label-md">개발자 &amp; 사무직 데스크워커</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              장시간 코딩과 문서 작성에 몰입하다 보면 나도 모르게 모니터 속으로 빨려 들어가는 거북목 습관을 방해 없이 교정합니다.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center gap-2 text-secondary font-bold">
+<span class="material-symbols-outlined text-[20px]">sports_esports</span>
+<span class="font-label-md text-label-md">게이머 &amp; 크리에이터</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              고도의 집중이 필요한 순간 무의식적으로 턱이 풀려 입을 벌리고 구강 호흡하는 습관을 다정하게 바로잡아 줍니다.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center gap-2 text-tertiary font-bold">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="font-label-md text-label-md">수험생 &amp; 취업준비생</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              독서실이나 책상에서 오랜 시간 앉아 공부할 때 바른 척추 정렬을 유지시켜 두통과 피로 누적을 방지합니다.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION 7: CONSUMER EARLY BIRD PRE-ORDER & NOTIFICATION FORM -->
+<section class="w-full bg-surface py-space-xl lg:py-24" id="pre-order">
+<div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin">
+<div class="rounded-3xl bg-surface-container-highest/60 p-space-lg lg:p-16 shadow-xl relative overflow-hidden">
+<!-- Decorative blur element -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative">
+<!-- Left Info -->
+<div class="lg:col-span-6 flex flex-col gap-space-md">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary text-on-primary font-label-md text-label-md w-fit">
+<span class="material-symbols-outlined text-[16px]">celebration</span>
+<span>얼리버드 런칭 특별 혜택</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">
+              내 책상 위의 가장 다정한 건강 메이트, <br/>
+              가장 먼저 만나보세요
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+              지금 사전 예약 알림을 신청하시면 <strong>얼리버드 35% 할인 쿠폰</strong>과 함께 <strong>전용 캐릭터 테마 팩</strong>을 무료로 증정합니다.
+            </p>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+<span>얼리버드 한정 최대 35% 특별 할인 혜택 제공</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+<span>PC 전용 자세 분석 대시보드 앱 (Windows / macOS) 평생 무료 제공</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+<span>1년 무상 A/S 및 지속적인 온디바이스 AI 펌웨어 업데이트 지원</span>
+</div>
+</div>
+</div>
+<!-- Right Form Card -->
+<div class="lg:col-span-6">
+<div class="p-space-lg lg:p-space-xl rounded-2xl bg-surface-container-lowest shadow-lg flex flex-col gap-space-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">얼리버드 사전 예약 신청</h3>
+<form class="flex flex-col gap-space-sm" id="pilotForm" onsubmit="handleInquirySubmit(event)">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">성함 또는 닉네임</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-outline-variant" placeholder="예: 홍길동" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">알림 받으실 이메일 주소</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-outline-variant" placeholder="example@email.com" required="" type="email"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">휴대폰 번호 (선택)</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-outline-variant" placeholder="010-0000-0000" type="tel"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">가장 개선하고 싶은 습관</label>
+<select class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40">
+<option selected="" value="all">거북목 &amp; 입벌림 둘 다</option>
+<option value="neck">목 앞으로 쏠리는 거북목</option>
+<option value="mouth">무의식적인 입벌림 / 구강호흡</option>
+<option value="routine">책상 앞 앉아있는 시간 관리</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">코치에게 바라는 점 (선택)</label>
+<textarea class="w-full px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-outline-variant resize-none" placeholder="원하시는 캐릭터 스타일이나 기능이 있다면 자유롭게 들려주세요." rows="2"></textarea>
+</div>
+<button class="mt-space-xs w-full py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all duration-200 flex items-center justify-center gap-space-xs" type="submit">
+<span>사전 예약 알림 신청하고 35% 혜택 받기</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</form>
+<div class="hidden p-space-md rounded-xl bg-primary-fixed text-primary font-body-sm text-body-sm flex items-center gap-space-xs" id="formSuccessMessage">
+<span class="material-symbols-outlined">task_alt</span>
+<span>사전 예약이 정상 접수되었습니다! 정식 런칭 시 35% 할인 혜택 코드를 이메일로 보내드립니다.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  function handleInquirySubmit(event) {
+    event.preventDefault();
+    const form = document.getElementById('pilotForm');
+    const successMsg = document.getElementById('formSuccessMessage');
+    if (form && successMsg) {
+      form.classList.add('opacity-50', 'pointer-events-none');
+      setTimeout(() => {
+        form.classList.add('hidden');
+        successMsg.classList.remove('hidden');
+      }, 400);
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg mb-space-xl"><div class="md:col-span-5 flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">거북목 &amp; 입벌림 AI 코치</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">일상의 책상 공간과 조화롭게 어우러지는 온디바이스 AI 웰니스 하드웨어. 비침습적 센싱 기술로 올바른 경추 정렬과 코호흡 습관을 온화하고 과학적으로 코칭합니다.</p><div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container text-tertiary font-label-md text-label-md w-fit"><span class="material-symbols-outlined text-[16px]">lock</span><span>100% 온디바이스 에지 AI로 영상 외부 유출 제로</span></div></div><div class="md:col-span-4 flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-on-surface font-semibold">보안 및 개인정보 보호</span><p class="font-body-sm text-body-sm text-on-surface-variant">본 단말기는 클라우드 연결 없이 기기 내부 NPU에서만 실시간 신경망 추론을 수행합니다. 사용자의 영상이나 안면 프레임은 어디에도 저장되거나 외부로 전송되지 않습니다.</p><div class="flex items-center gap-space-sm pt-space-xs"><span class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md"><span class="material-symbols-outlined text-[18px]">verified_user</span><span>로컬 프라이버시 100%</span></span><span class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md"><span class="material-symbols-outlined text-[18px]">memory</span><span>Rockchip RV1106 Core</span></span></div></div><div class="md:col-span-3 flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-on-surface font-semibold">고객 및 제품 문의</span><span class="font-body-sm text-body-sm text-on-surface-variant">contact@posturecoach.ai</span><span class="font-body-sm text-body-sm text-on-surface-variant">평일 10:00 - 18:00 (KST)</span><span class="font-body-sm text-body-sm text-on-surface-variant">피지컬 AI 코치 프로젝트 팀</span></div></div><div class="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-md text-label-md"><p>© 2026 Neck &amp; Mouth AI Coach. All rights reserved.</p><div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors" href="#">개인정보 처리방침</a><a class="hover:text-on-surface transition-colors" href="#">이용약관</a><a class="hover:text-on-surface transition-colors" href="#">하드웨어 품질 보증</a></div></div></div></footer></body></html>

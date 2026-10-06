@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <!-- Dark LCD Display Screen Background -->
+    <linearGradient id="screenBg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#0d241d"/>
+    </linearGradient>
+
+    <!-- Warm Emoji Gradient -->
+    <linearGradient id="emojiYellow3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+
+    <!-- Good Glow Filter -->
+    <filter id="goodGlow3" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Drop Shadow for UI Elements -->
+    <filter id="pillShadow3" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- 2.0" LCD Display Frame -->
+  <rect width="400" height="300" rx="20" fill="url(#screenBg3)"/>
+
+  <!-- Subtle Tech Grid Lines -->
+  <line x1="24" y1="42" x2="376" y2="42" stroke="#134e4a" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+  <!-- Top Status Bar -->
+  <circle cx="36" cy="24" r="4.5" fill="#10b981" filter="url(#goodGlow3)"/>
+  <text x="48" y="28" fill="#6ee7b7" font-family="'Pretendard', sans-serif" font-size="11" font-weight="700" letter-spacing="0.5">GOOD • 바른 정렬 100%</text>
+  <text x="365" y="28" text-anchor="end" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">30 FPS AI CAM</text>
+
+  <!-- EMOJI MASCOT: Cute Mochi / Bear Emoji (Front View Happy Aligned State) -->
+  <g id="emojiHappy">
+    <!-- Body / Torso (Teal Sweatshirt - Upright & Balanced) -->
+    <path d="M 130 240 
+             C 145 185 172 175 200 175 
+             C 228 175 255 185 270 240 Z" 
+          fill="#0d9488" stroke="#134e4a" stroke-width="4" stroke-linejoin="round"/>
+    
+    <!-- Collar Line -->
+    <path d="M 182 178 Q 200 188 218 178" fill="none" stroke="#5eead4" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Upright Clean Neck -->
+    <path d="M 186 140 L 186 178 C 193 181 207 181 214 178 L 214 140 Z" 
+          fill="url(#emojiYellow3)" stroke="#ca8a04" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Ears (Cute Bear / Mochi Ears on Top) -->
+    <g>
+      <circle cx="156" cy="66" r="14" fill="url(#emojiYellow3)" stroke="#ca8a04" stroke-width="3.5"/>
+      <circle cx="156" cy="66" r="7" fill="#fde047"/>
+
+      <circle cx="244" cy="66" r="14" fill="url(#emojiYellow3)" stroke="#ca8a04" stroke-width="3.5"/>
+      <circle cx="244" cy="66" r="7" fill="#fde047"/>
+    </g>
+
+    <!-- Round Cute Emoji Face -->
+    <circle cx="200" cy="104" r="48" fill="url(#emojiYellow3)" stroke="#ca8a04" stroke-width="4"/>
+
+    <!-- Happy Eyes (웃는 눈 ^_^) -->
+    <path d="M 168 100 Q 178 88 188 100" fill="none" stroke="#854d0e" stroke-width="3.8" stroke-linecap="round"/>
+    <path d="M 212 100 Q 222 88 232 100" fill="none" stroke="#854d0e" stroke-width="3.8" stroke-linecap="round"/>
+
+    <!-- Cute Nose Dot -->
+    <circle cx="200" cy="104" r="2.5" fill="#854d0e"/>
+
+    <!-- Rosy Cheek Blush (화사한 볼터치) -->
+    <ellipse cx="162" cy="112" rx="8.5" ry="6.5" fill="#fb7185" opacity="0.75"/>
+    <ellipse cx="238" cy="112" rx="8.5" ry="6.5" fill="#fb7185" opacity="0.75"/>
+
+    <!-- Cute Smiling Mouth (방긋 웃는 입) -->
+    <path d="M 189 118 Q 200 128 211 118" fill="none" stroke="#854d0e" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Sparkle Stars (반짝반짝 이펙트 ✨) -->
+    <g transform="translate(102, 64)">
+      <polygon points="10,0 12,7 19,10 12,13 10,20 8,13 1,10 8,7" fill="#facc15"/>
+    </g>
+    <g transform="translate(280, 60)">
+      <polygon points="8,0 10,5 15,8 10,11 8,16 6,11 1,8 6,5" fill="#facc15"/>
+    </g>
+    <circle cx="268" cy="124" r="3" fill="#34d399"/>
+    <circle cx="132" cy="128" r="3" fill="#34d399"/>
+  </g>
+
+  <!-- Bottom Good Pill Banner (바른 정렬 유지 중 전면 표시) -->
+  <g transform="translate(200, 262)" filter="url(#pillShadow3)">
+    <rect x="-110" y="-18" width="220" height="36" rx="18" fill="#0f766e"/>
+    <!-- Checkmark Bubble -->
+    <circle cx="-85" cy="0" r="10" fill="#34d399"/>
+    <path d="M -89 0 L -86 3 L -80 -3" fill="none" stroke="#042f2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Bold Text -->
+    <text x="14" y="5" fill="#ffffff" font-family="'Pretendard', sans-serif" font-size="16" font-weight="900" text-anchor="middle" letter-spacing="1.5">바른 정렬 유지 중</text>
+  </g>
+</svg>
