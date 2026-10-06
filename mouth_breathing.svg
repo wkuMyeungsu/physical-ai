@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <!-- Dark Device Screen Background -->
+    <linearGradient id="screenBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140c06"/>
+      <stop offset="100%" stop-color="#24140a"/>
+    </linearGradient>
+
+    <!-- Warm Cream Face Gradient -->
+    <linearGradient id="creamFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffdf5"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Alert Shadow Filter -->
+    <filter id="badgeShadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes alertPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.35;
+        transform: scale(0.97);
+      }
+    }
+    @keyframes borderFlash {
+      0%, 100% {
+        stroke-opacity: 0.9;
+      }
+      50% {
+        stroke-opacity: 0.2;
+      }
+    }
+    
+    /* Static default state */
+    .bottom-alert {
+      transform-origin: 200px 250px;
+    }
+    .border-alert {
+      stroke-opacity: 0.6;
+    }
+
+    /* Interactive Hover State: Trigger Blinking */
+    svg:hover .bottom-alert {
+      animation: alertPulse 0.8s infinite ease-in-out;
+    }
+    svg:hover .border-alert {
+      animation: borderFlash 0.8s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- 2.0" Rounded Screen Frame / Bezel -->
+  <rect width="400" height="300" rx="36" fill="url(#screenBg)"/>
+  <rect class="border-alert" x="8" y="8" width="384" height="284" rx="30" fill="none" stroke="#f97316" stroke-width="3"/>
+
+  <!-- BIG FULL-SCREEN CUTE FACE (Dazed Open Mouth Breathing) -->
+  <g id="mouthBreathingFace">
+    <!-- Character Face filling the display -->
+    <rect x="44" y="24" width="312" height="220" rx="68" fill="url(#creamFace)" stroke="#fcd34d" stroke-width="6"/>
+
+    <!-- Dazed Big Round Eyes (•  •) -->
+    <circle cx="120" cy="100" r="14" fill="#1e293b"/>
+    <circle cx="125" cy="95" r="5" fill="#ffffff"/>
+
+    <circle cx="280" cy="100" r="14" fill="#1e293b"/>
+    <circle cx="285" cy="95" r="5" fill="#ffffff"/>
+
+    <!-- Soft Rosy Pink Blush Cheeks -->
+    <ellipse cx="94" cy="138" rx="22" ry="14" fill="#fca5a5" opacity="0.85"/>
+    <ellipse cx="306" cy="138" rx="22" ry="14" fill="#fca5a5" opacity="0.85"/>
+
+    <!-- Wide Open Mouth (O Shape) -->
+    <ellipse cx="200" cy="148" rx="24" ry="32" fill="#ef4444" stroke="#1e293b" stroke-width="6"/>
+    <ellipse cx="200" cy="160" rx="15" ry="14" fill="#f87171"/>
+
+    <!-- Exhaled Breath Wave / Stream (~ 💨) -->
+    <path d="M 238 142 Q 262 130 278 144 Q 294 158 316 144" fill="none" stroke="#93c5fd" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 234 160 Q 256 154 270 168 Q 284 180 304 168" fill="none" stroke="#93c5fd" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="4 4"/>
+  </g>
+
+  <!-- BOTTOM ALERT BANNER (Hover to Blink) -->
+  <g class="bottom-alert" filter="url(#badgeShadow)">
+    <rect x="60" y="222" width="280" height="54" rx="27" fill="#f97316" stroke="#ffffff" stroke-width="2.5"/>
+    <g transform="translate(200, 255)">
+      <!-- Warning Triangle -->
+      <path d="M -90 -2 L -80 -18 L -70 -2 Z" fill="#ffffff"/>
+      <path d="M -80 -6 L -80 -7 M -80 -9 L -80 -14" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+      <text x="-56" y="2" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="0.5">입벌림 감지!</text>
+    </g>
+  </g>
+</svg>

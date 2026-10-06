@@ -1,231 +1,1230 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 브라우저 탭에 보이는 제목 -->
-  <title>[제품 이름] | 나만의 피지컬 AI</title>
-  <meta name="description" content="[제품 한 줄 소개]">
-
-  <!-- 글꼴: Pretendard -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_standard" name="shell-type"/>
+  <meta name="description" content="비침습 온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.0 기반 제품·기술 소개 페이지."/>
+  <meta property="og:title" content="거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개"/>
+  <meta property="og:description" content="모니터 위에 얹어두는 온디바이스 AI 자세·호흡 코치. 핵심 기능, 작동 원리, 기술 아키텍처, 개발 범위를 소개합니다."/>
+  <meta property="og:type" content="website"/>
+  <title>거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개</title>
+  <link rel="icon" type="image/svg+xml" href="./logo.svg"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"/>
+  
   <style>
-    /* ===== 색상 설정: 이 값만 바꿔도 전체 분위기가 바뀝니다 ===== */
-    :root {
-      --bg: #F5F6F3;       /* 배경 */
-      --ink: #1E2422;      /* 기본 글자 */
-      --muted: #5E6764;    /* 보조 글자 */
-      --line: #D5D9D4;     /* 구분선 */
-      --accent: #F5C518;   /* 강조 색 */
-      --surface: #FFFFFF;  /* 이미지 영역 등 */
+    @layer base {
+      html {
+        scroll-behavior: smooth;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Plus Jakarta Sans', 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
+      }
+      body {
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
+      section[id] {
+        scroll-margin-top: 5rem;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      display: inline-block;
+      white-space: nowrap;
+      font-feature-settings: 'liga';
+      -webkit-font-feature-settings: 'liga';
+      user-select: none;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.7;
-      word-break: keep-all;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: inherit; }
-    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-
-    /* ----- 상단 메뉴 ----- */
-    header { border-bottom: 1px solid var(--line); }
-    .nav {
-      display: flex; justify-content: space-between; align-items: center;
-      height: 64px;
-    }
-    .logo { font-weight: 800; font-size: 1.1rem; text-decoration: none; }
-    .nav ul { display: flex; gap: 24px; list-style: none; }
-    .nav ul a { text-decoration: none; color: var(--muted); font-size: 0.95rem; }
-    .nav ul a:hover { color: var(--ink); }
-
-    /* ----- 첫 화면 ----- */
-    .hero {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
-      align-items: center; padding: 88px 0;
-    }
-    .hero h1 {
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
-    }
-    .hero .tagline { margin-top: 20px; font-size: 1.2rem; color: var(--muted); max-width: 30em; }
-    .button {
-      display: inline-block; margin-top: 32px; padding: 14px 26px;
-      background: var(--ink); color: var(--bg);
-      text-decoration: none; font-weight: 600; border-radius: 999px;
-    }
-    .button:hover { background: #000; }
-
-    /* 제품 이미지 자리: 이미지를 넣으면 회색 안내 문구 대신 사진이 보입니다 */
-    .product-shot {
-      background: var(--accent);
-      border-radius: 24px;
-      padding: 28px;
-    }
-    .product-shot .frame {
-      aspect-ratio: 4 / 3;
-      background: var(--surface);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); text-align: center; overflow: hidden;
-    }
-    .product-shot .frame img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* ----- 공통 섹션 ----- */
-    section.block { padding: 80px 0; border-top: 1px solid var(--line); }
-    section.block h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
-    section.block .lead { color: var(--muted); max-width: 36em; font-size: 1.05rem; }
-
-    /* ----- 작동 방식: 감지 → 판단 → 행동 ----- */
-    .flow {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-      margin-top: 40px; list-style: none; counter-reset: step;
-    }
-    .flow li {
-      padding: 0 28px 0 0; position: relative; counter-increment: step;
-    }
-    .flow li::before {
-      content: counter(step);
-      display: flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; margin-bottom: 18px;
-      border-radius: 50%; background: var(--accent);
-      font-weight: 800;
-    }
-    /* 단계 사이 연결선 */
-    .flow li:not(:last-child)::after {
-      content: ""; position: absolute; top: 20px; left: 52px; right: 12px;
-      height: 2px; background: var(--line);
-    }
-    .flow h3 { font-size: 1.2rem; margin-bottom: 6px; }
-    .flow p { color: var(--muted); }
-
-    /* ----- 주요 기능 ----- */
-    .features { margin-top: 40px; list-style: none; }
-    .features li {
-      display: grid; grid-template-columns: 220px 1fr; gap: 24px;
-      padding: 24px 0; border-bottom: 1px solid var(--line);
-    }
-    .features li:first-child { border-top: 1px solid var(--line); }
-    .features h3 { font-size: 1.15rem; }
-    .features p { color: var(--muted); }
-
-    /* ----- 만든 사람 / 하단 ----- */
-    footer { border-top: 1px solid var(--line); padding: 40px 0 56px; color: var(--muted); font-size: 0.95rem; }
-    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-
-    /* ----- 모바일 화면 ----- */
-    @media (max-width: 760px) {
-      .nav ul { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 56px 0; gap: 36px; }
-      .flow { grid-template-columns: 1fr; gap: 32px; }
-      .flow li::after { display: none; }
-      .features li { grid-template-columns: 1fr; gap: 4px; }
-      section.block { padding: 56px 0; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-ping, .animate-pulse { animation: none !important; }
     }
   </style>
-</head>
-<body>
 
-  <!-- ===== 상단 메뉴 ===== -->
-  <header>
-    <nav class="wrap nav">
-      <a class="logo" href="#">[제품 이름]</a>
-      <ul>
-        <li><a href="#problem">문제</a></li>
-        <li><a href="#how">작동 방식</a></li>
-        <li><a href="#features">기능</a></li>
-      </ul>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    const sans = [ "Plus Jakarta Sans", "Pretendard Variable", "Pretendard" ];
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#1c2622",
+            "surface-container": "#e8eeea",
+            "secondary-container": "#ef7f6b",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "primary": "#215542",
+            "on-secondary-fixed": "#3d0a05",
+            "on-tertiary-fixed": "#001e31",
+            "secondary-fixed": "#fde6e2",
+            "surface-container-low": "#f1f5f2",
+            "tertiary-fixed-dim": "#afcae3",
+            "surface-container-highest": "#d6dfd9",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cfd8d2",
+            "on-surface-variant": "#4b5853",
+            "outline-variant": "#cfd8d2",
+            "surface-variant": "#d6dfd9",
+            "on-secondary-container": "#7a1f16",
+            "inverse-primary": "#9cd2b9",
+            "on-primary-fixed": "#002115",
+            "primary-container": "#3b6e59",
+            "secondary-fixed-dim": "#f6b4a8",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "secondary": "#b23f33",
+            "surface": "#fafbf9",
+            "surface-bright": "#fafbf9",
+            "tertiary-container": "#5c768d",
+            "on-error": "#ffffff",
+            "primary-fixed-dim": "#9cd2b9",
+            "on-primary-fixed-variant": "#1b503c",
+            "primary-fixed": "#d3ecdf",
+            "surface-container-high": "#e0e8e3",
+            "tertiary": "#354f65",
+            "inverse-on-surface": "#f1f5f2",
+            "on-tertiary-fixed-variant": "#2f495f",
+            "tertiary-fixed": "#d9e8f5",
+            "outline": "#7a8680",
+            "inverse-surface": "#263143",
+            "on-background": "#1c2622",
+            "on-secondary-fixed-variant": "#8a2a1f",
+            "surface-tint": "#356853",
+            "background": "#fafbf9",
+            "on-tertiary-container": "#cae5ff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#b7eed4",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "gutter-sm": "1rem",
+            "space-xl": "2.5rem",
+            "margin-sm": "1.25rem"
+          },
+          "fontSize": {
+            "display": [ "56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "800" } ],
+            "display-mobile": [ "38px", { lineHeight: "44px", letterSpacing: "-0.025em", fontWeight: "800" } ],
+            "headline-lg": [ "40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" } ],
+            "headline-lg-mobile": [ "28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" } ],
+            "headline-md": [ "28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "600" } ],
+            "headline-sm": [ "20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" } ],
+            "body-lg": [ "18px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "400" } ],
+            "body-md": [ "16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" } ],
+            "body-sm": [ "14px", { lineHeight: "20px", letterSpacing: "0.005em", fontWeight: "400" } ],
+            "label-lg": [ "14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" } ],
+            "label-md": [ "12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" } ],
+            "counter-xl": [ "64px", { lineHeight: "68px", letterSpacing: "-0.03em", fontWeight: "800" } ]
+          },
+          "fontFamily": {
+            "body-sm": sans,
+            "headline-lg": sans,
+            "display": sans,
+            "headline-sm": sans,
+            "body-lg": sans,
+            "counter-xl": sans,
+            "label-md": sans,
+            "display-mobile": sans,
+            "headline-md": sans,
+            "body-md": sans,
+            "headline-lg-mobile": sans,
+            "label-lg": sans
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface antialiased">
+  <!-- HEADER & NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_0_rgba(28,38,34,0.06)]">
+    <div class="h-20 max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex items-center justify-between gap-space-md">
+      <!-- Logo -->
+      <a href="#overview" class="flex items-center gap-space-sm hover:opacity-90 transition-opacity min-w-0">
+        <img src="./logo.svg" alt="Neck &amp; Mouth AI Coach Logo" class="w-10 h-10 rounded-xl shadow-sm shrink-0"/>
+        <div class="flex flex-col min-w-0">
+          <span class="font-headline-sm text-[17px] sm:text-headline-sm text-primary font-bold leading-tight truncate">Neck &amp; Mouth AI Coach</span>
+          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">거북목 &amp; 입벌림 온디바이스 AI 코치</span>
+        </div>
+      </a>
+
+      <!-- Desktop navigation -->
+      <nav aria-label="주요 섹션" class="hidden lg:flex items-center gap-0.5 bg-surface-container-low/80 p-1.5 rounded-full border border-surface-container/60">
+        <a data-nav href="#overview" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">제품 소개</a>
+        <a data-nav href="#key-features" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">핵심 기능</a>
+        <a data-nav href="#how-it-works" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">작동 원리</a>
+        <a data-nav href="#tech-specs" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">기술 아키텍처</a>
+        <a data-nav href="#scope" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">개발 범위</a>
+        <a data-nav href="#metrics" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">성능 목표</a>
+        <a data-nav href="#impact" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">도입 효과</a>
+      </nav>
+
+      <div class="flex items-center gap-space-sm shrink-0">
+        <button id="menuBtn" type="button" class="lg:hidden w-11 h-11 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center" aria-expanded="false" aria-controls="mobileNav" aria-label="메뉴 열기">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile navigation -->
+    <nav id="mobileNav" aria-label="주요 섹션 (모바일)" class="lg:hidden border-t border-surface-container/60 bg-surface" hidden>
+      <div class="max-w-[1280px] mx-auto px-margin-sm py-space-sm flex flex-col">
+        <a data-nav-m href="#overview" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">제품 소개</a>
+        <a data-nav-m href="#key-features" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">핵심 기능</a>
+        <a data-nav-m href="#how-it-works" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">작동 원리</a>
+        <a data-nav-m href="#tech-specs" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">기술 아키텍처</a>
+        <a data-nav-m href="#scope" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">개발 범위</a>
+        <a data-nav-m href="#metrics" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">성능 목표</a>
+        <a data-nav-m href="#impact" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">도입 효과</a>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <!-- ===== 첫 화면: 제품 이름과 한 줄 소개 ===== -->
-    <div class="wrap hero">
-      <div>
-        <h1>[제품 이름]</h1>
-        <p class="tagline">[제품을 한 문장으로 소개해 주세요. 누구에게 어떤 도움을 주는지 쓰면 좋습니다.]</p>
-        <a class="button" href="#how">작동 방식 보기</a>
+  <main class="w-full pt-20 bg-surface">
+    <div class="flex flex-col w-full">
+
+      <!-- SECTION 1: HERO (PRODUCT OVERVIEW & VISION) -->
+      <section class="relative w-full overflow-hidden bg-surface py-space-xl lg:py-24" id="overview">
+        <!-- Ambient organic gradient blurs behind hero -->
+
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-12 items-center">
+            
+            <!-- Left: Hero Headline & Description -->
+            <div class="lg:col-span-6 flex flex-col items-start gap-space-md">
+              <!-- Tag Badge -->
+              <div class="inline-flex items-center gap-space-xs text-primary font-label-lg text-label-lg">
+                <span class="font-bold">비침습 온디바이스 에지 AI 디바이스 (Physical AI)</span>
+              </div>
+
+              <!-- Main Catchphrase -->
+              <h1 class="font-display text-4xl lg:text-5xl text-on-surface tracking-tight font-extrabold leading-tight">
+                모니터 위에 <br class="hidden sm:inline"/>
+                <span class="text-primary-container">가볍게 얹어두는</span><br/>
+                나만의 자세 &amp; 호흡 AI 코치
+              </h1>
+
+              <!-- Description from PRD -->
+              <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+                컴퓨터에 몰입하는 순간 무의식적으로 발생하는 <strong>거북목(Forward Head Posture)</strong>과 <strong>구강 호흡(Mouth Breathing)</strong> 습관.
+                몸에 아무것도 걸치지 않는 독립 Vision NPU가 실시간 감지하여, 귀여운 디스플레이 캐릭터 표정으로 다정하게 바른 자세와 코호흡을 이끌어줍니다.
+              </p>
+
+              <!-- CTAs for Showcase -->
+              <div class="flex flex-wrap items-center gap-space-sm pt-space-xs w-full sm:w-auto">
+                <a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all duration-200" href="#key-features">
+                  <span>핵심 기능 &amp; LCD 데모 살펴보기</span>
+                  <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+                </a>
+                <a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-3.5 rounded-full bg-surface-container-lowest text-on-surface font-label-lg text-label-lg shadow-sm hover:bg-surface-container-low transition-colors border border-surface-container" href="#tech-specs">
+                  <span class="material-symbols-outlined text-[18px] text-tertiary">memory</span>
+                  <span>기술 스펙 및 NPU 아키텍처</span>
+                </a>
+              </div>
+
+              <!-- Micro Privacy Guarantee Highlight -->
+              <div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md pt-space-xs">
+                <span class="material-symbols-outlined text-primary text-[18px]">shield</span>
+                <span>클라우드 전송 없음 • 추론·통계 모두 로컬 처리 • 영상 저장 안 함</span>
+              </div>
+            </div>
+
+            <!-- Right: Real Scene Photo & Floating AI Status Badges -->
+<div class="lg:col-span-6 relative">
+<div class="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container-high">
+<img alt="데스크 모니터 상단에 거치된 친근한 미소의 AI 코치 단말기 디스플레이" class="w-full h-[380px] sm:h-[460px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCwvWT8RBk0lK2Ac2YttrFLOHgRuTxrJlA7P6ORxjKWeSptLFC_em-fHVCKhqc2GZeH3_uxZjHZWYZGhPVN5RwmIntuw5SAa_VMsJi6-KMQYiblJ2sLukmEOX4ZZNTVuy1SxTEVtlUNSKKzQTsRUu06BeKuBpe9SmOE4Xjue2u1PwmUjTkwgVFE6x4mqDpZsc67tw2cS1B_hjqDF-J9Vk3Y30R31IrtQCv1jguryTIZAHtUzyUEU8L"/>
+<!-- Floating Status Capsule 1: On-device Edge Engine -->
+<div class="absolute top-4 left-4 inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface/90 backdrop-blur-md shadow-md text-on-surface font-label-md text-label-md">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-semibold text-primary">0.5 TOPs NPU 실시간 가동</span>
+<span class="text-on-surface-variant">| 30 FPS 목표</span>
+</div>
+<!-- Floating Status Capsule 2: Privacy Guarantee -->
+<div class="absolute bottom-4 right-4 inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-on-surface/85 backdrop-blur-md text-surface font-label-md text-label-md shadow-lg">
+<span class="material-symbols-outlined text-inverse-primary text-[18px]">videocam_off</span>
+<span>영상 외부 전송 없음 (No-Cloud)</span>
+</div>
+<!-- Mini Feedback Card Overlay (Interactive Preview State) -->
+<div class="absolute bottom-4 left-4 p-space-sm rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-lg flex items-center gap-space-sm max-w-[240px]">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]">sentiment_satisfied</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold">바른 자세 유지 중</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">경추 각도 8° (예시)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Metrics Row (Trust Bar) -->
+          <div class="mt-space-xl grid grid-cols-2 lg:grid-cols-4 gap-space-md">
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-1 border border-surface-container/60">
+              <div class="flex items-center justify-between text-primary">
+                <span class="font-counter-xl text-3xl lg:text-4xl font-extrabold">≥ 95%</span>
+                <span class="material-symbols-outlined text-[28px] opacity-80">accessibility_new</span>
+              </div>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">거북목 감지 정확도</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">귀-어깨선 기준, 3초 지속 시 판정 (목표)</span>
+            </div>
+
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-1 border border-surface-container/60">
+              <div class="flex items-center justify-between text-secondary">
+                <span class="font-counter-xl text-3xl lg:text-4xl font-extrabold">≥ 93%</span>
+                <span class="material-symbols-outlined text-[28px] opacity-80">air</span>
+              </div>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">입벌림(MAR) 감지 정확도</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">오탐율 3% 이하 목표 (대화·음료 구분)</span>
+            </div>
+
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-1 border border-surface-container/60">
+              <div class="flex items-center justify-between text-primary-container">
+                <span class="font-counter-xl text-3xl lg:text-4xl font-extrabold">≤ 100ms</span>
+                <span class="material-symbols-outlined text-[28px] opacity-80">speed</span>
+              </div>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">알림 지연 시간</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">3초 지속 판정 후 LCD 전환까지 (목표)</span>
+            </div>
+
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-1 border border-surface-container/60">
+              <div class="flex items-center justify-between text-tertiary">
+                <span class="font-counter-xl text-3xl lg:text-4xl font-extrabold">No Cloud</span>
+                <span class="material-symbols-outlined text-[28px] opacity-80">cloud_off</span>
+              </div>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">클라우드 영상 전송</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">추론은 기기 내부 NPU에서 수행</span>
+            </div>
+          </div>
+
+        <p class="mt-space-md text-center text-[12px] text-on-surface-variant">※ 위 수치는 PRD v1.0에서 정의한 <strong>목표 지표</strong>이며, 실측 결과가 아닙니다.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 2: PROBLEM & DIFFERENTIATION (PRD 1장) -->
+      <section class="w-full bg-surface-container-low py-space-xl lg:py-24">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <!-- Section Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">
+                왜 기존 자세 교정 제품들은 <br/>
+                결국 지속되지 못했을까요?
+              </h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              피부에 닿는 답답함이나 불안한 웹캠 감시 없이, 편안하고 자연스럽게 집중을 돕는 독립형 에지 AI 코치의 차이를 소개합니다.
+            </p>
+          </div>
+
+          <!-- 3 Limitations vs AI Solution Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+            <!-- Card 1 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-md text-label-md text-on-surface-variant font-semibold">기존 방식 01</span>
+                  <span class="material-symbols-outlined text-outline">timer_off</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">단순 고정 타이머 앱</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  사용자 실제 신체 상태와 무관하게 정해진 주기로 작동하여 실제 불량 자세가 일어난 순간을 교정하지 못하고 작업 몰입만 방해합니다.
+                </p>
+              </div>
+              <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 border-l-4 border-primary">
+                <span class="font-label-md text-label-md text-primary font-bold">이 프로젝트의 접근</span>
+                <span class="font-body-sm text-body-sm text-on-surface">불량 자세가 3초 이상 지속되는 바로 그 순간을 감지해(지연 ≤ 100ms 목표) 습관이 굳어지기 전에 알려줍니다.</span>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-md text-label-md text-on-surface-variant font-semibold">기존 방식 02</span>
+                  <span class="material-symbols-outlined text-outline">watch_off</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">착용형(Wearable) 센서</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  목이나 어깨에 장비를 직접 부착해야 하여 이물감과 착용 피로도가 크며, 턱관절과 구강 구조에 영향을 주는 '입벌림'은 감지할 수 없습니다.
+                </p>
+              </div>
+              <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 border-l-4 border-primary">
+                <span class="font-label-md text-label-md text-primary font-bold">이 프로젝트의 접근</span>
+                <span class="font-body-sm text-body-sm text-on-surface">신체 접촉 0% 비침습 방식. 모니터 위에 얹어두기만 하면 상체 골격과 구강 안면 랜드마크를 동시 분석합니다.</span>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-md text-label-md text-on-surface-variant font-semibold">기존 방식 03</span>
+                  <span class="material-symbols-outlined text-outline">security_update_warning</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">PC 소프트웨어형 웹캠 분석</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  PC CPU/GPU 자원을 크게 점유하여 발열/렉을 유발하고, 사용자 영상이 소프트웨어를 타면서 사생활 노출 우려가 항상 뒤따릅니다.
+                </p>
+              </div>
+              <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 border-l-4 border-primary">
+                <span class="font-label-md text-label-md text-primary font-bold">이 프로젝트의 접근</span>
+                <span class="font-body-sm text-body-sm text-on-surface">추론은 기기 내부의 Rockchip NPU에서 수행해 PC 부담을 줄이고, 영상은 클라우드로 보내지 않는 온디바이스 방식입니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: DUAL DETECTION & 2.0" LCD VISUAL FEEDBACK (PRD 1장 & 2장) -->
+      <section class="w-full bg-surface py-space-xl lg:py-24" id="key-features">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="text-center max-w-2xl mx-auto flex flex-col gap-space-xs">
+            <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">현대인의 두 가지 습관을 실시간으로 포착</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              장시간 화면을 볼 때 무의식적으로 나타나는 ‘경추 전방 돌출(거북목)’과 ‘구강 호흡(입벌림)’을 실시간으로 감지합니다.
+            </p>
+          </div>
+
+          <!-- Feature Deep-Dives (Two Big Columns) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+            
+            <!-- Feature 1: Turtle Neck -->
+            <div class="p-space-xl rounded-3xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-lg border border-surface-container/60">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">accessibility</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Forward Head Posture (거북목 실시간 교정)</h3>
+                  </div>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  고개가 앞으로 쏠린 상태가 오래 이어지면 경추와 어깨에 부담이 쌓이고 만성 통증으로 이어질 수 있습니다.
+                  내장 AI 엔진은 상체 랜드마크로 3D 자세를 추정해 귀와 어깨선의 각도를 실시간으로 추적합니다.
+                </p>
+                <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+                  <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface-variant">감지 기준</span>
+                    <span class="font-body-md text-body-md font-bold text-on-surface">경추 각도 15° 이상 (예시값)</span>
+                  </div>
+                  <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface-variant">지속 임계치</span>
+                    <span class="font-body-md text-body-md font-bold text-on-surface">3.0초 지속 시 알림</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LCD Screen Simulated State Preview -->
+              <div class="p-space-md rounded-2xl bg-surface-container-high flex flex-col sm:flex-row items-center gap-space-md">
+                <div class="w-full sm:w-48 h-36 rounded-2xl overflow-hidden shadow-md shrink-0 border border-secondary/30 bg-slate-900 flex items-center justify-center">
+                  <img alt="거북목 감지 LCD 화면 그래픽" class="w-full h-full object-contain" src="./turtle_neck.svg"/>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-lg text-label-lg text-on-surface font-bold">2.0인치 LCD 화면 피드백</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">캐릭터가 앞으로 쏠리며 찡그린 표정을 짓고, 경고 배너로 턱을 당기도록 유도합니다.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 2: Mouth Breathing -->
+            <div class="p-space-xl rounded-3xl bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-lg border border-surface-container/60">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-12 h-12 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">air</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Mouth Aspect Ratio (입벌림 &amp; 구강 호흡 차단)</h3>
+                  </div>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  업무나 게임에 깊이 몰입할 때 턱 근육이 풀리며 나타나는 무의식적 입벌림은 구강 건조와 턱관절 부담으로 이어질 수 있습니다.
+                  Face Mesh 입술 랜드마크 비율(MAR)을 통해 멍하니 벌어진 입을 감지합니다.
+                </p>
+                <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+                  <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface-variant">오탐 관리</span>
+                    <span class="font-body-md text-body-md font-bold text-on-surface">오탐율 3% 이하 목표</span>
+                  </div>
+                  <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface-variant">판정 기준</span>
+                    <span class="font-body-md text-body-md font-bold text-on-surface">MAR 3초 이상 지속</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LCD Screen Simulated State Preview -->
+              <div class="p-space-md rounded-2xl bg-surface-container-high flex flex-col sm:flex-row items-center gap-space-md">
+                <div class="w-full sm:w-48 h-36 rounded-2xl overflow-hidden shadow-md shrink-0 border border-secondary/30 bg-slate-900 flex items-center justify-center">
+                  <img alt="입벌림 감지 LCD 화면 그래픽" class="w-full h-full object-contain" src="./mouth_breathing.svg"/>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-lg text-label-lg text-on-surface font-bold">2.0인치 LCD 화면 피드백</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">멍하니 입을 벌린 캐릭터 표정과 입김 효과가 표시되고, 소리 없이 다정하게 입을 다물도록 돕습니다.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3 State Interactive Preview Row -->
+          <div class="p-space-lg lg:p-space-xl rounded-3xl bg-surface-container-low flex flex-col gap-space-md border border-surface-container">
+            <div class="flex flex-col items-center text-center gap-1">
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">2.0인치 디스플레이 3단 실시간 반응 화면</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">바른 자세, 거북목, 입벌림 상태에 따라 LCD 화면이 이렇게 바뀝니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md pt-space-xs w-full max-w-4xl mx-auto">
+              <!-- State 1 -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm border border-surface-container/60 hover:shadow-md transition-shadow">
+                <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-primary/30">
+                  <img alt="1단계: 바른 자세 유지 중" class="w-full h-full object-contain" src="./posture_aligned.svg"/>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-primary font-bold">1단계: 바른 정렬 유지 (Normal)</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">환한 미소 &amp; '바른 자세 유지 중' 칭찬 응원 화면</span>
+                </div>
+              </div>
+
+              <!-- State 2 -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm border border-surface-container/60 hover:shadow-md transition-shadow">
+                <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-secondary/30">
+                  <img alt="2단계: 거북목 감지" class="w-full h-full object-contain" src="./turtle_neck.svg"/>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-secondary font-bold">2단계: 거북목 감지 (Warning)</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">목 쏠림 및 찡그린 표정 + 경고 배너</span>
+                </div>
+              </div>
+
+              <!-- State 3 -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm border border-surface-container/60 hover:shadow-md transition-shadow">
+                <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-secondary/30">
+                  <img alt="3단계: 입벌림 감지" class="w-full h-full object-contain" src="./mouth_breathing.svg"/>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-secondary font-bold">3단계: 입벌림 감지 (Alert)</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">멍한 표정과 입김 + 경고 배너</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 4: HOW IT WORKS (PRD 2장 사용자 시나리오 6단계) -->
+      <section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="how-it-works">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col gap-space-xs text-center max-w-2xl mx-auto">
+            <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">PRD 기반 6단계 사용자 시나리오 및 작동 원리</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              센서 착용 없이, 3초 캘리브레이션만 마치면 자동으로 코칭이 시작됩니다.
+            </p>
+          </div>
+
+          <!-- Flow overview (PRD 2장 flowchart) -->
+          <div class="rounded-3xl bg-surface-container-lowest border border-surface-container/60 shadow-sm p-space-lg flex flex-col gap-space-md">
+            <ol class="flex flex-wrap items-center justify-center gap-x-2 gap-y-3 font-label-lg text-label-lg">
+              <li class="inline-flex items-center gap-2 px-space-md py-2 rounded-full bg-primary-fixed text-primary"><span class="font-bold">1</span> 거치 · USB 연결</li>
+              <li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="inline-flex items-center gap-2 px-space-md py-2 rounded-full bg-primary-fixed text-primary"><span class="font-bold">2</span> 3초 중립 자세 영점</li>
+              <li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="inline-flex items-center gap-2 px-space-md py-2 rounded-full bg-primary-fixed text-primary"><span class="font-bold">3</span> 실시간 NPU 분석</li>
+              <li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-tertiary-fixed text-tertiary border border-tertiary-container/40"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">help</span> 불량 습관 3초 이상 지속?</li>
+            </ol>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+              <div class="p-space-md rounded-2xl bg-secondary-fixed/60 border border-secondary-container/40 flex flex-col gap-2">
+                <span class="font-label-md text-label-md text-secondary font-bold">예 · 거북목 / 입벌림 감지</span>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-2 font-label-lg text-label-lg text-on-surface">
+                  <span class="px-3 py-1.5 rounded-full bg-surface-container-lowest"><b class="text-secondary">4</b> LCD 캐릭터 경고</span>
+                  <span class="material-symbols-outlined text-outline text-[18px]" aria-hidden="true">arrow_forward</span>
+                  <span class="px-3 py-1.5 rounded-full bg-surface-container-lowest"><b class="text-primary">5</b> 자가 교정 · 복귀</span>
+                  <span class="material-symbols-outlined text-outline text-[18px]" aria-hidden="true">arrow_forward</span>
+                  <span class="px-3 py-1.5 rounded-full bg-surface-container-lowest"><b class="text-tertiary">6</b> 로컬 DB 로그</span>
+                </div>
+              </div>
+              <div class="p-space-md rounded-2xl bg-primary-fixed/50 border border-primary-container/30 flex flex-col gap-2">
+                <span class="font-label-md text-label-md text-primary font-bold">아니오 · 정상 상태 유지</span>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-2 font-label-lg text-label-lg text-on-surface">
+                  <span class="px-3 py-1.5 rounded-full bg-surface-container-lowest">응원 캐릭터 표시</span>
+                  <span class="material-symbols-outlined text-outline text-[18px]" aria-hidden="true">replay</span>
+                  <span class="text-on-surface-variant font-normal">3단계 분석 계속</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+            <!-- Step 1 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-bold text-[16px] flex items-center justify-center">1</span>
+                  <span class="material-symbols-outlined text-outline">usb</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">단말기 거치 &amp; USB 연결</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  모니터 상단이나 책상 위에 두고 USB 케이블을 연결합니다. UVC + HID 복합 프로토콜로 플러그앤플레이를 지원하며, 설치 가이드가 화각 맞추기를 도와줍니다.
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-primary font-semibold">드라이버 설치 불필요</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-bold text-[16px] flex items-center justify-center">2</span>
+                  <span class="material-symbols-outlined text-outline">tune</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">3초 중립 자세 영점 조절</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  사용자가 정면을 바라보며 바른 자세를 3초간 유지하면, 개인별 체형과 모니터 높이에 맞춘 경추 각도 및 입 닫힘 기준점을 자동 수집합니다.
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-primary font-semibold">스마트 오토 캘리브레이션</span>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-bold text-[16px] flex items-center justify-center">3</span>
+                  <span class="material-symbols-outlined text-outline">memory</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">온디바이스 NPU 실시간 분석</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Rockchip RV1106 내장 0.5 TOPs NPU가 초당 30프레임으로 얼굴 Face Mesh와 상반신 관절 좌표를 독립 추론합니다 (추론 부하는 기기 NPU가 담당).
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-primary font-semibold">30 FPS 하드웨어 추론 (목표)</span>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-secondary-fixed text-secondary font-bold text-[16px] flex items-center justify-center">4</span>
+                  <span class="material-symbols-outlined text-secondary">notification_important</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">3초 지속 시 LCD 캐릭터 경고</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  거북목(예: 경추 15° 이상) 또는 입벌림(MAR)이 3초 이상 지속되면 2.0" LCD에 캐릭터 경고 그래픽을 바로 띄웁니다.
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-secondary font-semibold">지연 ≤ 100ms 목표</span>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-bold text-[16px] flex items-center justify-center">5</span>
+                  <span class="material-symbols-outlined text-primary">self_improvement</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">사용자 자가 교정 및 복귀</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  디스플레이의 반응을 인지한 사용자가 턱을 당기거나 입을 다물면, 화면이 즉시 정상 응원 캐릭터로 부드럽게 전환됩니다.
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-primary font-semibold">5초 내 복귀율 ≥ 80% 목표</span>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md border border-surface-container/60">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-full bg-tertiary-fixed text-tertiary font-bold text-[16px] flex items-center justify-center">6</span>
+                  <span class="material-symbols-outlined text-tertiary">query_stats</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">로컬 DB 자동 통계 기록</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  불량 유지 시간과 교정 횟수 로그가 PC 컴패니언 앱 로컬 SQLite에만 안전하게 기록되어 일/주/월별 개선 추이를 확인합니다.
+                </p>
+              </div>
+              <span class="font-label-md text-label-md text-tertiary font-semibold">로컬 저장 · 외부 전송 없음</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: HARDWARE & TECHNOLOGY ARCHITECTURE (PRD 4장) -->
+      <section class="w-full bg-surface py-space-xl lg:py-24" id="tech-specs">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">PRD 기준 하드웨어 &amp; 엣지 AI 아키텍처</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              초저전력 Vision NPU와 프라이버시를 우선한 독립형 하드웨어 설계 명세입니다.
+            </p>
+          </div>
+
+          <!-- Specs Table Grid -->
+          <div class="rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden border border-surface-container">
+            <div class="p-space-md lg:p-space-lg bg-surface-container-high flex flex-wrap items-center justify-between gap-2 border-b border-surface-container">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-bold">하드웨어 &amp; 소프트웨어 스펙 상세 (Desk Posture Coach)</span>
+              <span class="inline-flex items-center gap-1 font-label-md text-label-md px-3 py-1 rounded-full bg-primary-fixed text-primary font-bold">
+                <span class="material-symbols-outlined text-[16px]" aria-hidden="true">fact_check</span> PRD v1.0.0 기준
+              </span>
+            </div>
+
+            <div class="divide-y divide-surface-container/60">
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-lowest">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">비전 센서 (Vision Sensor)</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">1080p FHD @ 30fps Sony IMX 계열 RGB 센서 (HDR 지원, 어두운 사무실·역광 환경 대응 및 노출 자동 조절)</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-low/50">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">메인 프로세서 (MCU / SoC)</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">Rockchip RV1106 (내장 0.5 TOPs NPU 탑재, 초저전력·저발열 Vision AI 전용 SoC)</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-lowest">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">디스플레이 인터페이스 (Display)</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">2.0인치 IPS TFT-LCD (320 × 240, SPI 통신), 넓은 시야각으로 책상 위 어느 각도에서도 캐릭터 식별 가능</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-low/50">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">AI 모델 및 추론 엔진</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">RKNN Toolkit-Lite / TFLite Micro 가속, INT8 양자화 경량 MobileNetV3 기반 Custom Pose-Net &amp; Face Mesh</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-lowest">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">통신 및 연결 프로토콜</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">USB 2.0 (UVC 카메라 스트림 + HID 설정/로그 복합 통신), 드라이버 설치 없는 플러그앤플레이, 유선 전원·데이터 연결</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 p-space-md lg:p-space-lg items-center bg-surface-container-low/50">
+                <div class="md:col-span-4 font-label-md text-label-md text-on-surface-variant font-bold">컴패니언 앱 및 로컬 DB</div>
+                <div class="md:col-span-8 font-body-md text-body-md text-on-surface font-semibold">Electron (TypeScript) 크로스플랫폼 가이드 프로그램 + SQLite 로컬 DB (통계 데이터 외부 유출 방지), React / Chart.js 일·주·월별 대시보드</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5-B: COMPANION APP & DASHBOARD (PRD 5.1-4, 5.1-6) -->
+      <section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="companion">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">설정은 쉽게, 기록은 내 PC에만</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              PC 컴패니언 앱이 캘리브레이션을 안내하고, 자세 통계를 로컬 SQLite에 저장해 일·주·월별 리포트로 보여줍니다.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+            <!-- Calibration mock -->
+            <div class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container/60 flex flex-col gap-space-md">
+              <div class="flex items-start justify-between gap-space-sm">
+                <div class="flex flex-col">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">캘리브레이션 · 중립 자세 영점</h3>
+                </div>
+                <span class="shrink-0 px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-md text-label-md font-bold">UI 목업</span>
+              </div>
+              <div class="relative aspect-video rounded-2xl bg-slate-900 overflow-hidden flex items-center justify-center" role="img" aria-label="카메라 화면 위에 얼굴과 상반신 가이드 라인이 겹쳐진 캘리브레이션 화면 예시">
+                <div class="w-24 h-32 sm:w-28 sm:h-36 rounded-[50%] border-2 border-dashed border-inverse-primary/80"></div>
+                <div class="absolute bottom-0 w-3/5 h-10 sm:h-12 rounded-t-[50%] border-2 border-b-0 border-dashed border-inverse-primary/80"></div>
+                <span class="absolute top-3 left-3 right-3 sm:right-auto px-3 py-1 rounded-full bg-slate-800/90 text-slate-100 text-[12px]">얼굴과 어깨를 가이드 안에 맞춰주세요</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
+                  <span>바른 자세를 유지해 주세요</span><span class="text-primary font-bold">2 / 3초</span>
+                </div>
+                <div class="h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full w-2/3 rounded-full bg-primary-container"></div></div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">완료되면 개인별 경추 각도와 입 닫힘 기준값이 기기에 저장됩니다.</p>
+              </div>
+            </div>
+
+            <!-- Dashboard mock -->
+            <div class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container/60 flex flex-col gap-space-md">
+              <div class="flex items-start justify-between gap-space-sm">
+                <div class="flex flex-col">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">일간 자세 리포트</h3>
+                </div>
+                <span class="shrink-0 px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-md text-label-md font-bold">UI 목업 · 예시 데이터</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-x-space-md gap-y-1 font-label-md text-label-md text-on-surface-variant">
+                <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-primary-container"></span>거북목 경고</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-secondary-container"></span>입벌림 경고</span>
+              </div>
+              <div class="flex items-end gap-1 sm:gap-2 pt-1" role="img" aria-label="시간대별 거북목 및 입벌림 경고 횟수를 보여주는 막대 차트 예시. 오후로 갈수록 경고가 늘어나는 패턴">
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:20%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:8%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">9시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:35%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:12%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">10시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:55%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:20%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">11시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:40%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:30%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">13시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:65%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:25%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">14시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:80%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:35%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">15시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:60%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:22%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">16시</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1 min-w-0">
+                    <div class="w-full h-36 flex items-end justify-center gap-1">
+                      <div class="w-2.5 sm:w-3 rounded-t bg-primary-container" style="height:90%"></div>
+                      <div class="w-2.5 sm:w-3 rounded-t bg-secondary-container" style="height:40%"></div>
+                    </div>
+                    <span class="text-[11px] text-on-surface-variant">17시</span>
+                  </div>
+              </div>
+              <div class="grid grid-cols-3 gap-space-sm">
+                <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col"><span class="font-label-md text-label-md text-on-surface-variant">거북목</span><span class="font-body-md text-body-md font-bold text-on-surface">12회</span></div>
+                <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col"><span class="font-label-md text-label-md text-on-surface-variant">입벌림</span><span class="font-body-md text-body-md font-bold text-on-surface">5회</span></div>
+                <div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col"><span class="font-label-md text-label-md text-on-surface-variant">평균 복귀</span><span class="font-body-md text-body-md font-bold text-on-surface">4.2초</span></div>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">React / Chart.js로 일·주·월별 추이를 시각화하며, 데이터는 로컬 DB 밖으로 나가지 않습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5-C: SCOPE (PRD 5장) -->
+      <section class="w-full bg-surface py-space-xl lg:py-24" id="scope">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">목과 입, 두 가지에 집중합니다</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              범위를 좁혀 정확도와 안정성에 집중합니다. PRD v1.0이 정의한 개발 범위와 제외 범위입니다.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-space-md">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold inline-flex items-center gap-2"><span class="material-symbols-outlined text-primary" aria-hidden="true">check_circle</span>개발 범위 (In Scope)</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md list-none p-0 m-0">
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">accessibility</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">실시간 거북목 감지</span><span class="font-body-sm text-body-sm text-on-surface-variant">귀-어깨-척추 관절 3D 포즈 추정으로 Forward Head Posture를 실시간 측정</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">air</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">실시간 입벌림 감지</span><span class="font-body-sm text-body-sm text-on-surface-variant">Face Mesh 랜드마크 기반 구강 개폐 비율(MAR) 산출 및 감지</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">smart_display</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">온디바이스 LCD 그래픽 제어</span><span class="font-body-sm text-body-sm text-on-surface-variant">정상 · 거북목 · 입벌림 상태별 만화 캐릭터 피드백 출력</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">tune</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">PC 설치 가이드 & 캘리브레이션 앱</span><span class="font-body-sm text-body-sm text-on-surface-variant">화각 조정, 중립 자세 영점 조절, 튜토리얼 가이드 프로그램</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">usb</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">USB HID/UVC 복합 통신</span><span class="font-body-sm text-body-sm text-on-surface-variant">설정값 전달 및 포즈 상태 로그 송수신 파이프라인</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">bar_chart</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">로컬 데이터 저장 & 대시보드</span><span class="font-body-sm text-body-sm text-on-surface-variant">로컬 DB 연동과 사용자 통계 리포트 화면</span></div>
+            </li>
+            <li class="lg:col-span-3 p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">wb_sunny</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">환경 보정 알고리즘</span><span class="font-body-sm text-body-sm text-on-surface-variant">역광·조명 변화에도 랜드마크 추적이 끊기지 않도록 노출 자동 조절</span></div>
+            </li>
+            </ul>
+          </div>
+
+          <div class="flex flex-col gap-space-md">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold inline-flex items-center gap-2"><span class="material-symbols-outlined text-outline" aria-hidden="true">do_not_disturb_on</span>개발 제외 범위 (Out of Scope)</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md list-none p-0 m-0">
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">voice_over_off</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">음성 인식 · 음성 알림</span><span class="font-body-sm text-body-sm text-on-surface-variant">시각 피드백 중심 (마이크/스피커 미사용)</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">smartphone</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">모바일 앱 (iOS/Android)</span><span class="font-body-sm text-body-sm text-on-surface-variant">PC 데스크 환경에 집중</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">cloud_off</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">클라우드 서버 연동 · AI 추론</span><span class="font-body-sm text-body-sm text-on-surface-variant">모든 영상 처리·추론은 디바이스 내부에서 완결</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">airline_seat_recline_normal</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">전신 자세 교정</span><span class="font-body-sm text-body-sm text-on-surface-variant">허리·골반·어깨 불균형 등 목과 입 이외의 추적 제외</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">person</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">다국어 · 기업용 멀티 계정</span><span class="font-body-sm text-body-sm text-on-surface-variant">단일 사용자 전용 PC 컴패니언 소프트웨어</span></div>
+            </li>
+            <li class="p-space-md rounded-2xl bg-surface-container-low border border-surface-container flex gap-space-sm">
+              <span class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[22px]" aria-hidden="true">battery_unknown</span></span>
+              <div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface font-bold">무선 통신 · 배터리</span><span class="font-body-sm text-body-sm text-on-surface-variant">Bluetooth/Wi-Fi, 내장 배터리 없음 (USB 유선 전용)</span></div>
+            </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: SUCCESS METRICS & PERFORMANCE VERIFICATION (PRD 3장) -->
+      <section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="metrics">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="text-center max-w-2xl mx-auto flex flex-col gap-space-xs">
+            <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">PRD 정의 6대 성능 목표 지표</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              개발 완료 시점에 검증할 합격 기준입니다. 실측 결과가 아니라 PRD v1.0이 정의한 목표 수치입니다.
+            </p>
+          </div>
+
+          <!-- 6 Success Metrics Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+            <!-- Metric 1 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-primary font-bold">거북목 감지 정확도</span>
+                <span class="material-symbols-outlined text-primary">verified</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">≥ 95%</span>
+                <span class="text-xs text-on-surface-variant font-semibold">Precision / Recall</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                정사각·사각 측면 구도 기준으로 경추 전방 돌출을 판별하는 것을 목표로 합니다.
+              </p>
+            </div>
+
+            <!-- Metric 2 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-secondary font-bold">입벌림 감지 정확도</span>
+                <span class="material-symbols-outlined text-secondary">verified</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">≥ 93%</span>
+                <span class="text-xs text-on-surface-variant font-semibold">MAR Ratio Metric</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                입술 랜드마크 비(MAR)를 기반으로 미세한 구강 개폐를 판별하는 것을 목표로 합니다.
+              </p>
+            </div>
+
+            <!-- Metric 3 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-primary font-bold">추론 및 알림 지연 시간</span>
+                <span class="material-symbols-outlined text-primary">bolt</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">≤ 100ms</span>
+                <span class="text-xs text-on-surface-variant font-semibold">Real-time Latency</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                카메라 영상 수집부터 LCD 화면 전환까지 100ms 이내 반응을 목표로 합니다.
+              </p>
+            </div>
+
+            <!-- Metric 4 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-tertiary font-bold">오탐율 (False Positive)</span>
+                <span class="material-symbols-outlined text-tertiary">filter_alt</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">≤ 3%</span>
+                <span class="text-xs text-on-surface-variant font-semibold">Smart Filtering</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                대화나 음료 섭취 같은 일시적 개폐 동작을 불량 습관과 구분하는 것을 목표로 합니다.
+              </p>
+            </div>
+
+            <!-- Metric 5 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-primary font-bold">행동 전환율 (Compliance)</span>
+                <span class="material-symbols-outlined text-primary">sentiment_very_satisfied</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">≥ 80%</span>
+                <span class="text-xs text-on-surface-variant font-semibold">Self-correction</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                캐릭터 알림 발생 후 5초 이내에 사용자가 바른 자세로 복귀하는 비율의 목표입니다.
+              </p>
+            </div>
+
+            <!-- Metric 6 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-surface-container/60">
+              <div class="flex items-center justify-between">
+                <span class="font-label-md text-label-md text-tertiary font-bold">연속 가동 안정성</span>
+                <span class="material-symbols-outlined text-tertiary">power</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface">드랍 ≤ 1%</span>
+                <span class="text-xs text-on-surface-variant font-semibold">8H Continuous Work</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-surface-container/40">
+                8시간 연속 가동 기준 프레임 드랍률 1% 이하를 목표로 합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: ECONOMIC VALUE & HABIT TRANSFORMATION (PRD 6장) -->
+      <section class="w-full bg-surface py-space-xl lg:py-24" id="impact">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">
+                비즈니스 생산성 및 건강 경제학적 가치
+              </h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              불량 자세로 인한 불편과 집중력 저하를 줄여 조직과 개인의 생산성에 기여하는 것을 목표로 합니다.
+            </p>
+          </div>
+
+          <!-- PRD B2B ROI Summary Card -->
+          <div class="p-space-lg lg:p-space-xl rounded-3xl bg-surface-container-low shadow-sm border border-surface-container flex flex-col gap-space-lg">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm border-b border-surface-container pb-space-md">
+              <div class="flex flex-col">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">임직원 100인 사무 조직 기준 경제성 평가 (가상 시나리오)</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-bold text-sm shadow-sm border border-surface-container">
+                투자 회수 기간 : 약 4.4개월
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col">
+                <span class="text-xs text-on-surface-variant font-bold">연간 순 절감 가치</span>
+                <span class="font-counter-xl text-3xl font-extrabold text-primary pt-1">5,400만 원</span>
+                <span class="text-xs text-on-surface-variant pt-1">월 순 절감 450만 원 × 12개월 (가정)</span>
+              </div>
+
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col">
+                <span class="text-xs text-on-surface-variant font-bold">연간 투자 대비 수익률 (ROI)</span>
+                <span class="font-counter-xl text-3xl font-extrabold text-secondary pt-1">270%</span>
+                <span class="text-xs text-on-surface-variant pt-1">(연간 순 절감액 / 초기 투자비)</span>
+              </div>
+
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col">
+                <span class="text-xs text-on-surface-variant font-bold">초기 투자비 회수</span>
+                <span class="font-counter-xl text-3xl font-extrabold text-on-surface pt-1">4.4개월</span>
+                <span class="text-xs text-on-surface-variant pt-1">단말기 100대 도입 기준 전액 회수</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm">
+              <div class="p-space-sm rounded-xl bg-surface-container-lowest/70 flex flex-col"><span class="text-[12px] text-on-surface-variant font-bold">초기 투자비</span><span class="font-body-md text-body-md font-bold text-on-surface">2,000만 원</span><span class="text-[12px] text-on-surface-variant">단말기 100대 × 12만 원 + SW 커스터마이징 800만 원</span></div>
+              <div class="p-space-sm rounded-xl bg-surface-container-lowest/70 flex flex-col"><span class="text-[12px] text-on-surface-variant font-bold">월 절감액</span><span class="font-body-md text-body-md font-bold text-on-surface">500만 원</span><span class="text-[12px] text-on-surface-variant">1인당 월 5만 원 상당 생산성 향상 × 100명 (가정)</span></div>
+              <div class="p-space-sm rounded-xl bg-surface-container-lowest/70 flex flex-col"><span class="text-[12px] text-on-surface-variant font-bold">월 운영비</span><span class="font-body-md text-body-md font-bold text-on-surface">50만 원</span><span class="text-[12px] text-on-surface-variant">전력비 10만 원 + 유지보수 40만 원</span></div>
+              <div class="p-space-sm rounded-xl bg-surface-container-lowest/70 flex flex-col"><span class="text-[12px] text-on-surface-variant font-bold">월 순 절감액</span><span class="font-body-md text-body-md font-bold text-on-surface">450만 원</span><span class="text-[12px] text-on-surface-variant">월 절감액 − 월 운영비</span></div>
+            </div>
+            <p class="text-[12px] text-on-surface-variant">※ 가상의 B2B 도입 시나리오이며, 모든 금액은 PRD의 가정 값입니다. 실제 효과를 보장하지 않습니다.</p>
+          </div>
+
+          <!-- 3 User Benefits -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-xs border border-surface-container/60">
+              <div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary mb-2 shadow-sm">
+                <span class="material-symbols-outlined text-[30px]" aria-hidden="true">timer</span>
+              </div>
+              <span class="font-counter-xl text-3xl text-primary font-extrabold">3초</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold pt-1">불량 자세 판정 기준</span>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">3초 이상 지속될 때만 알려 불필요한 방해는 줄이고, 굳어지기 쉬운 자세 습관은 놓치지 않습니다.</p>
+            </div>
+
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-xs border border-surface-container/60">
+              <div class="w-14 h-14 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary mb-2 shadow-sm">
+                <span class="material-symbols-outlined text-[30px]">sentiment_very_satisfied</span>
+              </div>
+              <span class="font-counter-xl text-3xl text-secondary font-extrabold">≥ 80%</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold pt-1">5초 내 자세 복귀 목표</span>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">친근한 캐릭터 화면으로 거부감 없이 스스로 바른 자세와 코호흡으로 돌아오도록 돕습니다.</p>
+            </div>
+
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-xs border border-surface-container/60">
+              <div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center text-tertiary mb-2 shadow-sm">
+                <span class="material-symbols-outlined text-[30px]">verified_user</span>
+              </div>
+              <span class="font-counter-xl text-3xl text-tertiary font-extrabold">100%</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold pt-1">로컬 처리 원칙</span>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">추론은 기기 내부에서 이뤄지고, 정량 통계 데이터만 PC 로컬 DB에 기록되며 클라우드로 전송되지 않습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container/80">
+    <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin py-space-xl">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg mb-space-xl">
+        <div class="md:col-span-5 flex flex-col gap-space-sm">
+          <div class="flex items-center gap-space-xs">
+            <img src="./logo.svg" alt="Neck &amp; Mouth AI Coach Logo" class="w-8 h-8 rounded-lg shadow-xs"/>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold">Neck &amp; Mouth AI Coach</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md leading-relaxed">
+            청년 피지컬 AI 일경험 프로젝트의 일환으로 기획·개발된 비침습 온디바이스 AI 웰니스 하드웨어입니다.
+            경추 정렬과 코호흡 습관을 100% 로컬 신경망으로 코칭합니다.
+          </p>
+          <div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-low text-primary font-label-md text-label-md w-fit">
+            <span class="material-symbols-outlined text-[16px]">lock</span>
+            <span>No Cloud · 영상 외부 전송 없음</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-space-xs">
+          <span class="font-label-lg text-label-lg text-on-surface font-bold">보안 및 개인정보 보호 원칙</span>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            본 단말기는 클라우드 연결 없이 기기 내부 NPU에서만 실시간 신경망 추론을 수행합니다. 영상은 외부 서버로 전송하지 않는 것이 설계 원칙입니다.
+          </p>
+          <div class="flex items-center gap-space-sm pt-space-xs">
+            <span class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md font-bold">
+              <span class="material-symbols-outlined text-[18px]">verified_user</span>
+              <span>로컬 프라이버시 100%</span>
+            </span>
+            <span class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md font-bold">
+              <span class="material-symbols-outlined text-[18px]">memory</span>
+              <span>Rockchip RV1106 Core</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-space-xs">
+          <span class="font-label-lg text-label-lg text-on-surface font-bold">프로젝트 정보</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">청년 피지컬 AI 프로젝트 쇼케이스</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">PRD 문서 버전: v1.0.0 (Approved)</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">Edge Vision NPU Architecture</span>
+        </div>
       </div>
 
-      <div class="product-shot">
-        <div class="frame">
-          <!-- 이미지를 넣으려면 아래 문구를 지우고 이렇게 바꾸세요:
-               <img src="images/product.png" alt="제품 사진 설명"> -->
-          <span>제품 이미지 자리<br>images 폴더에 사진을 넣어 주세요</span>
+      <div class="pt-space-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm text-on-surface-variant font-label-md text-label-md border-t border-surface-container/60">
+        <div class="flex flex-col gap-1 max-w-xl">
+          <p>© 2026 Neck &amp; Mouth AI Coach · 청년 피지컬 AI 일경험 프로젝트</p>
+          <p class="text-[11px] font-normal leading-relaxed">본 페이지의 수치는 PRD v1.0의 목표값이며 실측 결과가 아닙니다. 본 제품은 의료기기가 아니며 질환의 진단·치료를 목적으로 하지 않습니다.</p>
+        </div>
+        <div class="flex items-center gap-space-md">
+          <a class="hover:text-on-surface transition-colors" href="#overview">제품 소개</a>
+          <a class="hover:text-on-surface transition-colors" href="#key-features">핵심 기능</a>
+          <a class="hover:text-on-surface transition-colors" href="#how-it-works">작동 원리</a>
+          <a class="hover:text-on-surface transition-colors" href="#tech-specs">기술 스펙</a>
+          <a class="hover:text-on-surface transition-colors" href="#scope">개발 범위</a>
+          <a class="hover:text-on-surface transition-colors" href="#metrics">성능 목표</a>
+          <a class="hover:text-on-surface transition-colors" href="#impact">도입 효과</a>
         </div>
       </div>
     </div>
-
-    <!-- ===== 해결하려는 문제 ===== -->
-    <section class="block" id="problem">
-      <div class="wrap">
-        <h2>[어떤 문제를 해결하나요?]</h2>
-        <p class="lead">[사용자가 겪는 불편이나 문제를 2~3문장으로 설명해 주세요. 내 제품이 왜 필요한지가 드러나면 좋습니다.]</p>
-      </div>
-    </section>
-
-    <!-- ===== 작동 방식: 피지컬 AI의 감지 → 판단 → 행동 ===== -->
-    <section class="block" id="how">
-      <div class="wrap">
-        <h2>이렇게 작동합니다</h2>
-        <p class="lead">[제품이 현실 세계에서 어떻게 움직이는지 간단히 소개해 주세요.]</p>
-
-        <ol class="flow">
-          <li>
-            <h3>감지</h3>
-            <p>[어떤 센서로 무엇을 알아차리나요?]</p>
-          </li>
-          <li>
-            <h3>판단</h3>
-            <p>[AI가 어떤 정보를 보고 무엇을 결정하나요?]</p>
-          </li>
-          <li>
-            <h3>행동</h3>
-            <p>[결정에 따라 어떻게 움직이거나 반응하나요?]</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== 주요 기능: 항목을 복사해서 늘리거나 지워도 됩니다 ===== -->
-    <section class="block" id="features">
-      <div class="wrap">
-        <h2>주요 기능</h2>
-
-        <ul class="features">
-          <li>
-            <h3>[기능 1]</h3>
-            <p>[기능 설명]</p>
-          </li>
-          <li>
-            <h3>[기능 2]</h3>
-            <p>[기능 설명]</p>
-          </li>
-          <li>
-            <h3>[기능 3]</h3>
-            <p>[기능 설명]</p>
-          </li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <!-- ===== 하단: 만든 사람 정보 ===== -->
-  <footer>
-    <div class="wrap">
-      <span>만든 사람: [이름]</span>
-      <span>나만의 피지컬 AI 제품 기획 과제</span>
-    </div>
   </footer>
 
+  <script>
+    (function () {
+      // Mobile menu
+      var btn = document.getElementById('menuBtn');
+      var panel = document.getElementById('mobileNav');
+      function setMenu(open) {
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+        btn.firstElementChild.textContent = open ? 'close' : 'menu';
+      }
+      btn.addEventListener('click', function () { setMenu(panel.hidden); });
+      panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+      // Scroll spy for the nav
+      var ACTIVE = ['bg-surface-container-high', 'text-on-surface', 'font-semibold'];
+      var links = document.querySelectorAll('[data-nav]');
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+      function activate(id) {
+        links.forEach(function (a) {
+          var on = a.getAttribute('href') === '#' + id;
+          ACTIVE.forEach(function (c) { a.classList.toggle(c, on); });
+          a.classList.toggle('text-on-surface-variant', !on);
+          if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting && byId[en.target.id]) activate(en.target.id); });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+      }
+      activate('overview');
+    })();
+  </script>
 </body>
 </html>
