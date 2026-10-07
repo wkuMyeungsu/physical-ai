@@ -956,21 +956,46 @@
           </div>
 
 
-          <div class="rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
-            <div class="flex flex-wrap items-center gap-x-space-xs gap-y-1"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-secondary font-label-md text-label-md">실제 웹캠 이미지</span><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">후처리 적용 예시</h3></div>
+          <div class="flex flex-col gap-space-xs pt-space-md">
+            <div class="flex flex-wrap items-center gap-x-space-xs gap-y-1"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-secondary font-label-md text-label-md">실제 웹캠 이미지</span><h3 class="font-headline-md text-headline-md text-on-surface font-bold">후처리 적용 예시</h3></div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">위 5가지 중 대표 기법 두 가지를 실제 웹캠 사진과 측정값으로 보여드립니다.</p>
+          </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg items-start">
-              <figure class="m-0 flex flex-col gap-space-xs">
-                <img src="./images/examples/post_user_select.jpg" alt="착석 영역 안에서 두 얼굴이 검출되어 큰 얼굴만 사용자로 선택하고 작은 얼굴은 무시한 웹캠 사진" loading="lazy" class="w-full h-auto rounded-lg"/>
-                <figcaption class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><b class="text-on-surface">사용자 한 명만 선택</b>: 한 화면에 두 얼굴이 잡혔을 때 면적이 큰 쪽(초록, 23.1k px)만 사용자로 삼고 작은 쪽(빨강, 14.2k px)은 무시합니다. 청록색 영역은 착석 영역 예시입니다.</figcaption>
+          <!-- Example 1 -->
+          <div class="rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container p-space-lg lg:p-space-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg lg:gap-space-xl items-center">
+              <figure class="m-0">
+                <img src="./images/examples/post_user_select.jpg" alt="착석 영역 안에서 두 얼굴이 검출되어 큰 얼굴만 사용자로 선택하고 작은 얼굴은 무시한 웹캠 사진" loading="lazy" class="w-full h-auto rounded-2xl"/>
               </figure>
-              <div class="flex flex-col gap-space-lg">
-              <figure class="m-0 flex flex-col gap-space-xs">
-                <img src="./images/examples/post_mar_examples.jpg" alt="입 벌림 정도(MAR) 0.02, 0.16, 0.28, 0.62이 표시된 네 장의 웹캠 얼굴 사진" loading="lazy" class="w-full h-auto rounded-lg"/>
-                <figcaption class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><b class="text-on-surface">입벌림 판정의 재료, MAR</b>: 입술 안쪽 점(청록 점)의 세로 간격 &divide; 가로 간격을 실제 프레임에서 계산한 값입니다(왼쪽부터 0.02 / 0.16 / 0.28 / 0.62, 프레임마다 다른 사람). 한 프레임의 값만으로는 말하는 중인지 멍하니 벌린 입인지 구분할 수 없어 아래처럼 시간 패턴을 봅니다.</figcaption>
-              </figure>
-                <figure class="m-0 flex flex-col gap-space-xs">
-                  <svg viewBox="0 0 720 250" role="img" aria-label="말하기, 하품, 입벌림 세 경우의 입 벌림 정도(MAR) 시간 변화를 비교한 개념도" class="w-full max-w-3xl h-auto text-on-surface-variant">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex flex-col gap-1">
+                  <span class="font-label-md text-label-md text-primary font-bold">예시 ①</span>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">사용자 한 명만 선택</h4>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed m-0">뒤에서 다가온 사람이나 지나가는 사람의 얼굴이 함께 잡혀도, 책상 앞 사용자 한 명의 신호만 남깁니다. 이 프레임에서는 얼굴이 2개 검출되었습니다.</p>
+                <ol class="flex flex-col gap-space-xs list-none p-0 m-0 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  <li class="flex gap-2"><span class="shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[13px] font-bold flex items-center justify-center">1</span><span>얼굴이 검출되면 각 얼굴의 박스 면적을 구합니다.</span></li><li class="flex gap-2"><span class="shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[13px] font-bold flex items-center justify-center">2</span><span>착석 영역(청록색 구역) 안에 있는 얼굴만 후보로 삼습니다.</span></li><li class="flex gap-2"><span class="shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[13px] font-bold flex items-center justify-center">3</span><span>면적이 가장 큰(가장 가까운) 얼굴 <b class="text-on-surface">23.1k px</b>를 사용자(초록)로 선택하고, <b class="text-on-surface">14.2k px</b>인 얼굴(빨강)은 무시합니다.</span></li><li class="flex gap-2"><span class="shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[13px] font-bold flex items-center justify-center">4</span><span>사용자 얼굴이 몇 초 이상 사라지면 판정 상태를 리셋합니다.</span></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example 2 -->
+          <div class="rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
+            <div class="flex flex-col gap-space-xs max-w-3xl">
+              <span class="font-label-md text-label-md text-secondary font-bold">예시 ②</span>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">입벌림 오탐 억제 &mdash; 한 프레임이 아니라 시간 패턴으로 판단</h4>
+              <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed m-0">입벌림은 입 벌림 정도(MAR)로 판단하는데, 말하기·하품·음료 섭취도 입이 열리기 때문에 한 프레임의 값만으로는 구분할 수 없습니다.</p>
+            </div>
+
+            <figure class="m-0 flex flex-col gap-space-xs">
+              <img src="./images/examples/post_mar_examples.jpg" alt="입 벌림 정도(MAR) 0.02, 0.16, 0.28, 0.62이 표시된 네 장의 웹캠 얼굴 사진" loading="lazy" class="w-full h-auto rounded-2xl"/>
+              <figcaption class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><b class="text-on-surface">실제 프레임에서 계산한 MAR</b>: 입술 안쪽 점(청록 점)의 세로 간격 &divide; 가로 간격입니다. 왼쪽부터 0.02 / 0.16 / 0.28 / 0.62 (프레임마다 다른 사람).</figcaption>
+            </figure>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-lg items-center rounded-2xl bg-surface-container-low p-space-md lg:p-space-lg">
+              <figure class="m-0 lg:col-span-3">
+                <svg viewBox="0 0 720 250" role="img" aria-label="말하기, 하품, 입벌림 세 경우의 입 벌림 정도(MAR) 시간 변화를 비교한 개념도" class="w-full max-w-3xl h-auto text-on-surface-variant">
     <g>
       <text x="4" y="14" font-size="11" fill="currentColor" font-weight="700">말하기</text>
       <line x1="40" y1="64" x2="580" y2="64" stroke="currentColor" stroke-opacity=".25"/>
@@ -998,13 +1023,20 @@
     <text x="40" y="244" font-size="10" fill="currentColor">0초</text><text x="560" y="244" font-size="10" fill="currentColor">20초</text>
     <text x="300" y="244" font-size="10" fill="currentColor" fill-opacity=".8">점선: 발동 기준(진한 선) / 해제 기준(옅은 선)</text>
   </svg>
-                  <figcaption class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><b class="text-on-surface">입벌림 오탐 억제: 시간 패턴으로 구분합니다</b> (개념도, 실측 아님). 말하기는 짧은 주기로 열고 닫히고, 하품은 잠깐 크게 열렸다 닫히며, 입벌림 습관은 비교적 작게 오래 유지됩니다. 발동 기준은 엄격하게, 해제 기준은 완만하게(히스테리시스) 두고, 기준 시간(시작값 8초) 이상 유지될 때만 경고합니다.</figcaption>
-                </figure>
+              </figure>
+              <div class="lg:col-span-2 flex flex-col gap-space-sm">
+                <h5 class="font-label-lg text-label-lg text-on-surface font-bold m-0">그래서 시간 패턴으로 구분합니다 <span class="font-normal text-on-surface-variant">(개념도, 실측 아님)</span></h5>
+                <ul class="flex flex-col gap-space-xs list-none p-0 m-0 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  <li><b class="text-on-surface">말하기</b> 짧은 주기로 열고 닫힘 &rarr; 제외</li>
+                  <li><b class="text-on-surface">하품</b> 잠깐 크게 열렸다 닫힘 &rarr; 제외</li>
+                  <li><b class="text-on-surface">입벌림 습관</b> 비교적 작게 오래 유지 &rarr; 기준 시간(시작값 8초) 이상이면 경고</li>
+                  <li>발동 기준은 엄격하게, 해제 기준은 완만하게(히스테리시스) 두어 기준값 근처에서 판정이 깜빡이지 않게 합니다.</li>
+                </ul>
               </div>
             </div>
-
-            <p class="text-[12px] text-on-surface-variant">※ 사진 출처: <a class="underline" href="https://universe.roboflow.com/rando-z51vm/exam-proctoring-zewbp" target="_blank" rel="noopener">Roboflow Universe &lsquo;Exam proctoring&rsquo;</a>의 웹캠 사진에 얼굴 인식·표시를 더한 것입니다(CC BY 4.0). 처리 방식을 보여주는 예시이며 이 제품의 성능을 의미하지 않습니다.</p>
           </div>
+
+          <p class="text-[12px] text-on-surface-variant">※ 사진 출처: <a class="underline" href="https://universe.roboflow.com/rando-z51vm/exam-proctoring-zewbp" target="_blank" rel="noopener">Roboflow Universe &lsquo;Exam proctoring&rsquo;</a>의 웹캠 사진에 얼굴 인식·표시를 더한 것입니다(CC BY 4.0). 처리 방식을 보여주는 예시이며 이 제품의 성능을 의미하지 않습니다.</p>
 
           <p class="text-center text-[12px] text-on-surface-variant">※ 적용 방향이며, 세부 기법과 수치는 PoC 검증 후 확정됩니다.</p>
         </div>
