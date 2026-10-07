@@ -17,8 +17,3 @@ physicalAI/
 ├── PRD/
 └── report/
 ```
-
-## GitHub Pages 배포
-
-`main` 브랜치의 루트(`/`)가 배포 대상이므로, `index.html`은 루트에 두고 이미지는 `./stitch/` 등 상대경로로 참조합니다.
-푸시 후 저장소의 Settings → Pages에서 Source가 `main` / `(root)`로 설정되어 있는지 확인합니다. 반영에는 1~2분 정도 걸립니다.
