@@ -60,6 +60,7 @@
   <rect class="border-alert" x="8" y="8" width="384" height="284" rx="30" fill="none" stroke="#f97316" stroke-width="3"/>
 
   <!-- BIG FULL-SCREEN CUTE FACE (Dazed Open Mouth Breathing) -->
+  <g transform="translate(200, 8) scale(0.84) translate(-200, 0)">
   <g id="mouthBreathingFace">
     <!-- Character Face filling the display -->
     <rect x="44" y="24" width="312" height="220" rx="68" fill="url(#creamFace)" stroke="#fcd34d" stroke-width="6"/>
@@ -83,15 +84,16 @@
     <path d="M 238 142 Q 262 130 278 144 Q 294 158 316 144" fill="none" stroke="#93c5fd" stroke-width="4.5" stroke-linecap="round"/>
     <path d="M 234 160 Q 256 154 270 168 Q 284 180 304 168" fill="none" stroke="#93c5fd" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="4 4"/>
   </g>
+  </g>
 
   <!-- BOTTOM ALERT BANNER (Hover to Blink) -->
   <g class="bottom-alert" filter="url(#badgeShadow)">
-    <rect x="60" y="222" width="280" height="54" rx="27" fill="#f97316" stroke="#ffffff" stroke-width="2.5"/>
-    <g transform="translate(200, 255)">
-      <!-- Warning Triangle -->
-      <path d="M -90 -2 L -80 -18 L -70 -2 Z" fill="#ffffff"/>
-      <path d="M -80 -6 L -80 -7 M -80 -9 L -80 -14" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
-      <text x="-56" y="2" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="0.5">입벌림 감지!</text>
+    <rect x="50" y="216" width="300" height="64" rx="32" fill="#f97316" stroke="#ffffff" stroke-width="2.5"/>
+    <g transform="translate(200, 248)">
+      <path d="M -96 12 L -81 -12 L -66 12 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="-81" y1="-4" x2="-81" y2="3" stroke="#f97316" stroke-width="2.8" stroke-linecap="round"/>
+      <circle cx="-81" cy="7.5" r="1.8" fill="#f97316"/>
+      <text x="-54" y="8" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="0.5">입벌림 감지!</text>
     </g>
   </g>
 </svg>

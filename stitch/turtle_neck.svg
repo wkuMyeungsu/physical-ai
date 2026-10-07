@@ -59,13 +59,8 @@
   <rect width="400" height="300" rx="36" fill="url(#screenBg)"/>
   <rect class="border-alert" x="8" y="8" width="384" height="284" rx="30" fill="none" stroke="#f43f5e" stroke-width="3"/>
 
-  <!-- Forward Slouch Angle Indicator (Upper Right) -->
-  <g transform="translate(325, 45)">
-    <rect x="-35" y="-14" width="70" height="28" rx="14" fill="#f43f5e"/>
-    <text x="0" y="5" text-anchor="middle" fill="#ffffff" font-family="'Pretendard', sans-serif" font-size="12" font-weight="900">15° 쏠림</text>
-  </g>
-
   <!-- BIG FULL-SCREEN CUTE FACE (Slouched / Strained State) -->
+  <g transform="translate(200, 6) scale(0.8) translate(-200, 0)">
   <g id="slouchedFace" transform="translate(180, 136) rotate(-10) translate(-180, -136)">
     <!-- Character Face filling the display -->
     <rect x="36" y="24" width="308" height="220" rx="68" fill="url(#creamFace)" stroke="#fcd34d" stroke-width="6"/>
@@ -84,15 +79,22 @@
     <!-- Blue Sweat Drop 💧 -->
     <path d="M 314 58 C 314 58 330 80 330 92 C 330 102 322 110 314 110 C 306 110 298 102 298 92 C 298 80 314 58 314 58 Z" fill="#60a5fa" stroke="#3b82f6" stroke-width="2"/>
   </g>
+  </g>
+
+  <!-- Forward-lean indicator (drawn above the face so the text stays readable) -->
+  <g transform="translate(78, 36)">
+    <rect x="-56" y="-16" width="112" height="32" rx="16" fill="#f43f5e" stroke="#ffffff" stroke-width="2"/>
+    <text x="0" y="6" text-anchor="middle" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="16" font-weight="900">앞으로 쏠림</text>
+  </g>
 
   <!-- BOTTOM ALERT BANNER (Hover to Blink) -->
   <g class="bottom-alert" filter="url(#badgeShadow)">
-    <rect x="60" y="222" width="280" height="54" rx="27" fill="#ef4444" stroke="#ffffff" stroke-width="2.5"/>
-    <g transform="translate(200, 255)">
-      <!-- Warning Triangle -->
-      <path d="M -90 -2 L -80 -18 L -70 -2 Z" fill="#ffffff"/>
-      <path d="M -80 -6 L -80 -7 M -80 -9 L -80 -14" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
-      <text x="-56" y="2" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="0.5">거북목 감지!</text>
+    <rect x="50" y="216" width="300" height="64" rx="32" fill="#ef4444" stroke="#ffffff" stroke-width="2.5"/>
+    <g transform="translate(200, 248)">
+      <path d="M -96 12 L -81 -12 L -66 12 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="-81" y1="-4" x2="-81" y2="3" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round"/>
+      <circle cx="-81" cy="7.5" r="1.8" fill="#ef4444"/>
+      <text x="-54" y="8" fill="#ffffff" font-family="'Pretendard', -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="0.5">거북목 감지!</text>
     </g>
   </g>
 </svg>
