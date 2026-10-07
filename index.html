@@ -315,7 +315,7 @@
                 <span class="material-symbols-outlined text-[28px] opacity-80">speed</span>
               </div>
               <span class="font-label-lg text-label-lg text-on-surface font-bold">알림 지연 시간</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">3초 지속 판정 후 LCD 전환까지 (목표)</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">영상 수집부터 LCD 피드백 전환까지 (목표)</span>
             </div>
 
             <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-1 border border-surface-container/60">
@@ -736,6 +736,63 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5-A: PREPROCESSING PIPELINE (PRD 1.4, 2장, 5.1-7 / report/preprocess.md) -->
+      <section class="w-full bg-surface-container-low py-space-xl lg:py-24" id="preprocess">
+        <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex flex-col gap-space-xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-2xl">
+              <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">현장 조사 기반 전처리 설계</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              다양한 조명·카메라 위치·사용 습관에서도 같은 판정이 나오도록 설계 중인 전처리 방향입니다. 세부 파라미터는 현장 조사와 사용자 테스트로 확정하며, 판정 기준(3초)과 성능 목표는 PRD를 따릅니다.
+            </p>
+          </div>
+
+          <!-- Design premises -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs border border-surface-container/60">
+              <span class="material-symbols-outlined text-primary text-[28px]" aria-hidden="true">tune</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">절대 각도 대신 &lsquo;내 바른 자세 대비 변화&rsquo;</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                정면 카메라로는 경추 각도를 직접 잴 수 없고, 카메라 높이·기울기·거리에 따라 값이 달라집니다. 그래서 3초 중립 자세 영점 조절로 개인 기준값을 만들고, 그 기준 대비 편차로 판정합니다.
+              </p>
+            </div>
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs border border-surface-container/60">
+              <span class="material-symbols-outlined text-secondary text-[28px]" aria-hidden="true">call_split</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">거북목·입벌림 경로 분리</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                거북목은 얼굴 크기 변화가 신호이고 입벌림은 제거해야 할 잡음이라 정규화가 정반대입니다. 앞단(카메라·품질 판정)은 공유하고, 얼굴 영역 크롭부터 두 경로로 나눕니다.
+              </p>
+            </div>
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs border border-surface-container/60">
+              <span class="material-symbols-outlined text-tertiary text-[28px]" aria-hidden="true">memory</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">픽셀 대신 좌표 단위 보정</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                0.5 TOPs NPU 환경을 고려해 전체 프레임 보정은 줄이고, 얼굴 영역 한정 보정과 핵심 키포인트(20~30개) 단위 보정을 중심으로 설계합니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Pipeline steps -->
+          <div class="rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container p-space-lg lg:p-space-xl flex flex-col gap-space-md">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">전처리 파이프라인 (Y자 구조)</h3>
+            <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">1. 카메라 설정 고정</span><br/>플리커 방지, 자동 노출·화이트밸런스 완만화 또는 영점 조절 시 잠금</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">2. 프레임 품질 게이트</span><br/>너무 어둡거나 밝거나 흐린 프레임은 보정 대신 판단 보류</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">3. 포즈·얼굴 영역 추출</span><br/>어깨·머리 위치 추정 후 원본 해상도에서 얼굴 영역 크롭, 기울기 정렬</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">4. 얼굴 영역 한정 조명 보정</span><br/>대비·감마 보정은 얼굴 영역에만 적용 (창문 역광 영향 차단)</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">5. 키포인트 정리</span><br/>신뢰도 낮은 점 제외 → 튀는 값 제거 → 결측 처리 → 스무딩 순서</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">6. 특징 계산 &amp; 개인 기준 대비 편차</span><br/>거북목: 어깨 기준 / 입벌림: 입·얼굴 기준 MAR, 고개 숙임 보정</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">7. 대화·하품 필터 (입벌림)</span><br/>입 움직임 패턴으로 말하기·음료 섭취를 불량 습관과 구분 (오탐율 ≤ 3% 목표)</li>
+              <li class="p-space-md rounded-xl bg-surface-container-low"><span class="font-bold text-on-surface">8. 3초 지속 판정</span><br/>손으로 입을 가리는 등 가림 구간은 타이머를 멈추고 보류, 해제 기준은 발동 기준보다 완만하게</li>
+              <li class="p-space-md rounded-xl bg-primary-fixed text-primary"><span class="font-bold">→ LCD 캐릭터 경고</span><br/>영상 수집부터 화면 전환까지 ≤ 100ms 목표</li>
+            </ol>
+          </div>
+
+          <p class="text-center text-[12px] text-on-surface-variant">※ 현장 조사 체크리스트와 전처리 설계안(report/)을 바탕으로 한 설계 방향이며, 수치는 개발 과정에서 검증 후 확정됩니다.</p>
         </div>
       </section>
 
