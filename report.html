@@ -214,6 +214,11 @@
     .rpt-list { @apply list-none p-0 m-0 flex flex-col gap-1.5 font-body-sm text-body-sm text-on-surface-variant; }
     .rpt-list b { @apply inline-block min-w-[6.5rem] mr-2 text-on-surface; }
 
+    /* Model picker */
+    .rpt-pick { @apply list-none p-0 m-0 divide-y divide-surface-container/80; }
+    .rpt-pick > li { @apply flex items-center justify-between gap-space-md px-space-md py-2.5 font-body-sm text-body-sm text-on-surface-variant; }
+    .rpt-pick > li span b { @apply text-on-surface; }
+    .rpt-pick-m { @apply shrink-0 px-2.5 py-1 rounded-full bg-primary-fixed text-primary font-label-md text-label-md; }
     /* Model flow */
     .rpt-flow { @apply list-none p-0 m-0 flex flex-col md:flex-row md:items-stretch gap-2; }
     .rpt-flow > li:not(.rpt-arrow) { @apply flex-1 flex flex-col gap-1 p-space-sm rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant; }
@@ -604,7 +609,7 @@
               <dt>촬영 조건</dt><dd>조명 3종 × 안경 유무 × 자세(바른·약한·강한 거북목·손/컵 가림) × 거리(50·65·80cm)</dd>
               <dt>규모·분리</dt><dd>약 600장·10명, <b>사람 단위</b>로 학습 6 / 검증 2 / 테스트 2명</dd>
               <dt>라벨</dt><dd>face는 이마~턱, upper_body는 <b>머리를 제외한</b> 어깨선~가슴. 100장 시점에 다시 라벨링해 일관성 점검</dd>
-              <dt>도구</dt><dd>SAM 기반 반자동 폴리곤으로 약 100장 → 1차 학습 → 모델 초안을 사람이 보정</dd>
+              <dt>도구</dt><dd>SAM 기반 반자동 폴리곤으로 약 100장 → 1차 학습 → 모델 초안을 사람이 보정. SAM 3·DINO-X 같은 큰 모델로 초안을 만드는 방법도 검토(외부 서버는 촬영 동의를 받은 데이터만)</dd>
               <dt>정답(CVA)</dt><dd>평가용 촬영은 측면 카메라를 동기 촬영해 실제 목 각도를 잼</dd>
             </dl>
             <div class="rpt-scroll"><table class="rpt-table">
@@ -647,34 +652,31 @@
       <section data-page id="models" class="rpt-page scroll-mt-40">
         <header class="rpt-head">
           <h2 class="rpt-h2">4. 모델 비교</h2>
-          <p class="rpt-lead">YOLOE · DINO-X · SAM 3 · SigLIP · OCR · MediaPipe를 비교했습니다. 제품 보드에 올리는 것은 MediaPipe(입벌림)와 직접 학습한 YOLO-seg(거북목)이고, 큰 모델들은 개발 단계에서 데이터를 만들고 점검하는 데 씁니다.</p>
+          <p class="rpt-lead">YOLOE · DINO-X · SAM 3 · SigLIP · OCR · MediaPipe가 각각 무엇을 하고, 무엇을 받아 무엇을 내며, 어디서 돌아가는지 비교합니다.</p>
         </header>
 
-        <figure class="rpt-fig">
-          <figcaption class="rpt-h3">개발에서 각 모델이 쓰이는 자리</figcaption>
-          <ol class="rpt-flow">
-            <li><span class="rpt-num">1</span><b>데이터 점검</b><span>SigLIP · YOLOE</span></li>
-            <li aria-hidden="true" class="rpt-arrow material-symbols-outlined">arrow_forward</li>
-            <li><span class="rpt-num">2</span><b>라벨 초안</b><span>DINO-X 박스 · SAM 3 마스크 → 사람 보정</span></li>
-            <li aria-hidden="true" class="rpt-arrow material-symbols-outlined">arrow_forward</li>
-            <li><span class="rpt-num">3</span><b>학습</b><span>YOLO-seg 파인튜닝 (Colab)</span></li>
-            <li aria-hidden="true" class="rpt-arrow material-symbols-outlined">arrow_forward</li>
-            <li class="rpt-flow-on"><span class="rpt-num">4</span><b>보드 탑재</b><span>YOLO-seg + MediaPipe (RKNN INT8)</span></li>
-          </ol>
-          <p class="rpt-cap">OCR은 판정에 쓰지 않습니다.</p>
-        </figure>
+        <div class="rpt-box">
+          <h3 class="rpt-h3 px-space-md pt-space-md">이럴 때 이 모델</h3>
+          <ul class="rpt-pick">
+            <li><span>글로 대상을 지정해 <b>실시간으로</b> 찾고 싶다</span><b class="rpt-pick-m">YOLOE</b></li>
+            <li><span>처음 보거나 <b>드문 물체</b>까지 찾고 싶다 (외부 서버 사용 가능)</span><b class="rpt-pick-m">DINO-X</b></li>
+            <li><span><b>정확한 윤곽</b>이 필요하거나 영상 속 대상을 따라가고 싶다</span><b class="rpt-pick-m">SAM 3</b></li>
+            <li><span>위치는 필요 없고 이미지를 <b>분류·검색</b>하고 싶다</span><b class="rpt-pick-m">SigLIP</b></li>
+            <li><span>이미지 속 <b>글자</b>를 읽고 싶다</span><b class="rpt-pick-m">OCR</b></li>
+            <li><span>얼굴의 <b>세밀한 점</b>과 표정을 기기에서 실시간으로 얻고 싶다</span><b class="rpt-pick-m">MediaPipe</b></li>
+          </ul>
+        </div>
 
         <div class="rpt-box rpt-scroll">
           <table class="rpt-table rpt-table-wide">
-            <thead><tr><th>모델</th><th>하는 일</th><th>사용 예시</th><th>실행 환경</th><th>이 제품에서</th></tr></thead>
+            <thead><tr><th>모델</th><th>하는 일</th><th>입력</th><th>출력</th><th>추가 학습</th><th>실행 환경</th><th>사용 예시</th></tr></thead>
             <tbody>
-              <tr><td>YOLOE</td><td>텍스트·예시 이미지로 대상을 지정하거나 프롬프트 없이 찾는 실시간 탐지·분할</td><td><code>YOLOE("yoloe-26s-seg.pt")</code> 후 <code>set_classes(["cup", "hand"])</code>로 학습 없이 검출</td><td>GPU 권장, 작은 모델은 Jetson급·저해상도 CPU</td><td>개발: 컵·손 가림 장면 수집(V5 평가용)</td></tr>
-              <tr><td>DINO-X</td><td>텍스트·시각 프롬프트 또는 프롬프트 없이 찾는 개방형 탐지. 박스와 함께 마스크·키포인트·설명</td><td>API로 이미지를 보내 "face . cup" 프롬프트로 박스 받기</td><td>API (외부 서버)</td><td>개발: 라벨 박스 초안. 동의받은 개발 데이터에만</td></tr>
-              <tr><td>SAM 3</td><td>짧은 명사구나 예시 이미지로 지정한 개념의 모든 인스턴스를 분할하고 영상에서 추적</td><td>"face"로 얼굴 마스크 초안 → 사람이 목 경계 보정</td><td>GPU 서버</td><td>개발: 마스크 라벨링 가속</td></tr>
-              <tr><td>SigLIP</td><td>이미지와 문장을 같은 공간에 놓는 임베딩. 제로샷 분류·검색, 위치는 안 냄</td><td>프레임과 "a person wearing a mask"의 유사도로 분류</td><td>GPU 권장</td><td>개발: 데이터 조건 분포 점검, 비지원 장면 거르기</td></tr>
-              <tr><td>OCR</td><td>이미지 속 글자 검출 + 인식 (PaddleOCR, EasyOCR, Tesseract)</td><td>영수증·간판·번호판 읽기</td><td>CPU·엣지 가능</td><td class="text-on-surface-variant">사용 안 함</td></tr>
-              <tr class="rpt-tr-on"><td>MediaPipe</td><td>얼굴 478개 3D 랜드마크, 표정 계수 52개, 머리 자세 행렬</td><td>입술 내측 점(13, 14)·입꼬리(78, 308)로 MAR 계산</td><td>온디바이스 실시간</td><td><b class="text-primary">제품: 입벌림</b> (RKNN 변환 확인 필요)</td></tr>
-              <tr class="rpt-tr-on"><td>YOLO-seg (참고)</td><td>정해진 클래스의 탐지·분할(박스 + 마스크)</td><td>face·upper_body 2클래스 파인튜닝</td><td>NPU INT8</td><td><b class="text-primary">제품: 거북목</b></td></tr>
+              <tr><td>YOLOE</td><td>대상을 지정해 찾는 실시간 개방형 탐지·분할 (YOLO 계열)</td><td>이미지 + 텍스트 또는 예시 이미지, 프롬프트 없이도 가능</td><td>박스 · 마스크 · 클래스</td><td>불필요 (파인튜닝 가능)</td><td>GPU 권장, 작은 모델은 Jetson급·저해상도 CPU</td><td><code>model = YOLOE("yoloe-26s-seg.pt")</code><br/><code>model.set_classes(["cup", "hand"])</code><br/>학습 없이 컵·손 검출</td></tr>
+              <tr><td>DINO-X</td><td>드문 물체까지 찾는 개방형 탐지·이해 통합 모델 (IDEA Research)</td><td>이미지 + 텍스트 또는 시각 프롬프트, 프롬프트 없이도 가능</td><td>박스 · 마스크 · 키포인트 · 영역 설명</td><td>불필요</td><td>API (외부 서버)</td><td>"person . cup" 프롬프트로 박스를 받아 라벨링 초안 만들기</td></tr>
+              <tr><td>SAM 3</td><td>지정한 개념에 해당하는 모든 대상을 분할하고 영상에서 추적 (Meta)</td><td>이미지·영상 + 짧은 명사구 또는 예시 이미지</td><td>마스크 · 대상별 ID</td><td>불필요</td><td>GPU 서버</td><td>"yellow school bus"로 영상 속 노란 스쿨버스를 모두 분할·추적</td></tr>
+              <tr><td>SigLIP</td><td>이미지와 문장을 같은 공간의 벡터로 바꾸는 이미지-텍스트 모델 (Google)</td><td>이미지 + 문장</td><td>임베딩 · 유사도 점수 (위치 없음)</td><td>불필요 (제로샷)</td><td>GPU 권장</td><td>사진과 "a photo of a cat" 같은 문장의 유사도로 분류, 문장으로 이미지 검색</td></tr>
+              <tr><td>OCR</td><td>이미지 속 글자를 찾고(검출) 읽는(인식) 기술</td><td>이미지</td><td>글자 박스 · 문자열</td><td>불필요 (언어별 모델 선택)</td><td>CPU·엣지 가능</td><td>영수증·간판·번호판 읽기 (PaddleOCR, EasyOCR, Tesseract)</td></tr>
+              <tr><td>MediaPipe</td><td>얼굴의 3D 랜드마크와 표정 계수를 뽑는 온디바이스 솔루션 (Google, Face Landmarker)</td><td>이미지 · 영상 · 실시간 스트림</td><td>3D 점 478개 · 표정 계수 52개 · 머리 자세 행렬</td><td>불가 (고정 모델)</td><td>모바일·온디바이스 실시간</td><td>입술 점으로 입 벌림 정도 계산, 표정에 맞춰 아바타 움직이기</td></tr>
             </tbody>
           </table>
         </div>
