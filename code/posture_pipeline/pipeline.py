@@ -11,16 +11,15 @@ from typing import Optional
 import numpy as np
 
 from .config import PipelineConfig
-from .models import FaceDetector, FaceLandmarker, PoseEstimator
+from .models import FaceLandmarker, Segmenter
 
 
 class PosturePipeline:
     def __init__(self, cfg: Optional[PipelineConfig] = None,
-                 detector: Optional[FaceDetector] = None,
-                 pose: Optional[PoseEstimator] = None,
+                 segmenter: Optional[Segmenter] = None,
                  landmarker: Optional[FaceLandmarker] = None):
         self.cfg = cfg or PipelineConfig()
-        self.detector, self.pose, self.landmarker = detector, pose, landmarker
+        self.segmenter, self.landmarker = segmenter, landmarker
         # TODO: OutlierFilter, MissingHandler, OneEuro, HeadPose, Calibrator, DecisionEngine 등을
         #       여기서 만들어 보관. 베이스라인은 캘리브레이션이 끝나기 전엔 None.
 
@@ -38,11 +37,11 @@ class PosturePipeline:
         """
         TODO: 아래 순서를 image_ops 의 함수들로 연결
           S2  품질 게이트 -> 불량이면 NaN 키포인트로 process_keypoints (보류로 이어짐)
-          S3  축소 프레임에서 얼굴 위치 확보 (이전 랜드마크로 추적, 1~2초에 1회만 검출)
+          S3  축소 프레임에서 분할 모델로 얼굴·상체 영역 확보 (seg_fps 주기, 사이 프레임은 이전 위치 유지)
           S4  원본 해상도에서 얼굴 ROI 크롭 (롤 정렬은 옵션, 기본 OFF)
           S5  ROI 보정(기본 OFF) -> 모델 입력 정규화
           S6  얼굴 랜드마크 추론 (face_fps 주기) -> roi_to_frame 으로 원본 좌표 복원
-          S6b 상체 ROI 크롭 -> 포즈 추론으로 어깨 얻기 (pose_fps 주기, 결과는 잠깐 캐시)
+          S6b 분할 결과로 상체 영역 신호 계산 (seg_fps 주기, 결과는 잠깐 캐시)
         TODO: 주기가 안 된 프레임에서는 이전 결과를 그대로 돌려줘도 되는지 생각해 보기.
         """
         raise NotImplementedError

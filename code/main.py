@@ -8,7 +8,7 @@ from posture_pipeline import PipelineConfig, PosturePipeline
 
 def main():
     cfg = PipelineConfig()
-    pipe = PosturePipeline(cfg)  # TODO: detector / pose / landmarker 를 꽂기 (처음엔 MediaPipe 래퍼)
+    pipe = PosturePipeline(cfg)  # TODO: segmenter / landmarker 를 꽂기 (landmarker 는 처음엔 MediaPipe 래퍼)
 
     # TODO: cv2.VideoCapture 로 카메라 열고 configure_camera() 로 720p@30 설정
     # TODO: 캘리브레이션 화면 (카운트다운 -> 촬영). pipe.calibration_state() 로 안내 문구 표시

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_standard" name="shell-type"/>
+  <meta name="description" content="비침습 온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2 기반 제품·기술 소개 페이지."/>
+  <meta property="og:title" content="거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개"/>
+  <meta property="og:description" content="모니터 위에 얹어두는 온디바이스 AI 자세·호흡 코치. 핵심 기능, 작동 원리, 기술 아키텍처, 개발 범위를 소개합니다."/>
+  <meta property="og:type" content="website"/>
+  <title>보고서 | 거북목 &amp; 입벌림 AI 코치</title>
+  <link rel="icon" type="image/svg+xml" href="./stitch/logo.svg"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"/>
+  
+  <style>
+    @layer base {
+      html {
+        scroll-behavior: smooth;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Plus Jakarta Sans', 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
+      }
+      body {
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
+      section[id] {
+        scroll-margin-top: 5rem;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      display: inline-block;
+      white-space: nowrap;
+      font-feature-settings: 'liga';
+      -webkit-font-feature-settings: 'liga';
+      user-select: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-ping, .animate-pulse { animation: none !important; }
+    }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] > summary .chev { transform: rotate(180deg); }
+    .chev { transition: transform .2s; }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    const sans = [ "Plus Jakarta Sans", "Pretendard Variable", "Pretendard" ];
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#1c2622",
+            "surface-container": "#e8eeea",
+            "secondary-container": "#ef7f6b",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "primary": "#215542",
+            "on-secondary-fixed": "#3d0a05",
+            "on-tertiary-fixed": "#001e31",
+            "secondary-fixed": "#fde6e2",
+            "surface-container-low": "#f1f5f2",
+            "tertiary-fixed-dim": "#afcae3",
+            "surface-container-highest": "#d6dfd9",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cfd8d2",
+            "on-surface-variant": "#4b5853",
+            "outline-variant": "#cfd8d2",
+            "surface-variant": "#d6dfd9",
+            "on-secondary-container": "#7a1f16",
+            "inverse-primary": "#9cd2b9",
+            "on-primary-fixed": "#002115",
+            "primary-container": "#3b6e59",
+            "secondary-fixed-dim": "#f6b4a8",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "secondary": "#b23f33",
+            "surface": "#fafbf9",
+            "surface-bright": "#fafbf9",
+            "tertiary-container": "#5c768d",
+            "on-error": "#ffffff",
+            "primary-fixed-dim": "#9cd2b9",
+            "on-primary-fixed-variant": "#1b503c",
+            "primary-fixed": "#d3ecdf",
+            "surface-container-high": "#e0e8e3",
+            "tertiary": "#354f65",
+            "inverse-on-surface": "#f1f5f2",
+            "on-tertiary-fixed-variant": "#2f495f",
+            "tertiary-fixed": "#d9e8f5",
+            "outline": "#7a8680",
+            "inverse-surface": "#263143",
+            "on-background": "#1c2622",
+            "on-secondary-fixed-variant": "#8a2a1f",
+            "surface-tint": "#356853",
+            "background": "#fafbf9",
+            "on-tertiary-container": "#cae5ff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#b7eed4",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "gutter-sm": "1rem",
+            "space-xl": "2.5rem",
+            "margin-sm": "1.25rem"
+          },
+          "fontSize": {
+            "display": [ "56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "800" } ],
+            "display-mobile": [ "38px", { lineHeight: "44px", letterSpacing: "-0.025em", fontWeight: "800" } ],
+            "headline-lg": [ "40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" } ],
+            "headline-lg-mobile": [ "28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" } ],
+            "headline-md": [ "28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "600" } ],
+            "headline-sm": [ "20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" } ],
+            "body-lg": [ "18px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "400" } ],
+            "body-md": [ "16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" } ],
+            "body-sm": [ "14px", { lineHeight: "20px", letterSpacing: "0.005em", fontWeight: "400" } ],
+            "label-lg": [ "14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" } ],
+            "label-md": [ "12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" } ],
+            "counter-xl": [ "64px", { lineHeight: "68px", letterSpacing: "-0.03em", fontWeight: "800" } ]
+          },
+          "fontFamily": {
+            "body-sm": sans,
+            "headline-lg": sans,
+            "display": sans,
+            "headline-sm": sans,
+            "body-lg": sans,
+            "counter-xl": sans,
+            "label-md": sans,
+            "display-mobile": sans,
+            "headline-md": sans,
+            "body-md": sans,
+            "headline-lg-mobile": sans,
+            "label-lg": sans
+          }
+        }
+      }
+    };
+  </script>
+  <style type="text/tailwindcss">
+    .rpt-h3 { @apply font-headline-sm text-headline-sm text-on-surface font-bold m-0; }
+    .rpt-h4 { @apply font-label-lg text-label-lg text-on-surface font-bold m-0; }
+    .rpt-p { @apply font-body-sm text-body-sm text-on-surface-variant leading-relaxed m-0; }
+    .rpt-cap { @apply text-[12px] text-on-surface-variant leading-relaxed m-0; }
+    .rpt-dt { @apply font-label-md text-label-md text-primary font-bold; }
+    .rpt-sum { @apply rounded-2xl bg-primary-fixed/60 border border-primary-container/30 px-space-md py-space-sm font-body-md text-body-md text-on-surface m-0; }
+    .rpt-stat { @apply p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex flex-col gap-0.5; }
+    .rpt-num { @apply font-counter-xl text-2xl lg:text-3xl font-extrabold leading-tight; }
+    .rpt-lbl { @apply font-label-lg text-label-lg text-on-surface font-bold; }
+    .rpt-sub { @apply font-body-sm text-body-sm text-on-surface-variant; }
+    .rpt-fig { @apply p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm flex flex-col gap-space-xs; }
+    .rpt-img { @apply w-full h-auto rounded-xl border border-surface-container; }
+    .rpt-chip { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface font-label-md text-label-md; }
+    .rpt-tag { @apply shrink-0 px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-md text-label-md; }
+    .rpt-n { @apply inline-flex w-6 h-6 shrink-0 rounded-full bg-primary-fixed text-primary text-[13px] font-bold items-center justify-center; }
+    .rpt-step { @apply flex items-center gap-2 text-left px-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors; }
+    .rpt-step.is-on { @apply bg-primary-container text-on-primary shadow-sm; }
+    .rpt-panel { @apply p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 shadow-sm; }
+    .rpt-mini { @apply p-space-sm rounded-xl bg-surface-container-lowest border border-surface-container/60 flex flex-col gap-1 font-body-sm text-body-sm text-on-surface-variant; }
+    .rpt-mini b { @apply text-on-surface font-label-lg text-label-lg; }
+    .rpt-flow { @apply flex items-start gap-2 p-space-sm rounded-xl bg-surface-container-low; }
+    .rpt-det { @apply rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm; }
+    .rpt-det > summary { @apply cursor-pointer list-none flex items-center justify-between gap-space-sm px-space-md py-3 font-label-lg text-label-lg text-on-surface font-bold; }
+    .rpt-det > summary::-webkit-details-marker { display: none; }
+    .rpt-det[open] > summary .chev { transform: rotate(180deg); }
+    .rpt-dl { @apply grid grid-cols-1 sm:grid-cols-[7rem_1fr] gap-x-space-md gap-y-2 m-0 px-space-md pb-space-md font-body-sm text-body-sm text-on-surface-variant; }
+    .rpt-dl dt { @apply text-on-surface font-semibold; }
+    .rpt-dl dd { @apply m-0; }
+    .rpt-inner { @apply mx-space-sm mb-space-sm; }
+    .rpt-wrap { @apply overflow-x-auto rounded-xl border border-surface-container bg-surface-container-lowest; }
+    .rpt-table { @apply w-full min-w-[560px] text-left font-body-sm text-body-sm text-on-surface-variant border-collapse; }
+    .rpt-table th { @apply bg-surface-container-low text-on-surface font-label-md text-label-md font-bold p-3 align-top; }
+    .rpt-table td { @apply p-3 border-t border-surface-container/60 align-top; }
+    .rpt-table td:first-child { @apply text-on-surface font-semibold; }
+    @media (max-width: 767px) {
+      .rpt-table { min-width: 0; }
+      .rpt-table thead { display: none; }
+      .rpt-table tr { display: block; padding: 0.5rem 0.75rem; border-top: 1px solid rgba(0,0,0,0.06); }
+      .rpt-table tr:first-child { border-top: 0; }
+      .rpt-table td { display: block; border: 0; padding: 0.2rem 0; }
+      .rpt-table td::before { content: attr(data-label); display: block; font-size: 11px; font-weight: 700; opacity: 0.6; }
+      .rpt-table td:first-child::before { display: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface antialiased">
+  <!-- HEADER & NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_0_rgba(28,38,34,0.06)]">
+    <div class="h-20 max-w-[1280px] mx-auto px-margin-sm lg:px-margin flex items-center justify-between gap-space-md">
+      <!-- Logo -->
+      <a href="./index.html#overview" class="flex items-center gap-space-sm hover:opacity-90 transition-opacity min-w-0">
+        <img src="./stitch/logo.svg" alt="거북목 &amp; 입벌림 AI 코치 로고" class="w-10 h-10 rounded-xl shadow-sm shrink-0"/>
+        <div class="flex flex-col min-w-0">
+          <span class="font-headline-sm text-[17px] sm:text-headline-sm text-primary font-bold leading-tight truncate">거북목 &amp; 입벌림 AI 코치</span>
+          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">비침습 온디바이스 AI 자세·호흡 코치</span>
+        </div>
+      </a>
+
+      <!-- Desktop navigation -->
+      <nav aria-label="주요 섹션" class="hidden lg:flex items-center gap-0.5 bg-surface-container-low/80 p-1.5 rounded-full border border-surface-container/60">
+        <a href="./index.html#overview" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">제품 소개</a>
+        <a href="./index.html#key-features" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">기능</a>
+        <a href="./index.html#tech-specs" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">기술 스택</a>
+        <a href="./index.html#metrics" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">성능 목표</a>
+        <a href="./index.html#scope" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">개발 범위</a>
+        <a href="./index.html#impact" class="px-3 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap">도입 효과</a>
+      </nav>
+
+      <div class="flex items-center gap-space-sm shrink-0">
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-4 h-11 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary transition-colors whitespace-nowrap">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">home</span>
+          <span>메인</span>
+        </a>
+        <button id="menuBtn" type="button" class="lg:hidden w-11 h-11 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center" aria-expanded="false" aria-controls="mobileNav" aria-label="메뉴 열기">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile navigation -->
+    <nav id="mobileNav" aria-label="주요 섹션 (모바일)" class="lg:hidden border-t border-surface-container/60 bg-surface" hidden>
+      <div class="max-w-[1280px] mx-auto px-margin-sm py-space-sm flex flex-col">
+        <a href="./index.html#overview" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">제품 소개</a>
+        <a href="./index.html#key-features" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">기능</a>
+        <a href="./index.html#tech-specs" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">기술 스택</a>
+        <a href="./index.html#metrics" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">성능 목표</a>
+        <a href="./index.html#scope" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">개발 범위</a>
+        <a href="./index.html#impact" class="px-space-md py-3 rounded-xl font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">도입 효과</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="w-full pt-20 bg-surface min-h-screen">
+    <div class="max-w-[1280px] mx-auto px-margin-sm lg:px-margin pb-space-xl flex flex-col gap-space-md">
+      <nav aria-label="보고서 페이지" class="sticky top-20 z-40 -mx-margin-sm px-margin-sm lg:mx-0 lg:px-0 py-2 bg-surface/95 backdrop-blur flex items-center justify-between gap-space-sm">
+        <ol class="flex gap-1.5 overflow-x-auto list-none p-1.5 m-0 rounded-full bg-surface-container-low border border-surface-container/60 max-w-full">
+          <li><a data-tab href="#pre" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">1. 전처리 계획</a></li>
+          <li><a data-tab href="#post" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">2. 후처리 계획</a></li>
+          <li><a data-tab href="#yolo" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">3. YOLO 적용</a></li>
+          <li><a data-tab href="#models" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">4. 모델 비교</a></li>
+        </ol>
+        <span class="hidden md:inline-flex shrink-0 px-2.5 py-1 rounded-full bg-secondary-fixed text-secondary font-label-md text-label-md">계획 단계 · 측정 전</span>
+      </nav>
+
+      <!-- PAGE 1: PREPROCESS -->
+      <section data-page id="pre" class="flex flex-col gap-space-lg scroll-mt-40">
+        <header class="flex flex-col gap-space-xs">
+          <h2 class="font-headline-lg text-2xl lg:text-3xl text-on-surface font-extrabold">1. 전처리 계획</h2>
+          <p class="rpt-sum">카메라 프레임이 <b>모델 입력</b>이 되기까지(추론 직전) 5단계. 핵심 결정은 셋입니다: <b>원본 해상도에서 얼굴을 자른다</b> · <b>보정은 얼굴 영역만, 효과가 입증될 때만</b> · <b>입력 정규화는 학습과 완전히 동일</b>.</p>
+        </header>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm">
+          <div class="rpt-stat"><span class="rpt-num text-primary">5단계</span><span class="rpt-lbl">추론 직전까지</span><span class="rpt-sub">고정 → 검사 → 위치 → 크롭 → 정규화</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-secondary">192~256px</span><span class="rpt-lbl">모델 입력</span><span class="rpt-sub">원본에서 자른 얼굴 영역</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-primary">228px</span><span class="rpt-lbl">80cm에서 얼굴 폭</span><span class="rpt-sub">720p, 화각 70° 가정</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-tertiary">≤33ms</span><span class="rpt-lbl">보드 처리 목표</span><span class="rpt-sub">30fps 프레임 주기 안</span></div>
+        </div>
+
+        <div data-steps class="flex flex-col gap-space-sm">
+          <div role="tablist" aria-label="전처리 단계" class="grid grid-cols-2 md:grid-cols-5 gap-2">
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">1</span><span class="flex flex-col"><span class="font-label-lg text-label-lg font-bold">카메라 고정</span><span class="text-[11px] opacity-80">ON</span></span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">2</span><span class="flex flex-col"><span class="font-label-lg text-label-lg font-bold">품질 검사</span><span class="text-[11px] opacity-80">ON · 불량이면 보류</span></span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">3</span><span class="flex flex-col"><span class="font-label-lg text-label-lg font-bold">위치 확보</span><span class="text-[11px] opacity-80">ON · 축소 640</span></span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">4</span><span class="flex flex-col"><span class="font-label-lg text-label-lg font-bold">얼굴 크롭</span><span class="text-[11px] opacity-80">ON · 원본 해상도</span></span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">5</span><span class="flex flex-col"><span class="font-label-lg text-label-lg font-bold">보정·정규화</span><span class="text-[11px] opacity-80">보정 OFF · 정규화 ON</span></span></button>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+              <div><span class="rpt-dt">무엇을</span><p class="rpt-p">전원 주파수(60Hz)에 맞춰 노출 시간을 정하고, 자동 노출·화이트밸런스는 완만하게 하거나 캘리브레이션 뒤에 잠급니다.</p></div>
+              <div><span class="rpt-dt">시작값</span><p class="rpt-p">노출 시간 = 1/120s의 정수배. UVC 컨트롤을 지원할 때만 적용합니다.</p></div>
+              <div><span class="rpt-dt">이유</span><p class="rpt-p">깜빡임과 밝기 출렁임은 프레임마다 모델 입력 분포를 흔듭니다. 입력을 안정시키는 것이 가장 싸고 효과적입니다. 컨트롤 지원 여부는 카메라마다 확인합니다.</p></div>
+            </div>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md items-start">
+              <div class="lg:col-span-2 flex flex-col gap-space-sm">
+                <div><span class="rpt-dt">무엇을</span><p class="rpt-p">평균 밝기와 선명도(Laplacian 분산)를 재서 불량 프레임은 보정하지 않고 버립니다. 상위 단계에는 "판정 보류"로 알립니다.</p></div>
+                <div><span class="rpt-dt">시작값</span><p class="rpt-p">평균 휘도 40 미만 또는 220 초과(8bit), 선명도가 기준값의 30% 미만.</p></div>
+                <div><span class="rpt-dt">이유</span><p class="rpt-p">어두운 화면을 억지로 보정하면 입력이 바뀌어 잘못된 결과가 나옵니다.</p></div>
+              </div>
+              <figure class="lg:col-span-3 m-0 flex flex-col gap-1.5">
+                <img src="./images/examples/pre_quality_gate.jpg" alt="품질 검사 예시: 정상(밝기 129, 선명도 49), 어두움(밝기 32), 흐림(선명도 8)" loading="lazy" class="rpt-img"/>
+                <figcaption class="rpt-cap">예시: 정상 프레임은 PASS, 너무 어둡거나(밝기 32) 흐린(선명도 8) 프레임은 HOLD(보류).</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md items-start">
+              <div class="lg:col-span-2 flex flex-col gap-space-sm">
+                <div><span class="rpt-dt">무엇을</span><p class="rpt-p">축소한 프레임(640)에서 얼굴·상체 위치를 찾고 다음 프레임에도 이어 씁니다. 여러 얼굴이 잡히면 착석 영역 안에서 가장 큰 얼굴을 대상으로 고릅니다.</p></div>
+                <div><span class="rpt-dt">시작값</span><p class="rpt-p">재검출은 1~2초마다, 또는 추적이 실패할 때만.</p></div>
+                <div><span class="rpt-dt">이유</span><p class="rpt-p">위치만 알면 되므로 작은 이미지로 충분합니다. 매 프레임 검출은 연산 부담이 큽니다.</p></div>
+              </div>
+              <figure class="lg:col-span-3 m-0 flex flex-col gap-1.5">
+                <img src="./images/examples/post_user_select.jpg" alt="착석 영역 안에서 가장 큰 얼굴만 사용자로 선택하고 뒤쪽 얼굴은 무시한 예시" loading="lazy" class="rpt-img max-w-md mx-auto"/>
+                <figcaption class="rpt-cap">예시: 착석 영역(파란 사다리꼴) 안에서 가장 큰 얼굴(23.0k px)만 사용자로 삼고, 뒤쪽 얼굴(14.1k px)은 무시합니다.</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md items-start">
+              <div class="lg:col-span-2 flex flex-col gap-space-sm">
+                <div><span class="rpt-dt">무엇을</span><p class="rpt-p"><b class="text-on-surface">원본 해상도</b>에서 얼굴 영역을 잘라 모델 입력 크기로 리사이즈합니다. 롤 정렬(양 눈 수평, ±30° 이내)은 선택이며 기본 OFF입니다.</p></div>
+                <div><span class="rpt-dt">시작값</span><p class="rpt-p">입력 192~256px, 얼굴 박스의 1.3~1.5배 여유.</p></div>
+                <div><span class="rpt-dt">이유</span><p class="rpt-p">축소본에서 자르면 입술 간격이 1~2px로 뭉개져 입벌림 판단에 필요한 정밀도가 사라집니다.</p></div>
+              </div>
+              <figure class="lg:col-span-3 m-0 flex flex-col gap-1.5">
+                <img src="./images/examples/pre_face_crop.jpg" alt="원본에서 자른 얼굴과 160×160 축소본에서 자른 얼굴의 입술 간격 비교" loading="lazy" class="rpt-img"/>
+                <figcaption class="rpt-cap">예시: 원본에서 자르면 입 폭 36px·입술 간격 23px, 160×160에서 자르면 9px·5.7px로 줄어듭니다.</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md items-start">
+              <div class="lg:col-span-2 flex flex-col gap-space-sm">
+                <div class="rounded-xl bg-surface-container-low p-space-sm"><span class="rpt-dt">(a) 얼굴 밝기 보정 · 기본 OFF</span><p class="rpt-p">얼굴 영역에만 CLAHE(휘도 채널, clipLimit 1.5~3.0, 4×4) 또는 감마(평균 90 미만 γ 0.6~0.85, 180 초과 γ 1.1~1.3). 같은 녹화에서 효과가 확인될 때만 켭니다. 도입하면 학습 증강과 INT8 보정 데이터에도 같은 처리를 넣어야 합니다.</p></div>
+                <div class="rounded-xl bg-primary-fixed/50 p-space-sm"><span class="rpt-dt">(b) 입력 정규화 · 필수 ON</span><p class="rpt-p">입력 크기, 채널 순서, mean/std, 리사이즈 방식을 학습·INT8 보정 설정과 <b class="text-on-surface">완전히 동일</b>하게 맞춥니다. 조금만 달라도 양자화 모델 정확도가 급락합니다.</p></div>
+              </div>
+              <figure class="lg:col-span-3 m-0 flex flex-col gap-1.5">
+                <img src="./images/examples/pre_roi_enhance.jpg" alt="원본, 전체 프레임 CLAHE, 얼굴 영역만 CLAHE 비교" loading="lazy" class="rpt-img"/>
+                <figcaption class="rpt-cap">예시: 전체 프레임 CLAHE는 배경 잡음까지 키웁니다(얼굴 밝기 84→103). 얼굴 영역에만 쓰면 잡음 없이 84→105.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md">
+          <figure class="rpt-fig lg:col-span-3 m-0">
+            <figcaption class="rpt-h3">얼굴 폭(px)이 모델 입력(192px)을 채우는 거리</figcaption>
+            <svg viewBox="0 0 440 250" role="img" aria-label="거리별 얼굴 영역 폭 막대 그래프. 720p는 50cm 366, 65cm 281, 80cm 228, 100cm 183. 1080p는 548, 422, 343, 274. 192px 기준선보다 낮은 것은 720p 100cm뿐" class="w-full h-auto">
+              <rect x="10" y="4" width="10" height="10" rx="2" class="fill-primary-container"/><text x="24" y="13" font-size="11" class="fill-on-surface-variant">720p</text>
+              <rect x="64" y="4" width="10" height="10" rx="2" class="fill-secondary-container"/><text x="78" y="13" font-size="11" class="fill-on-surface-variant">1080p</text>
+              <line x1="130" y1="9" x2="152" y2="9" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-on-surface-variant"/><text x="157" y="13" font-size="11" class="fill-on-surface-variant">모델 입력 192px</text>
+              <line x1="40" y1="215" x2="430" y2="215" stroke-width="1" class="stroke-outline"/>
+              <line x1="40" y1="151" x2="430" y2="151" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-on-surface-variant"/>
+              <g font-size="11" text-anchor="middle">
+                <rect x="55" y="93" width="38" height="122" rx="3" class="fill-primary-container"/><text x="74" y="88" class="fill-on-surface">366</text>
+                <rect x="97" y="32" width="38" height="183" rx="3" class="fill-secondary-container"/><text x="116" y="27" class="fill-on-surface">548</text>
+                <rect x="155" y="121" width="38" height="94" rx="3" class="fill-primary-container"/><text x="174" y="116" class="fill-on-surface">281</text>
+                <rect x="197" y="74" width="38" height="141" rx="3" class="fill-secondary-container"/><text x="216" y="69" class="fill-on-surface">422</text>
+                <rect x="255" y="139" width="38" height="76" rx="3" class="fill-primary-container"/><text x="274" y="134" class="fill-on-surface">228</text>
+                <rect x="297" y="101" width="38" height="114" rx="3" class="fill-secondary-container"/><text x="316" y="96" class="fill-on-surface">343</text>
+                <rect x="355" y="154" width="38" height="61" rx="3" class="fill-tertiary"/><text x="374" y="149" class="fill-tertiary" font-weight="700">183 부족</text>
+                <rect x="397" y="124" width="38" height="91" rx="3" class="fill-secondary-container"/><text x="416" y="119" class="fill-on-surface">274</text>
+                <text x="95" y="233" class="fill-on-surface-variant">50cm</text><text x="195" y="233" class="fill-on-surface-variant">65cm</text><text x="295" y="233" class="fill-on-surface-variant">80cm</text><text x="395" y="233" class="fill-on-surface-variant">100cm</text>
+              </g>
+            </svg>
+            <p class="rpt-cap">얼굴 영역 실제 폭 200mm, 수평 화각 70° 가정. 720p는 80cm까지 충분하고, 더 멀거나 화각이 80°를 넘으면 1080p가 필요합니다.</p>
+          </figure>
+          <div class="rpt-fig lg:col-span-2">
+            <h3 class="rpt-h3">입력 조건 가정</h3>
+            <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0">
+              <li class="rpt-chip">1280×720 · 30fps</li><li class="rpt-chip">수평 화각 70~78°</li><li class="rpt-chip">모니터 상단 중앙</li><li class="rpt-chip">눈높이 이상</li><li class="rpt-chip">사용 거리 50~80cm</li><li class="rpt-chip">정면 ±30°</li><li class="rpt-chip">단일 사용자</li><li class="rpt-chip">60Hz 조명</li>
+            </ul>
+            <p class="rpt-cap"><b class="text-on-surface">비지원</b>: 마스크 · 모자 · 역광 창문. 가정이 현장과 다르면 해당 단계를 다시 설계합니다(현장 조사 응답 대기 중).</p>
+            <p class="rpt-cap">보드(RK3566급)에서 추론과 같은 연산 예산을 나눠 쓰므로 전체 프레임 픽셀 연산은 최소화합니다.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm items-start">
+          <details class="rpt-det">
+            <summary><span>시제품에서 쓰지 않는 처리 5가지</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+              <thead><tr><th>처리</th><th>상태</th><th>이유</th></tr></thead>
+              <tbody>
+                <tr><td>전체 프레임 CLAHE</td><td>금지</td><td>역광·모니터 빛이 통계를 지배. 쓴다면 얼굴 영역에만</td></tr>
+                <tr><td>노이즈 제거 (Gaussian 3×3)</td><td>OFF</td><td>카메라 내장 처리로 충분. 시간 방향 잡음은 후처리에서</td></tr>
+                <tr><td>화이트밸런스 보정</td><td>OFF</td><td>랜드마크 모델은 주로 밝기에 의존한다고 가정</td></tr>
+                <tr><td>렌즈 왜곡 전체 프레임 보정</td><td>OFF</td><td>광각이면 이미지 대신 필요한 점의 좌표만 보정(후처리)</td></tr>
+                <tr><td>롤 정렬</td><td>OFF</td><td>랜드마크 모델이 롤에 강건하면 불필요. ablation 후 결정</td></tr>
+              </tbody>
+            </table></div>
+          </details>
+          <details class="rpt-det">
+            <summary><span>전처리 검증 5항목</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+              <thead><tr><th>확인 항목</th><th>방법</th><th>통과 기준</th></tr></thead>
+              <tbody>
+                <tr><td>입력 정규화 일치</td><td>학습·추론 파이프라인에 같은 이미지를 넣어 입력 텐서 비교</td><td>불일치 0</td></tr>
+                <tr><td>얼굴 폭 충분성</td><td>실제 녹화에서 얼굴 영역 폭 측정</td><td>사용 거리 전체에서 입력 크기 이상</td></tr>
+                <tr><td>품질 검사 보류 비율</td><td>실제 녹화에서 버린 프레임 비율 측정</td><td>보류가 잦아 쓰기 어렵지 않을 것(실측 후 수치 결정)</td></tr>
+                <tr><td>보정 on/off 효과</td><td>같은 녹화를 on/off로 처리해 모델 출력(점 지터, 입술 간격 편향) 비교</td><td>개선이 확인된 항목만 켬</td></tr>
+                <tr><td>보드 처리 시간</td><td>1~5단계 처리 시간을 보드에서 실측</td><td>프레임 주기(약 33ms) 안</td></tr>
+              </tbody>
+            </table></div>
+          </details>
+        </div>
+        <a href="#post" class="self-end inline-flex items-center gap-1 px-space-lg py-3 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors">다음: 2. 후처리 계획 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 2: POSTPROCESS -->
+      <section data-page id="post" class="flex flex-col gap-space-lg scroll-mt-40">
+        <header class="flex flex-col gap-space-xs">
+          <h2 class="font-headline-lg text-2xl lg:text-3xl text-on-surface font-extrabold">2. 후처리 계획</h2>
+          <p class="rpt-sum">모델이 낸 점·마스크를 <b>정확하고 거슬리지 않는 알림</b>으로 바꾸는 5단계(A~E). 순간적인 동작은 걸러내고, 기준 시간 이상 이어질 때만 경고합니다.</p>
+        </header>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm">
+          <div class="rpt-stat"><span class="rpt-num text-primary">30초</span><span class="rpt-lbl">거북목 판정</span><span class="rpt-sub">시작값, 30초~3분 조정</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-secondary">8초</span><span class="rpt-lbl">입벌림 판정</span><span class="rpt-sub">시작값</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-primary">≤100ms</span><span class="rpt-lbl">경고 지연</span><span class="rpt-sub">판정 확정부터 LCD 전환까지</span></div>
+          <div class="rpt-stat"><span class="rpt-num text-tertiary">≤3%</span><span class="rpt-lbl">오탐율</span><span class="rpt-sub">음료·대화·손 가림 포함 평가</span></div>
+        </div>
+
+        <figure class="rpt-fig m-0">
+          <figcaption class="rpt-h3">한 장으로 보는 입벌림 판정</figcaption>
+          <svg viewBox="0 0 730 255" role="img" aria-label="입 벌림 비율의 시간 변화. 말하기와 하품은 짧아서 제외되고, 발동 기준을 넘은 상태가 8초 이어지면 경고가 뜨며, 기준 근처의 출렁임은 해제 기준 덕분에 유지된다" class="w-full h-auto">
+            <rect x="48" y="24" width="112" height="176" rx="6" class="fill-surface-container-high" fill-opacity="0.7"/>
+            <text x="104" y="40" font-size="11" text-anchor="middle" class="fill-on-surface-variant">말하기: 짧은 반복</text>
+            <rect x="166" y="24" width="72" height="176" rx="6" class="fill-surface-container-high" fill-opacity="0.7"/>
+            <text x="202" y="40" font-size="11" text-anchor="middle" class="fill-on-surface-variant">하품: 곧 닫힘</text>
+            <line x1="40" y1="200" x2="650" y2="200" stroke-width="1" class="stroke-outline"/>
+            <line x1="40" y1="75" x2="650" y2="75" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-secondary"/>
+            <text x="656" y="79" font-size="11" font-weight="700" class="fill-secondary">발동 기준</text>
+            <line x1="40" y1="105" x2="650" y2="105" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-tertiary"/>
+            <text x="656" y="109" font-size="11" font-weight="700" class="fill-tertiary">해제 기준</text>
+            <polyline fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-primary" points="40,185 50,185 58,80 66,185 76,66 84,180 94,84 102,185 112,70 120,182 130,88 138,185 150,185 160,185 175,185"/>
+            <path fill="none" stroke-width="2.5" stroke-linecap="round" class="stroke-primary" d="M175,185 C185,185 188,45 202,45 C216,45 218,185 232,185"/>
+            <polyline fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-primary" points="232,185 254,185 264,68 285,62 310,72 335,64 360,76 385,70 402,94 418,86 432,70 455,64 480,68 520,62 560,70 588,72 598,110 608,170 618,185 640,185"/>
+            <circle cx="402" cy="94" r="5" fill="none" stroke-width="2" class="stroke-tertiary"/>
+            <text x="402" y="145" font-size="11" text-anchor="middle" class="fill-on-surface-variant">기준 근처 출렁임</text>
+            <text x="402" y="159" font-size="11" text-anchor="middle" class="fill-on-surface-variant">→ 해제 기준 위면 유지</text>
+            <line x1="263" y1="205" x2="263" y2="233" stroke-width="1.5" class="stroke-on-surface-variant"/>
+            <line x1="487" y1="205" x2="487" y2="233" stroke-width="1.5" class="stroke-on-surface-variant"/>
+            <line x1="263" y1="219" x2="487" y2="219" stroke-width="1.5" class="stroke-on-surface-variant"/>
+            <text x="375" y="247" font-size="12" text-anchor="middle" font-weight="700" class="fill-on-surface">기준 시간 8초 지속 (시작값)</text>
+            <line x1="487" y1="24" x2="487" y2="200" stroke-width="2" stroke-dasharray="4 3" class="stroke-secondary"/>
+            <rect x="445" y="4" width="84" height="19" rx="9.5" class="fill-secondary"/>
+            <text x="487" y="17.5" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">경고 → LCD</text>
+            <text x="606" y="218" font-size="11" text-anchor="middle" class="fill-on-surface-variant">복귀 → 해제</text>
+            <text x="44" y="218" font-size="11" class="fill-on-surface-variant">시간 →</text>
+          </svg>
+          <p class="rpt-cap">세로축은 입 벌림 비율(MAR), 그림은 개념도입니다. 말하기·하품처럼 짧은 개폐는 기준을 넘어도 시간·주기 규칙으로 제외하고, 발동 기준을 넘어 8초 이어질 때만 경고합니다. 발동은 엄격하게, 해제는 완만하게 두 임계값을 쓰므로 기준 근처에서 판정이 깜빡이지 않습니다.</p>
+        </figure>
+
+        <div data-steps class="flex flex-col gap-space-sm">
+          <div role="tablist" aria-label="후처리 단계" class="grid grid-cols-2 md:grid-cols-5 gap-2">
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">A</span><span class="font-label-lg text-label-lg font-bold">사용자 유지</span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">B</span><span class="font-label-lg text-label-lg font-bold">좌표 정리</span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">C</span><span class="font-label-lg text-label-lg font-bold">수치·기준 비교</span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">D</span><span class="font-label-lg text-label-lg font-bold">판정</span></button>
+            <button type="button" role="tab" data-step-btn class="rpt-step"><span class="rpt-n">E</span><span class="font-label-lg text-label-lg font-bold">알림 조절</span></button>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <p class="rpt-p">전처리 3단계에서 고른 사용자를 프레임 간 이어서 추적합니다. 뒤를 지나가는 사람이나 배경 얼굴은 무시하고, 수 초 이상 사용자를 못 찾으면 판정 타이머를 리셋합니다(시간은 실측으로 정함).</p>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel flex flex-col gap-space-sm">
+            <p class="rpt-p">순서가 고정입니다. 앞 단계의 결과가 뒤 단계를 오염시키지 않도록 이 순서로 놓았습니다.</p>
+            <ol class="grid grid-cols-1 md:grid-cols-5 gap-2 list-none p-0 m-0">
+              <li class="rpt-mini"><b>B1 불확실한 점 제외</b><span>신뢰도 낮은 점·마스크는 틀린 값일 가능성이 높아 먼저 뺍니다</span></li>
+              <li class="rpt-mini"><b>B2 왜곡 좌표 보정</b><span>광각 렌즈일 때만. 가장자리 어깨 좌표가 휘면 비율이 틀어집니다</span></li>
+              <li class="rpt-mini"><b>B3 튀는 값 제거</b><span>속도 제한 · Hampel · 얼굴 점 간 거리 일관성. 스무딩보다 먼저</span></li>
+              <li class="rpt-mini"><b>B4 빠진 값 처리</b><span>0.2초는 마지막 값 유지, 길면 보류, 더 길면 리셋</span></li>
+              <li class="rpt-mini"><b>B5 떨림 완화</b><span>One Euro 필터. 정지 시 떨림만 줄이고 움직일 때 지연은 최소</span></li>
+            </ol>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel flex flex-col gap-space-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+              <div class="rounded-xl bg-surface-container-low p-space-sm"><span class="rpt-dt">거북목 신호</span><p class="rpt-p">얼굴·상체 마스크의 겹침 비율, 얼굴/상체 너비 비율, 두 영역의 세로 간격, 얼굴 크기 변화, 머리 pitch. 크기 변화가 곧 신호이므로 크기로 정규화하지 않습니다. 각 신호를 개인 기준 대비 z-score로 바꿔 결합합니다.</p></div>
+              <div class="rounded-xl bg-surface-container-low p-space-sm"><span class="rpt-dt">입벌림 신호 (MAR)</span><p class="rpt-p">입술 내측 상하 간격 / 입 너비. 입 너비로 나눠 거리에 따른 크기 변화를 제거합니다(거북목과 정규화가 정반대인 지점). 고개 숙임 보정은 ablation으로 효과를 확인한 뒤 적용합니다.</p></div>
+            </div>
+            <p class="rpt-p"><b class="text-on-surface">개인 기준</b>: 약 10초 중립 자세 캘리브레이션에서 스무딩을 거친 값으로 만듭니다. 정면 카메라로는 절대 각도를 잴 수 없고 카메라 높이·거리에 따라 값이 달라지므로, 사람마다 자기 기준과 비교합니다.</p>
+            <figure class="m-0 flex flex-col gap-1.5">
+              <img src="./images/examples/post_mar_examples.jpg" alt="입 벌림 비율 0.02, 0.16, 0.28, 0.62 예시" loading="lazy" class="rpt-img max-w-3xl"/>
+              <figcaption class="rpt-cap">입 벌림 비율(MAR) 예시: 0.02(닫힘) → 0.16 → 0.28 → 0.62(크게 벌림).</figcaption>
+            </figure>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel">
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 list-none p-0 m-0">
+              <li class="rpt-mini"><b>히스테리시스</b><span>발동 기준은 엄격하게, 해제 기준은 완만하게. 깜빡임 방지</span></li>
+              <li class="rpt-mini"><b>지속 시간</b><span>거북목 30초, 입벌림 8초(시작값) 이상 이어질 때만 확정</span></li>
+              <li class="rpt-mini"><b>입벌림 오탐 억제</b><span>MAR 시계열의 주기·지속 시간으로 말하기·하품·음료를 제외</span></li>
+              <li class="rpt-mini"><b>판정 보류</b><span>손·컵 가림, 정면 ±30° 이탈, 품질 불량 구간. 보류 중에는 타이머 정지</span></li>
+            </ul>
+          </div>
+
+          <div data-step-panel role="tabpanel" class="rpt-panel flex flex-col gap-space-sm">
+            <ol class="flex flex-wrap items-center gap-x-2 gap-y-2 list-none p-0 m-0 font-label-lg text-label-lg">
+              <li class="px-3 py-1.5 rounded-full bg-primary-fixed text-primary">정상 · 응원</li><li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="px-3 py-1.5 rounded-full bg-secondary-fixed text-secondary">경고 표시</li><li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface">쿨다운</li><li aria-hidden="true" class="material-symbols-outlined text-outline">arrow_forward</li>
+              <li class="px-3 py-1.5 rounded-full bg-primary-fixed text-primary">정상 · 응원</li>
+            </ol>
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-2 list-none p-0 m-0">
+              <li class="rpt-mini"><b>쿨다운 · 스누즈 · 일일 상한</b><span>수치는 사용자 테스트로 결정. 자세를 고치면 경고를 즉시 해제</span></li>
+              <li class="rpt-mini"><b>기준 자세 고정</b><span>자동 갱신하지 않음(나쁜 자세를 정상으로 학습하는 것을 방지). 입 다문 MAR 분포와 발화 패턴만 통계 갱신</span></li>
+              <li class="rpt-mini"><b>재캘리브레이션 제안</b><span>조명 변화·카메라 이동이 감지될 때만 제안</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <details class="rpt-det">
+          <summary><span>후처리 검증 5항목</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+            <thead><tr><th>확인 항목</th><th>방법</th><th>목표</th></tr></thead>
+            <tbody>
+              <tr><td>단계별 효과 (ablation)</td><td>같은 연속 작업 녹화를 B1~B5, 히스테리시스, 오탐 억제를 하나씩 끄고 다시 처리</td><td>각 단계가 오탐을 줄이는지 확인하고, 효과 없는 단계는 제거</td></tr>
+              <tr><td>이벤트 정확도</td><td>음료·대화·손 가림이 포함된 녹화에서 알림 1회 = 1건으로 Precision/Recall</td><td>거북목 ≥95%, 입벌림 ≥93%</td></tr>
+              <tr><td>오탐율</td><td>알림 중 오알림 비율과 시간당 오알림 수</td><td>≤3%</td></tr>
+              <tr><td>알림 지연</td><td>판정 확정 시점부터 LCD 전환까지 보드에서 실측</td><td>≤100ms</td></tr>
+              <tr><td>보류 비율</td><td>보류 구간 길이와 그 구간의 오탐 감소를 함께 측정</td><td>보류가 잦아 제품을 쓸 수 없게 되지 않을 것</td></tr>
+            </tbody>
+          </table></div>
+        </details>
+        <a href="#yolo" class="self-end inline-flex items-center gap-1 px-space-lg py-3 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors">다음: 3. YOLO 적용 계획 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 3: YOLO PLAN -->
+      <section data-page id="yolo" class="flex flex-col gap-space-lg scroll-mt-40">
+        <header class="flex flex-col gap-space-xs">
+          <h2 class="font-headline-lg text-2xl lg:text-3xl text-on-surface font-extrabold">3. YOLO 적용 계획</h2>
+          <p class="rpt-sum">거북목 판정에 쓸 <b>얼굴·상체 영역 분할</b>을 YOLO-seg로 직접 파인튜닝합니다. 아직 학습 전이라 수치는 목표 또는 시작값입니다.</p>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+          <div class="rpt-stat"><span class="rpt-dt">크기는?</span><span class="rpt-num text-primary">nano · 640</span><span class="rpt-sub">n으로 시작, 정체될 때만 s. 안 오르면 문제는 데이터</span></div>
+          <div class="rpt-stat"><span class="rpt-dt">학습 모델은?</span><span class="rpt-num text-primary">YOLO26n-seg</span><span class="rpt-sub">COCO 사전학습, face·upper_body 2클래스. 변환이 안 되면 YOLO11n-seg</span></div>
+          <div class="rpt-stat"><span class="rpt-dt">학습 방식은?</span><span class="rpt-num text-primary">전이학습 + freeze</span><span class="rpt-sub">freeze=10, AdamW lr 0.001, Colab에서 E0~E5 비교</span></div>
+          <div class="rpt-stat"><span class="rpt-dt">검증은?</span><span class="rpt-num text-primary">V1 → V5</span><span class="rpt-sub">영역·CVA 상관 → INT8 변환 → 보드 지연 → 이벤트 정확도</span></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md">
+          <figure class="rpt-fig lg:col-span-3 m-0">
+            <figcaption class="rpt-h3">거북목 신호: 얼굴과 상체 영역의 겹침</figcaption>
+            <svg viewBox="0 0 520 230" role="img" aria-label="바른 자세에서는 얼굴 영역과 상체 영역 사이에 간격이 있고, 거북목에서는 얼굴이 커지고 내려와 상체 영역과 겹친다" class="w-full h-auto">
+              <defs><clipPath id="ub2"><path d="M295,225 C300,170 340,145 390,145 C440,145 480,170 485,225 Z"/></clipPath></defs>
+              <text x="130" y="16" font-size="13" font-weight="700" text-anchor="middle" class="fill-on-surface">바른 자세</text>
+              <text x="130" y="31" font-size="11" text-anchor="middle" class="fill-on-surface-variant">겹침 0 · 간격 큼</text>
+              <path d="M35,225 C40,170 80,145 130,145 C180,145 220,170 225,225 Z" fill-opacity="0.3" stroke-width="2" class="fill-secondary stroke-secondary"/>
+              <ellipse cx="130" cy="88" rx="30" ry="38" fill-opacity="0.3" stroke-width="2" class="fill-primary stroke-primary"/>
+              <line x1="172" y1="126" x2="172" y2="145" stroke-width="1.5" class="stroke-on-surface-variant"/><line x1="167" y1="126" x2="177" y2="126" stroke-width="1.5" class="stroke-on-surface-variant"/><line x1="167" y1="145" x2="177" y2="145" stroke-width="1.5" class="stroke-on-surface-variant"/>
+              <text x="182" y="139" font-size="11" class="fill-on-surface-variant">간격</text>
+              <text x="390" y="16" font-size="13" font-weight="700" text-anchor="middle" class="fill-on-surface">거북목</text>
+              <text x="390" y="31" font-size="11" text-anchor="middle" class="fill-on-surface-variant">겹침 ↑ · 너비 비율 ↑ · 간격 ↓</text>
+              <path d="M295,225 C300,170 340,145 390,145 C440,145 480,170 485,225 Z" fill-opacity="0.3" stroke-width="2" class="fill-secondary stroke-secondary"/>
+              <ellipse cx="390" cy="118" rx="38" ry="50" fill-opacity="0.3" stroke-width="2" class="fill-primary stroke-primary"/>
+              <ellipse cx="390" cy="118" rx="38" ry="50" clip-path="url(#ub2)" fill-opacity="0.75" class="fill-tertiary"/>
+              <line x1="260" y1="40" x2="260" y2="220" stroke-width="1" stroke-dasharray="3 4" class="stroke-outline"/>
+            </svg>
+            <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0">
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span> face</li>
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full bg-secondary"></span> upper_body (머리 제외 어깨~가슴)</li>
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full bg-tertiary"></span> 겹침</li>
+            </ul>
+            <p class="rpt-cap">개념도입니다. 이 가설이 측면 CVA와 같은 방향으로 움직이는지 V1b에서 먼저 확인합니다. 겹침 비율은 턱 부근 경계 몇 px에 좌우되어 박스가 아닌 <b>마스크(seg)</b>가 필요하고, 얼굴과 상체를 한 번에 내므로 별도 사람 검출도 필요 없습니다. YOLO-pose는 범용 다인 모델이라 단일 사용자 제품에는 연산이 과해 제외했습니다.</p>
+          </figure>
+          <figure class="rpt-fig lg:col-span-2 m-0">
+            <figcaption class="rpt-h3">정면 영상에서 보이는 변화</figcaption>
+            <img src="./images/examples/pre_turtle_feature.jpg" alt="바른 자세와 앞으로 기댄 자세의 얼굴/어깨 폭 비율 비교" loading="lazy" class="rpt-img"/>
+            <p class="rpt-cap">예시: 앞으로 기대면 얼굴/어깨 폭 비율이 0.48에서 0.59로 커집니다. 이 변화를 개인 기준 대비로 봅니다.</p>
+          </figure>
+        </div>
+
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="rpt-h3">크기 결정 근거: 640 입력에서 보이는 크기 (화각 70°, 720p 가정)</h3>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm">
+            <div class="rpt-stat"><span class="rpt-num text-primary">115px</span><span class="rpt-lbl">얼굴 폭 @60cm</span><span class="rpt-sub">80cm에서도 약 85px</span></div>
+            <div class="rpt-stat"><span class="rpt-num text-primary">230px</span><span class="rpt-lbl">어깨 폭 @80cm</span><span class="rpt-sub">대상이 커서 놓칠 걱정 없음</span></div>
+            <div class="rpt-stat"><span class="rpt-num text-secondary">0.5cm</span><span class="rpt-lbl">마스크 한 칸 @640</span><span class="rpt-sub">320으로 줄이면 약 1cm, 턱 경계가 거칠어짐</span></div>
+            <div class="rpt-stat"><span class="rpt-num text-tertiary">3~5fps</span><span class="rpt-lbl">보드 목표 (≤100ms)</span><span class="rpt-sub">RK3566급, NPU를 랜드마크(10~15fps)와 나눠 씀</span></div>
+          </div>
+          <p class="rpt-cap">클래스가 2개이고 대상이 크게 찍혀 nano 용량으로 충분할 가능성이 큽니다. 입력 크기는 E5에서 보드 지연과 함께 판단합니다.</p>
+        </div>
+
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="rpt-h3">실험 E0~E5: 같은 데이터·시드에서 한 번에 하나만 바꿔 순위로 비교</h3>
+          <ol class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 list-none p-0 m-0">
+            <li class="rpt-mini"><b>E0 점검</b><span>학습 전 val 1회, 소량으로 설정·자동 배치값 확인</span></li>
+            <li class="rpt-mini ring-2 ring-primary-container"><b>E1 기준 <span class="text-primary text-[11px]">기준선</span></b><span>nano-seg, freeze=10, 위 설정</span></li>
+            <li class="rpt-mini"><b>E2 프리징</b><span>freeze=10 vs None</span></li>
+            <li class="rpt-mini"><b>E3 크기</b><span>n vs s (E1이 정체될 때만)</span></li>
+            <li class="rpt-mini"><b>E4 증강</b><span>mosaic 0.5 vs 0</span></li>
+            <li class="rpt-mini"><b>E5 해상도</b><span>imgsz 640 vs 더 작게, V3 지연과 함께</span></li>
+          </ol>
+          <p class="rpt-cap">비교 지표는 val <b>마스크</b> mAP50-95와 upper_body AP입니다. 경계 몇 px 차이는 mAP50으로는 보이지 않습니다.</p>
+        </div>
+
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="rpt-h3">검증 V1~V5: 앞 단계를 통과해야 다음으로</h3>
+          <ol class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 list-none p-0 m-0">
+            <li class="rpt-mini"><b>V1 영역 · 신호</b><span>V1a 마스크 mAP, 클래스별 AP. V1b 정면 신호와 측면 CVA의 사람별 순위 상관 → 같은 방향이어야 함(실패 시 신호 재정의)</span></li>
+            <li class="rpt-mini"><b>V2 변환 손실</b><span>ONNX → RKNN INT8. FP32 대비 mAP·IoU 하락이 V1a 허용 범위 안</span></li>
+            <li class="rpt-mini"><b>V3 보드 성능</b><span>해상도별 지연·연산량 실측(카탈로그 TOPS 아님) → ≤100ms, 3~5fps</span></li>
+            <li class="rpt-mini"><b>V4 제품 정확도</b><span>음료·대화·손 가림 포함 연속 영상에서 이벤트 단위 P/R → ≥95%, 오탐 ≤3%</span></li>
+            <li class="rpt-mini"><b>V5 판정 보류</b><span>가림·화질 불량에서 보류했는지, 보류가 너무 잦지 않은지</span></li>
+          </ol>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-sm items-start">
+          <details class="rpt-det">
+            <summary><span>데이터·라벨링 계획</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <dl class="rpt-dl">
+              <dt>출처</dt><dd>라이선스·라벨 형식을 확인한 웹캠 정면 상반신 공개 데이터 + 부족한 조건 직접 촬영. 평가는 제품 조건과 같은 직접 촬영 데이터로</dd>
+              <dt>촬영 조건</dt><dd>조명(밝음·형광등·어두운 실내) × 안경 유무 × 자세(바른·약한·강한 거북목·손/컵 가림) × 거리(50·65·80cm). 같은 조건 수천 장보다 다른 조건의 장면 우선</dd>
+              <dt>규모·분리</dt><dd>1차 약 600장, 약 10명. <b class="text-on-surface">사람 단위</b>로 학습 6 / 검증 2 / 테스트 2명. 테스트는 마지막 비교에만</dd>
+              <dt>라벨 기준</dt><dd>face: 이마~턱. upper_body: <b class="text-on-surface">머리를 제외한</b> 어깨선~가슴. 목 경계 규칙을 문서화하고 100장 시점에 같은 이미지를 다시 라벨링해 일관성 점검</dd>
+              <dt>도구</dt><dd>SAM 기반 반자동 폴리곤으로 약 100장 → 1차 학습 → 모델 초안을 사람이 보정 (4페이지 참고)</dd>
+              <dt>정답(CVA)</dt><dd>평가용 촬영은 측면 보조 카메라를 동기 촬영해 실제 목 각도를 잼</dd>
+            </dl>
+          </details>
+          <details class="rpt-det">
+            <summary><span>학습 설정과 이유</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <p class="rpt-cap px-space-md">학습 약 360장, 배치 16이면 에폭당 약 23회 반복. 아래 설정의 이유는 이 값을 근거로 합니다.</p>
+            <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+              <thead><tr><th>항목</th><th>결정</th><th>이유</th></tr></thead>
+              <tbody>
+                <tr><td>프리징</td><td><code>freeze=10</code>, E2에서 <code>None</code>과 비교</td><td>학습 인원이 약 6명이라 백본까지 풀면 그 사람들의 얼굴·옷·방을 외울 위험. 반대로 머리를 뺀 upper_body는 COCO person에 없는 목 경계를 새로 배워야 해서 E2로 확인</td></tr>
+                <tr><td>옵티마이저·학습률</td><td><code>AdamW</code>, <code>lr0=0.001</code> 고정, 웜업 3</td><td>auto는 반복 수 1만 회를 넘으면 SGD·0.01로 바뀌어 데이터 보강 후 실험 간 비교가 깨짐</td></tr>
+                <tr><td>배치</td><td>E0에서 <code>batch=-1</code> 자동값 확인 후 고정</td><td>Colab은 세션마다 GPU가 달라 자동 배치가 실험마다 바뀔 수 있음</td></tr>
+                <tr><td>에폭·조기 종료</td><td><code>epochs=300</code>, <code>patience=30</code></td><td>300에폭이어도 약 6,900회로 짧음. val이 약 2명이라 점수가 출렁여 10~20이면 일찍 멈춤</td></tr>
+                <tr><td>증강</td><td><code>mosaic</code> 0.5 vs 0(E4), <code>multi_scale</code> 끔, 나머지 기본</td><td>제품 화면은 한 사람이 가운데 크게 찍힘. 모자이크는 작은 사람 4명을 만들고 목 경계를 자름. 거리 차(얼굴 약 1.6배)는 기본 <code>scale</code>이 덮음</td></tr>
+                <tr><td>재현성·캐시</td><td><code>seed=0</code>, <code>deterministic=True</code>, <code>cache='ram'</code>, AMP 기본</td><td>val이 작아 시드 운과 실험 차이가 비슷할 수 있음. 배포가 INT8이라 FP32를 고집할 이유 없음</td></tr>
+                <tr><td>학습 환경</td><td>Colab (라벨링 보조용 1차 모델만 Roboflow)</td><td>freeze·lr·mosaic 같은 세부 설정 비교가 필요하고 로컬 GPU가 없음</td></tr>
+              </tbody>
+            </table></div>
+          </details>
+          <details class="rpt-det">
+            <summary><span>결과가 나쁠 때의 진단표</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+              <thead><tr><th>증상</th><th>의미</th><th>대응</th></tr></thead>
+              <tbody>
+                <tr><td>아무것도 안 잡힘</td><td>경로·라벨 문제</td><td><code>data.yaml</code> 경로, 클래스 번호, 신뢰도 임계값 순으로 확인</td></tr>
+                <tr><td>upper_body AP만 낮음</td><td>목 경계 라벨 불일치</td><td>목 경계 규칙 재정의 후 재라벨링</td></tr>
+                <tr><td>mAP50 높음 · mAP50-95 낮음</td><td>위치는 맞지만 윤곽이 대충임</td><td>라벨 윤곽 정밀화, 더 오래 학습</td></tr>
+                <tr><td>어두운 조명·안경에서만 Recall 낮음</td><td>그 조건 데이터 부족</td><td>해당 조건 촬영 추가</td></tr>
+                <tr><td>음료·손 가림에서 오탐</td><td>헛경고</td><td>후처리 기준 시간·임계값 강화, 해당 장면 데이터 추가</td></tr>
+                <tr><td>mAP 높음 · CVA 상관 낮음</td><td>모델은 맞지만 신호가 거북목을 반영하지 못함</td><td>겹침 대신 너비 비율 등으로 신호 재정의</td></tr>
+                <tr><td>전반적으로 낮음</td><td>학습 부족 또는 라벨 품질</td><td>에폭 증가, 데이터 양과 라벨 품질 점검</td></tr>
+              </tbody>
+            </table></div>
+          </details>
+          <details class="rpt-det">
+            <summary><span>미결 사항 4가지</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+            <ul class="rpt-dl !grid-cols-1 list-disc pl-8">
+              <li>YOLO-seg의 RKNN 변환 가능 여부와 보드 실측 연산량(마스크 출력부로 연산 증가)</li>
+              <li>모니터에 다가앉기와 거북목의 구분(둘 다 얼굴이 커짐). 기준 비교와 지속 시간으로 줄이는 방안 검증</li>
+              <li>공개 데이터셋 라이선스, 라벨링 도구의 무료 한도</li>
+              <li>YOLO 상업적 사용 시 라이선스 구매 필요</li>
+            </ul>
+          </details>
+        </div>
+        <a href="#models" class="self-end inline-flex items-center gap-1 px-space-lg py-3 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors">다음: 4. 모델 비교 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 4: MODEL COMPARISON -->
+      <section data-page id="models" class="flex flex-col gap-space-lg scroll-mt-40">
+        <header class="flex flex-col gap-space-xs">
+          <h2 class="font-headline-lg text-2xl lg:text-3xl text-on-surface font-extrabold">4. 모델 비교</h2>
+          <p class="rpt-sum"><b>YOLOE · DINO-X · SAM 3 · SigLIP · OCR · MediaPipe</b> 가운데 <b>보드에 올리는 것은 MediaPipe뿐</b>(YOLO-seg와 함께 탑재)이고, 나머지는 큰 모델로 개발 데이터를 만들고 점검하는 도구이거나 쓰지 않습니다.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-space-md">
+          <figure class="rpt-fig lg:col-span-3 m-0">
+            <figcaption class="rpt-h3">어디서 돌고, 얼마나 유연한가</figcaption>
+            <svg viewBox="0 0 560 330" role="img" aria-label="실행 위치와 프롬프트 유연성에 따른 모델 배치도. YOLO-seg와 MediaPipe는 보드에서 실행 가능한 고정 모델 영역, OCR도 같은 영역이지만 미사용. YOLOE, SigLIP, SAM 3, DINO-X는 프롬프트로 대상을 지정하며 GPU 서버나 클라우드 쪽" class="w-full h-auto">
+              <rect x="72" y="168" width="195" height="112" rx="12" fill-opacity="0.5" stroke-width="1.5" stroke-dasharray="5 4" class="fill-primary-fixed stroke-primary"/>
+              <text x="82" y="186" font-size="11" font-weight="700" class="fill-primary">보드에서 실행 가능</text>
+              <line x1="70" y1="280" x2="545" y2="280" stroke-width="1" class="stroke-outline"/>
+              <line x1="70" y1="20" x2="70" y2="280" stroke-width="1" class="stroke-outline"/>
+              <text x="72" y="299" font-size="11" class="fill-on-surface-variant">보드·CPU에서 실행</text>
+              <text x="545" y="299" font-size="11" text-anchor="end" class="fill-on-surface-variant">GPU 서버·클라우드</text>
+              <text x="308" y="319" font-size="11" text-anchor="middle" class="fill-on-surface-variant">실행 위치 →</text>
+              <text transform="rotate(-90 22 150)" x="22" y="150" font-size="11" text-anchor="middle" class="fill-on-surface-variant">고정 클래스  →  프롬프트로 대상 지정</text>
+              <circle cx="110" cy="252" r="9" class="fill-primary"/><text x="124" y="256" font-size="12" font-weight="700" class="fill-on-surface">YOLO-seg</text>
+              <circle cx="118" cy="214" r="9" class="fill-primary"/><text x="132" y="218" font-size="12" font-weight="700" class="fill-on-surface">MediaPipe</text>
+              <circle cx="222" cy="252" r="9" stroke-width="2" stroke-dasharray="3 2" class="fill-surface stroke-outline"/><text x="236" y="256" font-size="12" class="fill-on-surface-variant">OCR</text>
+              <circle cx="262" cy="95" r="9" class="fill-secondary"/><text x="276" y="99" font-size="12" font-weight="700" class="fill-on-surface">YOLOE</text>
+              <circle cx="352" cy="72" r="9" class="fill-secondary"/><text x="366" y="76" font-size="12" font-weight="700" class="fill-on-surface">SigLIP</text>
+              <circle cx="430" cy="125" r="9" class="fill-secondary"/><text x="444" y="129" font-size="12" font-weight="700" class="fill-on-surface">SAM 3</text>
+              <circle cx="510" cy="55" r="9" class="fill-secondary"/><text x="496" y="59" font-size="12" font-weight="700" text-anchor="end" class="fill-on-surface">DINO-X</text>
+            </svg>
+            <ul class="flex flex-wrap gap-1.5 list-none p-0 m-0">
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span> 제품에 탑재</li>
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full bg-secondary"></span> 개발 단계 도구</li>
+              <li class="rpt-chip"><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-dashed border-outline"></span> 사용 안 함</li>
+            </ul>
+            <p class="rpt-cap">점 위치는 각 모델의 공개 설명을 바탕으로 한 정성적 배치이며 측정값이 아닙니다.</p>
+          </figure>
+          <div class="rpt-fig lg:col-span-2">
+            <h3 class="rpt-h3">큰 모델로 데이터를 만들고, 작은 모델을 탑재</h3>
+            <ol class="flex flex-col gap-2 list-none p-0 m-0">
+              <li class="rpt-flow"><span class="rpt-n">1</span><span><b>데이터 점검</b><br/><span class="rpt-sub">SigLIP으로 조명·안경·가림 분포와 비지원 장면 확인. YOLOE로 가림 장면 클립 수집</span></span></li>
+              <li class="rpt-flow"><span class="rpt-n">2</span><span><b>라벨 초안</b><br/><span class="rpt-sub">DINO-X 박스 + SAM 3 마스크, 사람이 목 경계 보정</span></span></li>
+              <li class="rpt-flow"><span class="rpt-n">3</span><span><b>학습</b><br/><span class="rpt-sub">YOLO-seg 파인튜닝 (Colab)</span></span></li>
+              <li class="rpt-flow bg-primary-fixed/60"><span class="rpt-n">4</span><span><b>보드 탑재</b><br/><span class="rpt-sub">YOLO-seg(거북목) + MediaPipe(입벌림), RKNN INT8</span></span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+          <div class="rpt-fig">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">YOLOE</h4><span class="rpt-tag bg-secondary-fixed text-secondary">개발 도구</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> 텍스트·예시 이미지·프롬프트 없음, 세 방식으로 대상을 지정하는 실시간 탐지·분할(YOLO 계열).</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> <code>YOLOE("yoloe-26s-seg.pt")</code> → <code>set_classes(["cup","hand"])</code>로 학습 없이 검출. 첫 호출 때 텍스트 인코더(약 254MB)를 내려받음.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> 녹화에서 컵·손 가림 장면을 찾아 V5 평가 클립 수집. upper_body(머리 제외) 같은 우리만의 정의는 텍스트로 맞추기 어려워 판정에는 YOLO-seg를 씁니다. 실행은 Jetson급 GPU나 저해상도 CPU 기준이라 RK NPU 이식은 확인이 필요합니다.</p>
+          </div>
+          <div class="rpt-fig">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">DINO-X</h4><span class="rpt-tag bg-secondary-fixed text-secondary">개발 도구</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> IDEA Research의 개방형 탐지 모델. 텍스트·시각 프롬프트와 프롬프트 없는 탐지를 지원하고, 박스와 함께 마스크·포즈 키포인트·객체 설명을 냅니다.</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> API로 이미지를 보내 "face . cup" 같은 프롬프트로 박스 초안을 받음.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> 라벨링 박스 초안. 영상이 외부 서버로 나가므로 촬영 동의를 받은 개발 데이터에만 쓰고 제품에는 넣지 않습니다.</p>
+          </div>
+          <div class="rpt-fig">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">SAM 3</h4><span class="rpt-tag bg-secondary-fixed text-secondary">개발 도구</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> Meta의 분할 모델(2025-11 공개). 짧은 명사구나 예시 이미지로 "개념"을 지정하면 일치하는 모든 인스턴스의 마스크와 ID를 한 번에 내고, 영상에서 추적합니다.</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> "face" 텍스트로 얼굴 마스크 초안 → 사람이 목 경계만 보정.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> YOLO-seg 학습 데이터의 마스크 라벨링 가속. 대형 모델이라 보드에는 올리지 않습니다.</p>
+          </div>
+          <div class="rpt-fig">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">SigLIP</h4><span class="rpt-tag bg-secondary-fixed text-secondary">개발 도구</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> Google의 이미지-텍스트 모델(시그모이드 손실). 이미지와 문장을 같은 벡터 공간에 놓아 제로샷 분류·검색을 합니다. 위치(박스·마스크)는 내지 않습니다.</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> 프레임과 "a person wearing a mask" 같은 문장의 유사도로 분류.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> 수집 데이터의 조건 분포(조명·안경·가림) 점검, 비지원 장면(마스크·모자) 걸러내기. 판정에는 쓰지 않습니다.</p>
+          </div>
+          <div class="rpt-fig">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">OCR</h4><span class="rpt-tag bg-surface-container-high text-on-surface-variant">사용 안 함</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> 이미지 속 글자 영역을 찾고(검출) 문자열로 읽는(인식) 기술. PaddleOCR, EasyOCR, Tesseract 등.</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> 영수증·간판·번호판 읽기.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> 자세·입 판정에는 글자가 없어 쓰지 않습니다. 선택적으로 정면·측면 동기 촬영 때 화면의 시계 숫자를 읽어 두 영상을 맞추는 보조로만 쓸 수 있습니다.</p>
+          </div>
+          <div class="rpt-fig border-primary-container/60">
+            <div class="flex items-center justify-between gap-2"><h4 class="rpt-h4">MediaPipe</h4><span class="rpt-tag">제품 탑재</span></div>
+            <p class="rpt-p"><b class="text-on-surface">기능</b> Google의 온디바이스 ML 솔루션. Face Landmarker는 얼굴 478개 3D 랜드마크, 표정 계수 52개, 머리 자세 변환 행렬(옵션)을 내고 실시간(LIVE_STREAM) 입력을 지원합니다.</p>
+            <p class="rpt-p"><b class="text-on-surface">예시</b> 입술 내측 상하 점(13, 14)과 입꼬리(78, 308)로 MAR = 상하 간격 / 입 너비.</p>
+            <p class="rpt-p"><b class="text-on-surface">이 제품</b> 입벌림 랜드마크 모델(사전학습 그대로). 보드 NPU(RKNN)로 변환되는지 확인하고, 안 되면 CPU 실행 지연을 실측합니다.</p>
+          </div>
+        </div>
+
+        <details class="rpt-det">
+          <summary><span>비교표로 보기</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-wrap rpt-inner"><table class="rpt-table">
+            <thead><tr><th>모델</th><th>출력</th><th>프롬프트</th><th>추가 학습</th><th>실행 환경</th><th>이 제품에서의 역할</th></tr></thead>
+            <tbody>
+              <tr><td>YOLOE</td><td>박스 · 마스크</td><td>텍스트 · 이미지 · 없음</td><td>불필요 (가능)</td><td>GPU 권장, Jetson급·저해상도 CPU</td><td>개발: 가림 장면 수집</td></tr>
+              <tr><td>DINO-X</td><td>박스 · 마스크 · 키포인트 · 설명</td><td>텍스트 · 시각 · 없음</td><td>불필요</td><td>API (외부 서버)</td><td>개발: 라벨링 박스 초안</td></tr>
+              <tr><td>SAM 3</td><td>마스크 · 영상 추적</td><td>명사구 · 예시 이미지</td><td>불필요</td><td>GPU 서버</td><td>개발: 마스크 라벨링 가속</td></tr>
+              <tr><td>SigLIP</td><td>임베딩 · 유사도 점수</td><td>문장</td><td>불필요</td><td>GPU 권장</td><td>개발: 데이터 조건 점검</td></tr>
+              <tr><td>OCR</td><td>글자 위치 · 문자열</td><td>없음</td><td>불필요</td><td>CPU · 엣지 가능</td><td>미사용 (동기화 보조 선택)</td></tr>
+              <tr><td>MediaPipe</td><td>얼굴 478점 · 표정 계수 · 머리 자세</td><td>없음</td><td>불가 (고정 모델)</td><td>온디바이스 실시간</td><td><b class="text-on-surface">제품: 입벌림 랜드마크</b></td></tr>
+              <tr><td>YOLO-seg (참고)</td><td>박스 · 마스크</td><td>없음 (고정 클래스)</td><td>파인튜닝</td><td>NPU INT8</td><td><b class="text-on-surface">제품: 얼굴·상체 분할</b></td></tr>
+            </tbody>
+          </table></div>
+        </details>
+        <a href="#pre" class="self-end inline-flex items-center gap-1 px-space-lg py-3 rounded-full bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('menuBtn');
+      var panel = document.getElementById('mobileNav');
+      function setMenu(open) {
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+        btn.firstElementChild.textContent = open ? 'close' : 'menu';
+      }
+      btn.addEventListener('click', function () { setMenu(panel.hidden); });
+      panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+      // Report pages: show the section named by the URL hash
+      var pages = document.querySelectorAll('[data-page]');
+      var tabs = document.querySelectorAll('[data-tab]');
+      var ON = ['bg-primary-container', 'text-on-primary', 'font-semibold'];
+      function show() {
+        var id = location.hash.slice(1);
+        if (!document.querySelector('[data-page]#' + CSS.escape(id || '_'))) id = pages[0].id;
+        // class, not the hidden attribute: the section's `flex` class would override [hidden]
+        pages.forEach(function (p) { p.classList.toggle('hidden', p.id !== id); });
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('href') === '#' + id;
+          ON.forEach(function (c) { t.classList.toggle(c, on); });
+          t.classList.toggle('text-on-surface-variant', !on);
+          if (on) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+        });
+      }
+      function go() { show(); window.scrollTo(0, 0); }
+      window.addEventListener('hashchange', go);
+      // On load the browser has already jumped to the hash anchor; reset after hiding other pages
+      window.addEventListener('load', go);
+      show();
+
+      // Step pickers: one button per step, one panel shown at a time
+      document.querySelectorAll('[data-steps]').forEach(function (root) {
+        var btns = root.querySelectorAll('[data-step-btn]');
+        var panels = root.querySelectorAll('[data-step-panel]');
+        function pick(i) {
+          btns.forEach(function (b, j) { b.classList.toggle('is-on', i === j); b.setAttribute('aria-selected', String(i === j)); });
+          panels.forEach(function (p, j) { p.classList.toggle('hidden', i !== j); });
+        }
+        btns.forEach(function (b, i) { b.addEventListener('click', function () { pick(i); }); });
+        pick(0);
+      });
+
+      // Phone layout shows each table row as a card; copy header text into each cell
+      document.querySelectorAll('.rpt-table').forEach(function (t) {
+        var heads = [].map.call(t.querySelectorAll('thead th'), function (h) { return h.textContent; });
+        t.querySelectorAll('tbody tr').forEach(function (r) {
+          [].forEach.call(r.children, function (td, i) { td.setAttribute('data-label', heads[i] || ''); });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

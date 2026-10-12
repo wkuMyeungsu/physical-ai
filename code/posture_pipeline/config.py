@@ -15,7 +15,7 @@ KP_NAMES = [
 ]
 KP = {name: i for i, name in enumerate(KP_NAMES)}
 
-# TODO(공부): 실제로 고른 랜드마크 모델(PFLD 등)의 출력 점 번호를 위 이름에 매핑하는 표를 만들기.
+# TODO(공부): 실제로 고른 랜드마크 모델(MediaPipe Face Landmarker 등)의 출력 점 번호를 위 이름에 매핑하는 표를 만들기.
 #   입술 '안쪽' 점이 나오는 모델인지가 핵심 (preprocess.md 6장).
 
 
@@ -70,5 +70,5 @@ class PipelineConfig:
     kp: KeypointConfig = field(default_factory=KeypointConfig)
     calib: CalibrationConfig = field(default_factory=CalibrationConfig)
     decision: DecisionConfig = field(default_factory=DecisionConfig)
-    pose_fps: float = 4.0        # 포즈 3~5fps
+    seg_fps: float = 4.0        # 얼굴·상체 분할 3~5fps
     face_fps: float = 12.0       # 얼굴 랜드마크 10~15fps

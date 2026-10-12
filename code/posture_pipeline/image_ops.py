@@ -44,7 +44,7 @@ def crop_roi(frame: np.ndarray, center, side: float, out_size: int, roll_deg: fl
 
     TODO(공부): cv2.getRotationMatrix2D + cv2.warpAffine 으로 crop/회전/resize 를 한 번에.
     TODO: 반드시 '축소 프레임이 아니라 원본'에서 자를 것 (입술 간격이 뭉개지는 것을 방지).
-    TODO: 탑다운 포즈용 상체 ROI(얼굴 폭의 몇 배)도 같은 함수를 재사용 가능한지 생각해 보기.
+    TODO: 상체 영역은 분할 모델 결과를 쓰므로, 이 함수가 얼굴 ROI 전용으로 충분한지 확인하기.
     """
     raise NotImplementedError
 
