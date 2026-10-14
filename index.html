@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="web_standard" name="shell-type"/>
-  <meta name="description" content="비침습 온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2.3 기반 제품·기술 소개 페이지."/>
+  <meta name="description" content="온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2.3 기반 제품·기술 소개 페이지."/>
   <meta property="og:title" content="거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개"/>
   <meta property="og:description" content="모니터 위에 얹어두는 온디바이스 AI 자세·호흡 코치. 핵심 기능, 작동 원리, 기술 아키텍처, 개발 범위를 소개합니다."/>
   <meta property="og:type" content="website"/>
@@ -213,7 +213,7 @@
         <img src="./stitch/logo.svg" alt="거북목 &amp; 입벌림 AI 코치 로고" class="w-10 h-10 rounded-xl shadow-sm shrink-0"/>
         <div class="flex flex-col min-w-0">
           <span class="font-headline-sm text-[17px] sm:text-headline-sm text-primary font-bold leading-tight truncate">거북목 &amp; 입벌림 AI 코치</span>
-          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">비침습 온디바이스 AI 자세·호흡 코치</span>
+          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">온디바이스 AI 자세·호흡 코치</span>
         </div>
       </a>
 
@@ -265,7 +265,7 @@
             <div class="lg:col-span-6 flex flex-col items-start gap-space-md">
               <!-- Tag Badge -->
               <div class="inline-flex items-center gap-space-xs text-primary font-label-lg text-label-lg">
-                <span class="font-bold">비침습 온디바이스 에지 AI 디바이스 (Physical AI)</span>
+                <span class="font-bold">온디바이스 에지 AI 디바이스 (Physical AI)</span>
               </div>
 
               <!-- Main Catchphrase -->
@@ -544,15 +544,15 @@
           <div class="flex flex-col gap-space-xs max-w-3xl">
             <span class="inline-flex w-fit items-center px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-md text-label-md font-bold">기술 스택</span>
             <h2 class="font-headline-lg text-3xl lg:text-4xl text-on-surface font-extrabold">하드웨어 &amp; 엣지 AI 아키텍처</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">영상은 기기 안에서만 처리하고, PC로는 통계만 보냅니다. 시제품은 개발 보드로 검증하고 양산 SoC는 PoC 결과로 정합니다.</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">영상은 기기 안에서만 처리하고, PC로는 통계만 보냅니다. 시제품은 Radxa ZERO 3W(RK3566) 보드로 검증하고 양산 SoC는 PoC 결과로 정합니다.</p>
           </div>
 
           <figure class="m-0 p-space-lg rounded-3xl bg-surface-container-lowest border border-surface-container flex flex-col gap-space-md" aria-label="시스템 구성도">
             <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_2.6fr_auto_1fr] items-stretch gap-space-sm">
-              <div class="ix-node"><span class="material-symbols-outlined text-primary" aria-hidden="true">videocam</span><b>카메라</b><span>1080p급 RGB 센서, 화각 70~78°, 720p@30fps 운용</span></div>
-              <span class="ix-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              <div class="ix-node"><span class="material-symbols-outlined text-primary" aria-hidden="true">videocam</span><b>카메라 · Sony IMX219</b><span>8MP 센서, 720p@30fps 운용 · 수평 화각 72~78° 저왜곡 렌즈 · 렌즈 슬라이더</span></div>
+              <div class="self-center justify-self-center flex flex-col items-center gap-0.5"><span class="ix-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span><span class="text-[11px] text-on-surface-variant font-semibold whitespace-nowrap">MIPI CSI-2</span></div>
               <div class="rounded-2xl border-2 border-primary-container/60 bg-primary-fixed/30 p-space-md flex flex-col gap-space-sm">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-2"><b class="font-label-lg text-label-lg text-on-surface">보드 · RK3566급 SBC (INT8 NPU)</b><span class="text-[12px] text-on-surface-variant">RKNN-Toolkit2 · 영상은 기기 밖으로 나가지 않음</span></div>
+                <div class="flex flex-wrap items-baseline justify-between gap-x-2"><b class="font-label-lg text-label-lg text-on-surface">보드 · Radxa ZERO 3W (RK3566 · NPU 0.8 TOPS INT8)</b><span class="text-[12px] text-on-surface-variant">RKNN-Toolkit2 · 영상은 기기 밖으로 나가지 않음</span></div>
                 <div class="grid grid-cols-1 sm:grid-cols-[auto_auto_1fr_auto_auto] items-center gap-2">
                   <span class="ix-chip">전처리</span>
                   <span class="ix-arrow-sm material-symbols-outlined" aria-hidden="true">arrow_forward</span>
@@ -563,31 +563,48 @@
                   <span class="ix-arrow-sm material-symbols-outlined" aria-hidden="true">arrow_forward</span>
                   <span class="ix-chip">후처리·판정</span>
                 </div>
+                <div class="flex flex-wrap gap-x-4 gap-y-1 pt-2 border-t border-primary-container/30 text-[12px] text-on-surface-variant"><span>microSD 32GB · OS · 모델 · 로그</span><span>PMIC 5V → 3.3V</span><span>알루미늄 히트싱크</span></div>
               </div>
-              <span class="ix-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-              <div class="ix-node"><span class="material-symbols-outlined text-primary" aria-hidden="true">smart_display</span><b>2.0인치 LCD</b><span>320×240 IPS · SPI, 캐릭터 피드백</span></div>
+              <div class="self-center justify-self-center flex flex-col items-center gap-0.5"><span class="ix-arrow material-symbols-outlined" aria-hidden="true">arrow_forward</span><span class="text-[11px] text-on-surface-variant font-semibold whitespace-nowrap">SPI 40MHz</span></div>
+              <div class="ix-node"><span class="material-symbols-outlined text-primary" aria-hidden="true">smart_display</span><b>2.0인치 IPS LCD</b><span>320×240 · ST7789 · 캐릭터 피드백, 1프레임 전송 약 31~38ms</span></div>
             </div>
             <div class="flex flex-col items-center gap-1 text-[12px] text-on-surface-variant">
               <span class="material-symbols-outlined text-outline" aria-hidden="true">arrow_downward</span>
-              <span>USB 2.0 (UVC + HID) · 설정값과 통계 로그 · 양산 단계에서 검증</span>
+              <span><b class="text-on-surface">USB-C</b> · 5V 전원(피크 1.38A) + USB 2.0 데이터 · 시제품 RNDIS+WebSocket → 양산 UVC+HID</span>
             </div>
-            <div class="ix-node max-w-xl w-full mx-auto"><span class="material-symbols-outlined text-primary" aria-hidden="true">desktop_windows</span><b>PC 컴패니언 앱</b><span>Electron · SQLite 로컬 DB · React/Chart.js 대시보드. 시제품은 보드 로컬 DB에 기록</span></div>
+            <div class="ix-node max-w-xl w-full mx-auto"><span class="material-symbols-outlined text-primary" aria-hidden="true">desktop_windows</span><b>PC 컴패니언 앱</b><span>10초 영점 조절 · 스누즈 · 통계 대시보드 (Electron · SQLite · React/Chart.js). 시제품은 보드 로컬 DB에 기록. PC USB-C 포트(5V 1.5A 이상) 필요</span></div>
             <figcaption class="text-[12px] text-on-surface-variant m-0">모델의 보드 변환과 지연은 검증 전이며, MediaPipe는 CPU 실행도 대안입니다. YOLO는 상업 배포 시 별도 라이선스가 필요합니다(AGPL-3.0).</figcaption>
           </figure>
 
+          <dl class="m-0 grid grid-cols-2 lg:grid-cols-4 gap-space-sm" aria-label="하드웨어 핵심 수치">
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container flex flex-col gap-1"><dt class="font-label-md text-label-md text-primary font-bold">AI 연산</dt><dd class="m-0 flex flex-col gap-0.5"><b class="text-2xl font-extrabold text-on-surface">0.8 TOPS</b><span class="text-[12px] text-on-surface-variant">RK3566 NPU · INT8 양자화</span></dd></div>
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container flex flex-col gap-1"><dt class="font-label-md text-label-md text-primary font-bold">전원</dt><dd class="m-0 flex flex-col gap-0.5"><b class="text-2xl font-extrabold text-on-surface">5V · 1.38A</b><span class="text-[12px] text-on-surface-variant">피크 6.90W · 평균 3.65W</span></dd></div>
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container flex flex-col gap-1"><dt class="font-label-md text-label-md text-primary font-bold">화면 갱신</dt><dd class="m-0 flex flex-col gap-0.5"><b class="text-2xl font-extrabold text-on-surface">31~38ms</b><span class="text-[12px] text-on-surface-variant">320×240 1프레임 SPI 전송</span></dd></div>
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container flex flex-col gap-1"><dt class="font-label-md text-label-md text-primary font-bold">부품 단가</dt><dd class="m-0 flex flex-col gap-0.5"><b class="text-2xl font-extrabold text-on-surface">114,000원</b><span class="text-[12px] text-on-surface-variant">7종 · 목표 120,000원 이내</span></dd></div>
+          </dl>
+
           <details class="rounded-2xl bg-surface-container-lowest border border-surface-container">
             <summary class="cursor-pointer list-none flex items-center justify-between gap-space-md px-space-lg py-space-md">
-              <span class="font-label-lg text-label-lg text-on-surface font-bold">하드웨어·소프트웨어 스펙 상세 <span class="ml-2 font-normal text-on-surface-variant">PRD v1.2.3 + 현재 설계안</span></span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">하드웨어·소프트웨어 스펙 상세 <span class="ml-2 font-normal text-on-surface-variant">PRD v1.2.3 + 시제품 (총 114,000원)</span></span>
               <span class="material-symbols-outlined chev text-primary shrink-0" aria-hidden="true">expand_more</span>
             </summary>
-            <dl class="m-0 px-space-lg pb-space-lg grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-x-space-lg gap-y-space-sm font-body-sm text-body-sm">
-              <dt class="text-on-surface font-semibold">비전 센서 (Vision Sensor)</dt><dd class="m-0 text-on-surface-variant">1080p 이상 RGB 센서 모듈(저조도에 강한 Sony IMX 계열 우선), 수평 화각 약 70~78°의 저왜곡 렌즈, 720p@30fps 이상으로 운용. 자동노출은 캘리브레이션 후 완만화·고정을 검토하고, 화질 불량 시 판정 보류</dd>
-              <dt class="text-on-surface font-semibold">메인 프로세서 (MCU / SoC)</dt><dd class="m-0 text-on-surface-variant">요구 조건: INT8 NPU, 카메라 입력, USB 디바이스 모드(UVC + HID), 리눅스 + RKNN 계열 툴체인. 시제품은 RK3566급 SBC로 검증하고, 양산 후보(RV1126B, RV1106G3 등)는 실측 지연으로 결정</dd>
-              <dt class="text-on-surface font-semibold">디스플레이 인터페이스 (Display)</dt><dd class="m-0 text-on-surface-variant">2.0인치 IPS TFT-LCD (320 × 240, SPI 통신), 넓은 시야각으로 책상 위 어느 각도에서도 캐릭터 식별 가능</dd>
-              <dt class="text-on-surface font-semibold">AI 모델 및 추론 엔진</dt><dd class="m-0 text-on-surface-variant">RKNN-Toolkit2 / Runtime, INT8 양자화. 거북목: <b>YOLO-seg</b>(얼굴·상체 영역 분할, 직접 파인튜닝) · 입벌림: <b>MediaPipe Face Landmarker</b>(입술 내측 점, 사전학습). 추론 주기 시작값은 상체 분할 3~5fps, 얼굴 랜드마크 10~15fps이며 실측으로 조정. 보드 변환과 지연은 검증 전이고, MediaPipe는 CPU 실행도 대안. YOLO는 상업 배포 시 별도 라이선스 필요(AGPL-3.0)</dd>
-              <dt class="text-on-surface font-semibold">통신 및 연결 프로토콜</dt><dd class="m-0 text-on-surface-variant">USB 2.0 (UVC + HID 복합 통신), 유선 전원·데이터 연결. 구현 가능성은 양산 단계에서 검증하며 시제품에서는 제외</dd>
-              <dt class="text-on-surface font-semibold">컴패니언 앱 및 로컬 DB</dt><dd class="m-0 text-on-surface-variant">Electron (TypeScript) 크로스플랫폼 가이드 프로그램 + SQLite 로컬 DB (통계 데이터 외부 유출 방지), React / Chart.js 일·주·월별 대시보드. 시제품은 컴패니언 앱 대신 보드 로컬 DB에 기록</dd>
+            <dl class="m-0 px-space-lg pb-space-md grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-x-space-lg gap-y-space-sm font-body-sm text-body-sm">
+              <dt class="text-on-surface font-semibold">비전 센서 (Vision Sensor)</dt><dd class="m-0 text-on-surface-variant"><b>Sony IMX219</b> 8MP RGB 센서 모듈(MIPI CSI-2 2-Lane, 3.3V, 피크 180mA), 수평 화각 72~78° 저왜곡(&lt;1.5%) 렌즈, 720p@30fps 운용. 자동노출은 캘리브레이션 후 완만화·고정을 검토하고, 화질 불량 시 판정 보류</dd>
+              <dt class="text-on-surface font-semibold">메인 프로세서 (SoC)</dt><dd class="m-0 text-on-surface-variant">시제품: <b>Radxa ZERO 3W (Rockchip RK3566</b>, Quad A55 @1.6GHz, <b>0.8 TOPS INT8 NPU</b>, 5.0V 피크 1,100mA) + <b>MicroSD 32GB</b>(SDIO 3.0, 3.3V 피크 80mA) + 전용 알루미늄 히트싱크. 양산 후보(RV1126B, RV1106G3 등)는 실측 지연으로 결정</dd>
+              <dt class="text-on-surface font-semibold">디스플레이 인터페이스 (Display)</dt><dd class="m-0 text-on-surface-variant"><b>2.0인치 IPS TFT-LCD</b> (320 × 240, <b>ST7789</b> 드라이버, 4-Wire SPI 40MHz, 3.3V 피크 100mA), 광시야각 178°로 모니터 상단 거치 시 색 반전 없음 (1프레임 전송 약 31~38ms)</dd>
+              <dt class="text-on-surface font-semibold">전원 예산 (Power Budget)</dt><dd class="m-0 text-on-surface-variant">단일 5.0V 입력(PC USB-C 포트 ≥1.5A 필수, 제조사 권장 2A) + 보드 내장 PMIC 3.3V 서브 레일. 시스템 전체 <b>평균 약 730mA (3.65W) / 피크 약 1,380mA (6.90W)</b></dd>
+              <dt class="text-on-surface font-semibold">AI 모델 및 추론 엔진</dt><dd class="m-0 text-on-surface-variant">RKNN-Toolkit2 / Runtime, INT8 양자화. 거북목: <b>YOLO-seg</b>(얼굴·상체 영역 분할, 직접 파인튜닝) · 입벌림: <b>MediaPipe Face Landmarker</b>(입술 내측 점, 사전학습). 추론 주기 시작값은 상체 분할 3~5fps, 얼굴 랜드마크 10~15fps이며 실측으로 조정</dd>
+              <dt class="text-on-surface font-semibold">통신 및 PC 컴패니언 앱</dt><dd class="m-0 text-on-surface-variant"><b>USB 2.0 OTG</b> 유선 전원·데이터 단일 케이블로 다운로드형 <b>PC 컴패니언 앱</b>과 연동(시제품: USB RNDIS + WebSocket / 양산: UVC + HID 복합 장치)하여 10초 영점 조절·스누즈·로컬 DB 대시보드 제공</dd>
+              <dt class="text-on-surface font-semibold">배선 (Wiring)</dt><dd class="m-0 text-on-surface-variant">카메라: 보드 22핀 FPC ↔ 카메라 15핀(MIPI CSI-2 2레인 + I2C <code>0x10</code>) · LCD: 40핀 헤더 8핀(<b>SPI3_M1</b> 19·23·24번 + DC 18 · RST 22 · BL 7번) · microSD: 보드 내장 슬롯(SDIO 3.0)</dd>
+              <dt class="text-on-surface font-semibold">기구 · 방열</dt><dd class="m-0 text-on-surface-variant">모니터 클립형 3D 프린트 하우징(PLA/PETG, 렌즈 슬라이더 일체형, 통풍구) + RK3566 알루미늄 히트싱크·써멀패드(8시간 연속 가동 시 쓰로틀링 방지)</dd>
+              <dt class="text-on-surface font-semibold">부품 단가 (BOM)</dt><dd class="m-0 text-on-surface-variant">7종 <b>114,000원</b>: 보드 50,000 · 카메라 25,000 · microSD 10,000 · LCD 10,000 · 하우징 10,000 · USB-C 케이블 6,000 · 히트싱크 3,000원 (목표 120,000원 이내)</dd>
             </dl>
+            <div class="px-space-lg pb-space-lg pt-2 flex justify-end">
+              <a href="./report.html#hw" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-fixed text-on-surface font-label-md text-label-md font-bold hover:opacity-90 transition-opacity">
+                <span>보고서 5. 하드웨어 설계도 · 전력 예산 · 핀맵 전체 보기</span>
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+              </a>
+            </div>
           </details>
         </div>
       </section>
@@ -851,7 +868,7 @@
             <span class="font-headline-sm text-headline-sm text-primary font-bold">거북목 &amp; 입벌림 AI 코치</span>
           </div>
           <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md leading-relaxed">
-            청년 피지컬 AI 일경험 프로젝트의 일환으로 기획·개발된 비침습 온디바이스 AI 웰니스 하드웨어입니다.
+            청년 피지컬 AI 일경험 프로젝트의 일환으로 기획·개발된 온디바이스 AI 웰니스 하드웨어입니다.
             경추 정렬과 코호흡 습관을 100% 로컬 신경망으로 코칭합니다.
           </p>
           <div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-low text-primary font-label-md text-label-md w-fit">

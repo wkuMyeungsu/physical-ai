@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="web_standard" name="shell-type"/>
-  <meta name="description" content="비침습 온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2 기반 제품·기술 소개 페이지."/>
+  <meta name="description" content="온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2 기반 제품·기술 소개 페이지."/>
   <meta property="og:title" content="거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개"/>
   <meta property="og:description" content="모니터 위에 얹어두는 온디바이스 AI 자세·호흡 코치. 핵심 기능, 작동 원리, 기술 아키텍처, 개발 범위를 소개합니다."/>
   <meta property="og:type" content="website"/>
@@ -269,7 +269,7 @@
         <img src="./stitch/logo.svg" alt="거북목 &amp; 입벌림 AI 코치 로고" class="w-10 h-10 rounded-xl shadow-sm shrink-0"/>
         <div class="flex flex-col min-w-0">
           <span class="font-headline-sm text-[17px] sm:text-headline-sm text-primary font-bold leading-tight truncate">거북목 &amp; 입벌림 AI 코치</span>
-          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">비침습 온디바이스 AI 자세·호흡 코치</span>
+          <span class="hidden sm:block text-[11px] text-on-surface-variant font-medium">온디바이스 AI 자세·호흡 코치</span>
         </div>
       </a>
 
@@ -315,6 +315,7 @@
           <li><a data-tab href="#post" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">2. 후처리 계획</a></li>
           <li><a data-tab href="#yolo" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">3. YOLO 적용</a></li>
           <li><a data-tab href="#models" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">4. 모델 비교</a></li>
+          <li><a data-tab href="#hw" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">5. 하드웨어 사양</a></li>
         </ol>
         <span class="hidden md:inline-flex shrink-0 text-[12px] text-on-surface-variant">계획 단계 · 수치는 시작값</span>
       </nav>
@@ -391,7 +392,7 @@
           </figure>
         </div>
 
-        <details class="rpt-det">
+        <details class="rpt-det" open>
           <summary><span>입력 조건 가정 · 쓰지 않는 처리 · 전처리 검증</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <div class="rpt-det-body">
             <p class="rpt-p"><b>입력 조건 가정</b>: 1280×720@30fps, 수평 화각 70~78° 저왜곡, 모니터 상단 중앙·눈높이 이상, 사용 거리 50~80cm, 얼굴 정면 ±30° 이내, 단일 사용자, 60Hz 조명. 마스크·모자·역광 창문은 지원 범위 밖입니다. 현장이 다르면 해당 단계를 다시 설계합니다.</p>
@@ -502,7 +503,7 @@
           </li>
         </ol>
 
-        <details class="rpt-det">
+        <details class="rpt-det" open>
           <summary><span>후처리 검증</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <div class="rpt-det-body">
             <div class="rpt-scroll"><table class="rpt-table">
@@ -600,7 +601,7 @@
           </div>
         </div>
 
-        <details class="rpt-det">
+        <details class="rpt-det" open>
           <summary><span>크기 근거 · 데이터와 라벨링 · 학습 설정</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <div class="rpt-det-body">
             <p class="rpt-p"><b>크기 근거</b>: 720p를 640으로 줄여도 얼굴 폭은 60cm에서 약 115px, 80cm에서 약 85px, 어깨 폭은 약 230px(화각 70° 가정)이라 대상이 큽니다. 클래스가 2개라 nano로 충분할 가능성이 크고, 보드(RK3566급)에서 3~5fps·≤100ms를 지키면서 NPU를 얼굴 랜드마크와 나눠 써야 합니다. 입력을 320으로 줄이면 마스크 한 칸이 약 0.5cm → 1cm로 커져 턱 경계가 거칠어집니다.</p>
@@ -625,7 +626,7 @@
             </table></div>
           </div>
         </details>
-        <details class="rpt-det">
+        <details class="rpt-det" open>
           <summary><span>결과가 나쁠 때 · 미결 사항</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <div class="rpt-det-body">
             <div class="rpt-scroll"><table class="rpt-table">
@@ -681,7 +682,7 @@
           </table>
         </div>
 
-        <details class="rpt-det">
+        <details class="rpt-det" open>
           <summary><span>출처</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <ul class="rpt-det-body rpt-p list-disc pl-9 m-0">
             <li><a class="underline" href="https://docs.ultralytics.com/models/yoloe/" target="_blank" rel="noopener">Ultralytics YOLOE 문서</a></li>
@@ -691,6 +692,532 @@
             <li><a class="underline" href="https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker" target="_blank" rel="noopener">MediaPipe Face Landmarker 문서</a></li>
           </ul>
         </details>
+        <a href="#hw" class="rpt-next">다음: 5. 하드웨어 사양 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 5: HARDWARE SPECIFICATION -->
+      <section data-page id="hw" class="rpt-page scroll-mt-40">
+        <header class="rpt-head">
+          <h2 class="rpt-h2">5. 하드웨어 사양 · 전력 · 통신</h2>
+          <p class="rpt-lead">PC 컴패니언 앱과 연동하는 시제품의 부품 관계도, 핀 단위 설계도, 부품, 전력 예산, 연결 상세, GPIO 배선입니다.</p>
+        </header>
+
+        <dl class="rpt-box rpt-answers lg:grid-cols-5">
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">memory</span>메인 보드 (SBC)</dt><dd><b>Radxa ZERO 3W</b><span>RK3566 · 0.8 TOPS INT8 NPU</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">photo_camera</span>카메라 · 디스플레이</dt><dd><b>IMX219 + 2.0&quot; IPS</b><span>720p@30fps · 320×240 ST7789</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">bolt</span>전원 · 피크 전류</dt><dd><b>5.0V · 1.38A</b><span>평균 3.65W / 피크 6.90W</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">cable</span>통신 인터페이스</dt><dd><b>MIPI · SPI · USB</b><span>PC 컴패니언 앱 연동</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">payments</span>총 부품 단가 (BOM)</dt><dd><b>114,000원</b><span>목표 단가 120,000원 이내</span></dd></div>
+        </dl>
+
+        <!-- System Power & Communication Architecture SVG -->
+        <figure class="rpt-fig">
+          <figcaption class="rpt-h3">전원 레일(5V / 3.3V) 및 통신 인터페이스 구조도</figcaption>
+          <div class="rpt-scroll">
+          <svg viewBox="0 0 884 274" class="w-full h-auto min-w-[640px]" role="img" aria-label="PC와 보드를 USB-C 케이블 하나로 연결해 5V 전원과 USB 2.0 OTG 데이터를 함께 보낸다. 보드의 PMIC가 5V를 3.3V로 바꿔 카메라, LCD, MicroSD에 공급한다. 카메라는 MIPI CSI-2로, LCD는 SPI로, MicroSD는 SDIO로 RK3566 SoC와 데이터를 주고받는다.">
+            <defs>
+              <marker id="hwArrD" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-primary"/></marker>
+              <marker id="hwArrP" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-tertiary"/></marker>
+            </defs>
+
+            <!-- PC -->
+            <rect x="16" y="20" width="170" height="234" rx="12" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="30" y="46" font-size="13" font-weight="700" class="fill-on-surface">사용자 PC</text>
+            <text x="30" y="64" font-size="10.5" class="fill-on-surface-variant">USB-C 포트 · 5V ≥1.5A</text>
+            <rect x="28" y="96" width="146" height="66" rx="8" class="fill-surface-container-lowest stroke-outline-variant"/>
+            <text x="40" y="116" font-size="11" font-weight="700" class="fill-primary">PC 컴패니언 앱</text>
+            <text x="40" y="134" font-size="10" class="fill-on-surface-variant">10초 영점 조절</text>
+            <text x="40" y="150" font-size="10" class="fill-on-surface-variant">스누즈 · 대시보드</text>
+            <text x="30" y="200" font-size="10" font-weight="700" class="fill-on-surface">입력 평균 730mA</text>
+            <text x="30" y="216" font-size="10" font-weight="700" class="fill-on-surface">입력 피크 1,380mA</text>
+            <text x="30" y="238" font-size="9.5" class="fill-secondary">※ USB-A(0.5~0.9A)는 부족</text>
+
+            <!-- One USB-C cable: power + data -->
+            <line x1="186" y1="80" x2="314" y2="80" stroke-width="2.5" stroke-dasharray="6 4" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
+            <text x="243" y="72" font-size="10.5" font-weight="700" text-anchor="middle" class="fill-tertiary">① 5V 전원</text>
+            <line x1="188" y1="165" x2="314" y2="165" stroke-width="2" class="stroke-primary" marker-start="url(#hwArrD)" marker-end="url(#hwArrD)"/>
+            <text x="243" y="157" font-size="10.5" font-weight="700" text-anchor="middle" class="fill-primary">② USB 2.0 OTG</text>
+            <text x="243" y="181" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">480Mbps 양방향</text>
+            <text x="243" y="226" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">USB-C 케이블 1개</text>
+            <text x="243" y="240" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">(전원 + 데이터)</text>
+
+            <!-- Board -->
+            <rect x="300" y="20" width="270" height="234" rx="14" class="fill-primary-fixed stroke-primary" fill-opacity="0.35" stroke-width="2"/>
+            <text x="316" y="44" font-size="13" font-weight="800" class="fill-on-surface">Radxa ZERO 3W</text>
+            <text x="554" y="44" font-size="10" text-anchor="end" class="fill-on-surface-variant">65×30mm</text>
+            <rect x="316" y="58" width="238" height="44" rx="8" class="fill-surface-container-lowest stroke-tertiary" stroke-width="1.2"/>
+            <text x="328" y="76" font-size="11" font-weight="700" class="fill-tertiary">PMIC (전원 관리)</text>
+            <text x="328" y="93" font-size="10" class="fill-on-surface-variant">5V → 3.3V 레일 · 피크 360mA</text>
+            <rect x="316" y="114" width="238" height="80" rx="8" class="fill-surface-container-lowest stroke-primary" stroke-width="1.5"/>
+            <text x="328" y="134" font-size="12" font-weight="700" class="fill-on-surface">RK3566 SoC</text>
+            <text x="328" y="151" font-size="10.5" class="fill-on-surface-variant">CPU 4× A55 @1.6GHz · ISP</text>
+            <text x="328" y="167" font-size="10.5" class="fill-on-surface-variant">NPU 0.8 TOPS (INT8)</text>
+            <text x="328" y="184" font-size="10" font-weight="600" class="fill-primary">5V · 평균 550 / 피크 1,100mA</text>
+            <line x1="470" y1="196" x2="470" y2="214" stroke-width="2" class="stroke-primary" marker-start="url(#hwArrD)" marker-end="url(#hwArrD)"/>
+            <text x="480" y="209" font-size="9.5" font-weight="700" class="fill-primary">⑤ SDIO 3.0</text>
+            <rect x="316" y="216" width="238" height="28" rx="8" class="fill-surface-container-lowest stroke-outline-variant"/>
+            <text x="328" y="234" font-size="10.5" font-weight="700" class="fill-on-surface">MicroSD 32GB <tspan font-weight="400" class="fill-on-surface-variant">· OS · 모델 · 로그</tspan></text>
+
+            <!-- 3.3V rail from PMIC to peripherals -->
+            <line x1="554" y1="80" x2="652" y2="80" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary"/>
+            <line x1="652" y1="52" x2="652" y2="230" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary"/>
+            <line x1="652" y1="52" x2="670" y2="52" stroke-width="2" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
+            <line x1="652" y1="216" x2="670" y2="216" stroke-width="2" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
+            <line x1="652" y1="230" x2="556" y2="230" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
+            <text x="640" y="46" font-size="10" font-weight="700" text-anchor="end" class="fill-tertiary">⑥ 3.3V</text>
+
+            <!-- Data links SoC ↔ peripherals; white halo where they cross the rail -->
+            <line x1="556" y1="128" x2="670" y2="128" stroke-width="7" class="stroke-surface-container-lowest"/>
+            <line x1="556" y1="128" x2="670" y2="128" stroke-width="2" class="stroke-primary" marker-start="url(#hwArrD)"/>
+            <text x="606" y="120" font-size="10" font-weight="700" text-anchor="middle" class="fill-primary">③ MIPI CSI-2</text>
+            <text x="606" y="142" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">2-Lane</text>
+            <line x1="556" y1="176" x2="670" y2="176" stroke-width="7" class="stroke-surface-container-lowest"/>
+            <line x1="556" y1="176" x2="670" y2="176" stroke-width="2" class="stroke-primary" marker-end="url(#hwArrD)"/>
+            <text x="606" y="168" font-size="10" font-weight="700" text-anchor="middle" class="fill-primary">④ 4-Wire SPI</text>
+            <text x="606" y="190" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">40MHz</text>
+
+            <!-- Camera -->
+            <rect x="672" y="20" width="196" height="124" rx="10" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="686" y="44" font-size="12" font-weight="700" class="fill-on-surface">Sony IMX219 카메라</text>
+            <text x="686" y="64" font-size="10.5" class="fill-on-surface-variant">720p@30fps · HFOV 72~78°</text>
+            <text x="686" y="81" font-size="10" class="fill-on-surface-variant">I2C 0x10 · 렌즈 슬라이더</text>
+            <text x="686" y="132" font-size="10" font-weight="600" class="fill-tertiary">3.3V · 평균 140 / 피크 180mA</text>
+
+            <!-- LCD -->
+            <rect x="672" y="154" width="196" height="100" rx="10" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="686" y="176" font-size="12" font-weight="700" class="fill-on-surface">2.0&quot; IPS LCD</text>
+            <text x="686" y="196" font-size="10.5" class="fill-on-surface-variant">320×240 · ST7789 · 178°</text>
+            <text x="686" y="213" font-size="10" class="fill-on-surface-variant">1프레임 약 31ms</text>
+            <text x="686" y="242" font-size="10" font-weight="600" class="fill-tertiary">3.3V · 평균 70 / 피크 100mA</text>
+          </svg>
+          </div>
+          <ul class="list-none p-0 m-0 flex flex-wrap gap-x-space-md gap-y-1 rpt-cap">
+            <li class="flex items-center gap-1.5"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke-width="2.5" stroke-dasharray="6 4" class="stroke-tertiary"/></svg>전원 (5V 입력 → PMIC → 3.3V 레일)</li>
+            <li class="flex items-center gap-1.5"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke-width="2" class="stroke-primary"/></svg>데이터 (화살표 = 전송 방향)</li>
+          </ul>
+          <p class="rpt-cap"><b>5V 단일 입력</b>과 보드 내장 PMIC의 <b>3.3V 서브 레일</b>로 동작합니다. 영점 조절·스누즈는 PC 앱에서 USB로 제어합니다.</p>
+        </figure>
+
+        <!-- Pin-level wiring schematic (generated; edit the generator, not the coordinates) -->
+        <figure class="rpt-fig">
+          <figcaption class="rpt-h3">하드웨어 설계도 (핀 단위 배선)</figcaption>
+          <div class="rpt-scroll">
+          <svg viewBox="0 0 1000 544" class="w-full h-auto min-w-[760px]" role="img" aria-label="핀 단위 배선도. PC USB-C에서 VBUS, D+, D−, GND 4선이 보드 J1 USB-C 1번 포트로 들어간다. VBUS는 보드 PMIC로 가서 VCC_3V3을 만들고, D+와 D−는 RK3566 USB OTG로 간다. J2 CSI 22핀 FPC의 2·3·5·6·8·9번(데이터 2레인과 클럭), 17번(PDN), 20·21번(I2C2_M1), 22번(3.3V), GND가 IMX219 15핀의 2·3·5·6·8·9, 11, 13·14, 15, GND로 연결된다. J3 40핀 헤더의 6번 GND, 1번 3.3V, 23번 SPI3 클럭, 19번 MOSI, 24번 CS, 18번 DC, 22번 RST, 7번 PWM 백라이트가 LCD의 GND, VCC, SCL, SDA, CS, DC, RES, BLK로 연결된다. microSD 슬롯은 SDMMC0 6선으로 SoC에 붙는다.">
+            <rect x="20" y="30" width="130" height="100" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="32" y="48" font-size="12" font-weight="700" text-anchor="start" class="fill-on-surface">PC (Host)</text>
+            <text x="32" y="61" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">USB-C 포트 · 5V ≥1.5A</text>
+            <text x="142" y="73" font-size="9" text-anchor="end" class="fill-on-surface-variant">VBUS 5V</text>
+            <rect x="147" y="67" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="150" y1="70" x2="276" y2="70" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="2"/>
+            <rect x="273" y="67" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="142" y="89" font-size="9" text-anchor="end" class="fill-on-surface-variant">D+</text>
+            <rect x="147" y="83" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="150" y1="86" x2="276" y2="86" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="273" y="83" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="142" y="105" font-size="9" text-anchor="end" class="fill-on-surface-variant">D−</text>
+            <rect x="147" y="99" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="150" y1="102" x2="276" y2="102" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="273" y="99" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="142" y="121" font-size="9" text-anchor="end" class="fill-on-surface-variant">GND</text>
+            <rect x="147" y="115" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="150" y1="118" x2="276" y2="118" class="stroke-outline" stroke-width="1.5"/>
+            <rect x="273" y="115" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="213" y="26" font-size="9" text-anchor="middle" class="fill-on-surface-variant">USB-C 케이블 (USB 2.0 · 22AWG)</text>
+            <text x="213" y="67" font-size="8" font-weight="700" text-anchor="middle" class="fill-tertiary">VBUS</text>
+            <text x="213" y="83" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">D+</text>
+            <text x="213" y="99" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">D−</text>
+            <text x="213" y="115" font-size="8" font-weight="700" text-anchor="middle" class="fill-on-surface-variant">GND</text>
+            <rect x="260" y="8" width="452" height="528" rx="14" class="fill-primary-fixed stroke-primary" fill-opacity="0.25" stroke-width="2" stroke-dasharray="8 4"/>
+            <text x="700" y="26" font-size="11" font-weight="800" text-anchor="end" class="fill-primary">Radxa ZERO 3W · 65×30mm</text>
+            <rect x="276" y="52" width="60" height="76" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
+            <text x="276" y="46" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J1 · USB-C 1</text>
+            <text x="284" y="73" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">VBUS</text>
+            <text x="284" y="89" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">D+</text>
+            <text x="284" y="105" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">D−</text>
+            <text x="284" y="121" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">GND</text>
+            <line x1="336" y1="70" x2="400" y2="70" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="2"/>
+            <path d="M336,86 H372 V172 H400" fill="none" class="stroke-primary" stroke-width="1.5"/>
+            <path d="M336,102 H364 V188 H400" fill="none" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="352" y1="118" x2="344" y2="118" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="344" y1="112" x2="344" y2="124" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="341" y1="114" x2="341" y2="122" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="338" y1="116" x2="338" y2="120" class="stroke-outline" stroke-width="1.5"/>
+            <rect x="400" y="44" width="160" height="56" rx="6" class="fill-surface-container-lowest stroke-tertiary" stroke-width="1.2"/>
+            <text x="410" y="62" font-size="10" font-weight="700" text-anchor="start" class="fill-tertiary">U2 · PMIC (보드 내장)</text>
+            <text x="410" y="77" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">VBUS 5V → VCC_3V3</text>
+            <text x="410" y="90" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">3.3V 피크 360mA</text>
+            <line x1="560" y1="72" x2="572" y2="72" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="2"/>
+            <path d="M572,66 h46 l6,6 l-6,6 h-46 z" class="fill-tertiary-fixed stroke-tertiary" stroke-width="1"/>
+            <text x="576" y="75" font-size="8" font-weight="700" text-anchor="start" class="fill-on-tertiary-fixed">VCC_3V3</text>
+            <rect x="400" y="140" width="160" height="386" rx="6" class="fill-surface-container-lowest stroke-primary" stroke-width="1.5"/>
+            <text x="408" y="176" font-size="8" text-anchor="start" class="fill-on-surface-variant">OTG_DP</text>
+            <text x="408" y="192" font-size="8" text-anchor="start" class="fill-on-surface-variant">OTG_DM</text>
+            <text x="480" y="340" font-size="13" font-weight="800" text-anchor="middle" class="fill-on-surface">U1 · RK3566</text>
+            <text x="480" y="357" font-size="9" text-anchor="middle" class="fill-on-surface-variant">4× A55 · NPU 0.8 TOPS</text>
+            <text x="480" y="371" font-size="9" text-anchor="middle" class="fill-on-surface-variant">LPDDR4 · ISP</text>
+            <rect x="430" y="384" width="100" height="22" rx="4" fill="none" class="stroke-outline" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="480" y="399" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">히트싱크 + 써멀패드</text>
+            <rect x="276" y="430" width="92" height="76" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
+            <text x="276" y="424" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J4 · microSD 슬롯</text>
+            <text x="284" y="450" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">SDIO 3.0 · 4-bit</text>
+            <text x="284" y="464" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">CLK · CMD · D0~3</text>
+            <text x="284" y="490" font-size="8.5" font-weight="700" text-anchor="start" class="fill-tertiary">VDD = VCC_3V3</text>
+            <line x1="368" y1="470" x2="400" y2="470" class="stroke-primary" stroke-width="3"/>
+            <line x1="380" y1="476" x2="388" y2="464" class="stroke-primary" stroke-width="1.2"/>
+            <text x="384" y="462" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">6</text>
+            <text x="408" y="473" font-size="8" text-anchor="start" class="fill-on-surface-variant">SDMMC0</text>
+            <rect x="626" y="148" width="70" height="184" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
+            <text x="626" y="142" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J2 · CSI 22핀 FPC</text>
+            <rect x="796" y="108" width="188" height="230" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="806" y="124" font-size="11" font-weight="700" text-anchor="start" class="fill-on-surface">U3 · IMX219 카메라</text>
+            <text x="806" y="137" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">15핀 FPC · I2C 주소 0x10</text>
+            <text x="661" y="163" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">2</text>
+            <rect x="623" y="157" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="157" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="160" x2="626" y2="160" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="160" x2="800" y2="160" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="157" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="157" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">D0−</text>
+            <text x="808" y="163" font-size="8.5" text-anchor="start" class="fill-on-surface">2 · CAM_D0_N</text>
+            <text x="661" y="179" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">3</text>
+            <rect x="623" y="173" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="173" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="176" x2="626" y2="176" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="176" x2="800" y2="176" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="173" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="173" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">D0+</text>
+            <text x="808" y="179" font-size="8.5" text-anchor="start" class="fill-on-surface">3 · CAM_D0_P</text>
+            <text x="661" y="195" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">5</text>
+            <rect x="623" y="189" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="189" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="192" x2="626" y2="192" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="192" x2="800" y2="192" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="189" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="189" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">D1−</text>
+            <text x="808" y="195" font-size="8.5" text-anchor="start" class="fill-on-surface">5 · CAM_D1_N</text>
+            <text x="661" y="211" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">6</text>
+            <rect x="623" y="205" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="205" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="208" x2="626" y2="208" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="208" x2="800" y2="208" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="205" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="205" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">D1+</text>
+            <text x="808" y="211" font-size="8.5" text-anchor="start" class="fill-on-surface">6 · CAM_D1_P</text>
+            <text x="661" y="227" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">8</text>
+            <rect x="623" y="221" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="221" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="224" x2="626" y2="224" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="224" x2="800" y2="224" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="221" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="221" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">CLK−</text>
+            <text x="808" y="227" font-size="8.5" text-anchor="start" class="fill-on-surface">8 · CAM_CK_N</text>
+            <text x="661" y="243" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">9</text>
+            <rect x="623" y="237" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="237" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="240" x2="626" y2="240" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="240" x2="800" y2="240" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="237" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="237" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">CLK+</text>
+            <text x="808" y="243" font-size="8.5" text-anchor="start" class="fill-on-surface">9 · CAM_CK_P</text>
+            <text x="661" y="259" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">17</text>
+            <rect x="623" y="253" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="253" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="256" x2="626" y2="256" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="256" x2="800" y2="256" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="253" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="253" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">PDN</text>
+            <text x="808" y="259" font-size="8.5" text-anchor="start" class="fill-on-surface">11 · CAM_IO0 (전원 EN)</text>
+            <text x="661" y="275" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">20</text>
+            <rect x="623" y="269" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="269" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="272" x2="626" y2="272" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="272" x2="800" y2="272" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="269" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="269" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">SCL</text>
+            <text x="808" y="275" font-size="8.5" text-anchor="start" class="fill-on-surface">13 · CAM_SCL</text>
+            <text x="661" y="291" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">21</text>
+            <rect x="623" y="285" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="285" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="288" x2="626" y2="288" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="288" x2="800" y2="288" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="285" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="285" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">SDA</text>
+            <text x="808" y="291" font-size="8.5" text-anchor="start" class="fill-on-surface">14 · CAM_SDA</text>
+            <text x="661" y="307" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">22</text>
+            <rect x="623" y="301" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="301" width="6" height="6" class="fill-on-surface-variant"/>
+            <path d="M570,298 h46 l6,6 l-6,6 h-46 z" class="fill-tertiary-fixed stroke-tertiary" stroke-width="1"/>
+            <text x="574" y="307" font-size="8" font-weight="700" text-anchor="start" class="fill-on-tertiary-fixed">VCC_3V3</text>
+            <line x1="622" y1="304" x2="626" y2="304" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
+            <line x1="696" y1="304" x2="800" y2="304" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
+            <rect x="797" y="301" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="301" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-tertiary">3V3</text>
+            <text x="808" y="307" font-size="8.5" text-anchor="start" class="fill-on-surface">15 · CAM_3V3</text>
+            <text x="661" y="323" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">1·4·…·19</text>
+            <rect x="623" y="317" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="317" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="620" y1="320" x2="612" y2="320" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="612" y1="314" x2="612" y2="326" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="609" y1="316" x2="609" y2="324" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="606" y1="318" x2="606" y2="322" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="620" y1="320" x2="626" y2="320" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="696" y1="320" x2="800" y2="320" class="stroke-outline" stroke-width="1.5"/>
+            <rect x="797" y="317" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="317" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-on-surface-variant">GND</text>
+            <text x="808" y="323" font-size="8.5" text-anchor="start" class="fill-on-surface">1·4·7·10 · GND</text>
+            <text x="552" y="203" font-size="8" text-anchor="end" class="fill-on-surface-variant">MIPI CSI RX</text>
+            <text x="552" y="214" font-size="8" text-anchor="end" class="fill-on-surface-variant">D0 · D1 · CLK</text>
+            <text x="552" y="259" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO</text>
+            <text x="552" y="284" font-size="8" text-anchor="end" class="fill-on-surface-variant">I2C2_M1</text>
+            <text x="748" y="120" font-size="8" text-anchor="middle" class="fill-on-surface-variant">FPC 케이블</text>
+            <text x="748" y="131" font-size="8" text-anchor="middle" class="fill-on-surface-variant">22핀 → 15핀</text>
+            <rect x="626" y="398" width="70" height="136" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
+            <text x="626" y="392" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J3 · 40핀 헤더</text>
+            <rect x="796" y="370" width="188" height="170" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="806" y="386" font-size="11" font-weight="700" text-anchor="start" class="fill-on-surface">U4 · 2.0" IPS LCD</text>
+            <text x="806" y="399" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">ST7789 · 320×240 · SPI</text>
+            <text x="661" y="413" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">6</text>
+            <rect x="623" y="407" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="407" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="620" y1="410" x2="612" y2="410" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="612" y1="404" x2="612" y2="416" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="609" y1="406" x2="609" y2="414" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="606" y1="408" x2="606" y2="412" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="620" y1="410" x2="626" y2="410" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="696" y1="410" x2="800" y2="410" class="stroke-outline" stroke-width="1.5"/>
+            <rect x="797" y="407" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="407" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-on-surface-variant">GND</text>
+            <text x="808" y="413" font-size="8.5" text-anchor="start" class="fill-on-surface">GND</text>
+            <text x="661" y="429" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">1</text>
+            <rect x="623" y="423" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="423" width="6" height="6" class="fill-on-surface-variant"/>
+            <path d="M570,420 h46 l6,6 l-6,6 h-46 z" class="fill-tertiary-fixed stroke-tertiary" stroke-width="1"/>
+            <text x="574" y="429" font-size="8" font-weight="700" text-anchor="start" class="fill-on-tertiary-fixed">VCC_3V3</text>
+            <line x1="622" y1="426" x2="626" y2="426" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
+            <line x1="696" y1="426" x2="800" y2="426" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
+            <rect x="797" y="423" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="423" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-tertiary">3V3</text>
+            <text x="808" y="429" font-size="8.5" text-anchor="start" class="fill-on-surface">VCC</text>
+            <text x="661" y="445" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">23</text>
+            <rect x="623" y="439" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="439" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="442" x2="626" y2="442" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="442" x2="800" y2="442" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="439" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="439" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">SCLK</text>
+            <text x="808" y="445" font-size="8.5" text-anchor="start" class="fill-on-surface">SCL (SCLK)</text>
+            <text x="661" y="461" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">19</text>
+            <rect x="623" y="455" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="455" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="458" x2="626" y2="458" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="458" x2="800" y2="458" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="455" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="455" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">MOSI</text>
+            <text x="808" y="461" font-size="8.5" text-anchor="start" class="fill-on-surface">SDA (MOSI)</text>
+            <text x="661" y="477" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">24</text>
+            <rect x="623" y="471" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="471" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="474" x2="626" y2="474" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="474" x2="800" y2="474" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="471" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="471" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">CS</text>
+            <text x="808" y="477" font-size="8.5" text-anchor="start" class="fill-on-surface">CS</text>
+            <text x="661" y="493" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">18</text>
+            <rect x="623" y="487" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="487" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="490" x2="626" y2="490" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="490" x2="800" y2="490" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="487" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="487" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">DC</text>
+            <text x="808" y="493" font-size="8.5" text-anchor="start" class="fill-on-surface">DC (데이터/명령)</text>
+            <text x="661" y="509" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">22</text>
+            <rect x="623" y="503" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="503" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="506" x2="626" y2="506" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="506" x2="800" y2="506" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="503" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="503" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">RST</text>
+            <text x="808" y="509" font-size="8.5" text-anchor="start" class="fill-on-surface">RES (리셋, Low)</text>
+            <text x="661" y="525" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">7</text>
+            <rect x="623" y="519" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="519" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="522" x2="626" y2="522" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="522" x2="800" y2="522" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="519" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="519" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">BL</text>
+            <text x="808" y="525" font-size="8.5" text-anchor="start" class="fill-on-surface">BLK (백라이트)</text>
+            <text x="552" y="453" font-size="8" text-anchor="end" class="fill-on-surface-variant">SPI3_M1</text>
+            <text x="552" y="475" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO3_B2</text>
+            <text x="552" y="491" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO3_C1</text>
+            <text x="552" y="507" font-size="8" text-anchor="end" class="fill-on-surface-variant">PWM14_M0</text>
+            <text x="748" y="382" font-size="8" text-anchor="middle" class="fill-on-surface-variant">점퍼선 8가닥</text>
+          </svg>
+          </div>
+          <ul class="list-none p-0 m-0 flex flex-wrap gap-x-space-md gap-y-1 rpt-cap">
+            <li class="flex items-center gap-1.5"><svg width="24" height="4" aria-hidden="true"><line x1="0" y1="2" x2="24" y2="2" stroke-width="2" stroke-dasharray="5 3" class="stroke-tertiary"/></svg>전원 (VBUS 5V · VCC_3V3)</li>
+            <li class="flex items-center gap-1.5"><span class="w-6 h-0.5 bg-primary"></span>신호</li>
+            <li class="flex items-center gap-1.5"><span class="w-6 h-0.5 bg-outline"></span>GND (모두 보드 공통 GND)</li>
+            <li class="flex items-center gap-1.5"><span class="px-1.5 rounded-sm bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">VCC_3V3</span>같은 이름끼리 연결된 전원 (넷 라벨)</li>
+          </ul>
+          <p class="rpt-cap">미사용 핀: J2 11·12·14·15(D2·D3 레인), 18(CIF_CLKOUT) · 카메라 12(CAM_IO1) · J3 21(MISO, LCD는 쓰기 전용). LCD 모듈 핀 순서는 제조사마다 달라 실물 실크 인쇄 기준으로 연결합니다. 디버그 UART(J3 8·10번)는 비워 둡니다.</p>
+        </figure>
+
+        <!-- 1. BOM -->
+        <div class="rpt-box rpt-scroll">
+          <div class="px-space-md pt-space-md pb-2 flex flex-wrap items-center justify-between gap-x-space-md gap-y-2">
+            <h3 class="rpt-h3">1. 부품 리스트 (BOM · 각 1개)</h3>
+            <div class="flex items-center gap-2 text-[12px] text-on-surface-variant" title="114,000원 / 목표 120,000원 (95%)">
+              <span>목표 단가 대비</span>
+              <span class="relative w-28 h-2 rounded-full bg-surface-container-high overflow-hidden" aria-hidden="true"><span class="absolute inset-y-0 left-0 rounded-full bg-primary" style="width:95%"></span></span>
+              <span><b class="text-on-surface">95%</b> · 여유 6,000원</span>
+            </div>
+          </div>
+          <table class="rpt-table">
+            <thead><tr><th>부품</th><th>핵심 사양</th><th>역할</th><th class="md:text-right">단가</th></tr></thead>
+            <tbody>
+              <tr><td>Radxa ZERO 3W<span class="block rpt-cap font-normal">컴퓨팅 · 동급 RK3566 대체 가능</span></td><td>RK3566 Quad A55 @1.6GHz, NPU 0.8 TOPS(INT8), LPDDR4 2~4GB, 65×30mm</td><td>RKNN 온디바이스 추론, USB 가젯 통신</td><td class="md:text-right whitespace-nowrap">50,000원</td></tr>
+              <tr><td>Sony IMX219 카메라<span class="block rpt-cap font-normal">센싱</span></td><td>8MP, 720p@30fps 운용, HFOV 72~78° 저왜곡(&lt;1.5%) 렌즈</td><td>50~80cm에서 얼굴과 어깨선을 함께 포착</td><td class="md:text-right whitespace-nowrap">25,000원</td></tr>
+              <tr><td>MicroSD 32GB<span class="block rpt-cap font-normal">저장</span></td><td>SanDisk High Endurance, Class 10 · A1/A2</td><td>OS, RKNN 가중치, SQLite 로그·오탐 프레임</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
+              <tr><td>2.0&quot; IPS LCD<span class="block rpt-cap font-normal">출력</span></td><td>320×240, ST7789, SPI, 시야각 178°</td><td>내려다봐도 색 반전 없음, 감지 후 ≤100ms 캐릭터 전환</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
+              <tr><td>클립형 하우징<span class="block rpt-cap font-normal">기구 · 3D 프린트</span></td><td>PLA/PETG, 모니터 클립 + 렌즈 슬라이더 일체형</td><td>눈높이 고정, 통풍구, 미사용 시 렌즈 가림</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
+              <tr><td>USB-C 데이터 케이블<span class="block rpt-cap font-normal">전원 · 통신</span></td><td>USB 2.0 480Mbps, 5V/3A(22AWG), 1.5~2.0m, 페라이트 코어</td><td>케이블 하나로 전원 공급과 PC 앱 통신</td><td class="md:text-right whitespace-nowrap">6,000원</td></tr>
+              <tr><td>히트싱크 + 써멀패드<span class="block rpt-cap font-normal">방열</span></td><td>알루미늄 20×14×6mm, 써멀패드 6.0W/m·K</td><td>8시간 연속 가동 시 쓰로틀링·프레임 드랍(≤1%) 방지</td><td class="md:text-right whitespace-nowrap">3,000원</td></tr>
+              <tr class="rpt-tr-on"><td>합계 (7종)</td><td>목표 단가 120,000원</td><td>여유 6,000원</td><td class="md:text-right whitespace-nowrap font-bold text-on-surface">114,000원</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2. Power Budget -->
+        <div class="rpt-box rpt-scroll">
+          <div class="px-space-md pt-space-md pb-1 flex flex-wrap items-baseline justify-between gap-2">
+            <h3 class="rpt-h3">2. 전력 예산 (Power Budget)</h3>
+            <span class="rpt-cap">설계 기준은 <b>피크 전류</b> · PC USB-C 포트(5V ≥1.5A) 필수, 제조사 권장 5V/2A</span>
+          </div>
+          <!-- 5V input current vs. USB port supply limits; x scale 0–1,600mA -->
+          <div class="px-space-md pb-2 grid grid-cols-[2.25rem_1fr] gap-x-2 text-[11px]" role="img" aria-label="5V 입력 전류: 평균 730mA, 피크 1,380mA. USB 2.0 표준 한계 500mA와 USB 3.0 표준 한계 900mA를 넘고, USB-C 1.5A 한계 안에 들어온다.">
+            <span></span>
+            <div class="relative h-7 leading-tight">
+              <span class="absolute bottom-1 whitespace-nowrap -translate-x-1/2 text-center text-secondary font-bold" style="left:31.25%">USB 2.0<br/>0.5A</span>
+              <span class="absolute bottom-1 whitespace-nowrap -translate-x-1/2 text-center text-secondary font-bold" style="left:56.25%">USB 3.0<br/>0.9A</span>
+              <span class="absolute bottom-1 whitespace-nowrap -translate-x-1/2 text-center text-primary font-bold" style="left:93.75%">USB-C<br/>1.5A</span>
+            </div>
+            <div class="flex flex-col gap-1.5 text-on-surface-variant font-semibold"><span class="h-5 flex items-center">평균</span><span class="h-5 flex items-center">피크</span></div>
+            <div class="relative flex flex-col gap-1.5">
+              <div class="h-5 rounded-r bg-primary-container text-on-primary flex items-center justify-end pr-2 font-bold" style="width:45.625%" title="평균 730mA · 3.65W">730mA</div>
+              <div class="h-5 rounded-r bg-primary text-on-primary flex items-center justify-end pr-2 font-bold" style="width:86.25%" title="피크 1,380mA · 6.90W">1,380mA</div>
+              <span class="absolute -top-1 -bottom-1 border-l-2 border-dashed border-secondary" style="left:31.25%" aria-hidden="true"></span>
+              <span class="absolute -top-1 -bottom-1 border-l-2 border-dashed border-secondary" style="left:56.25%" aria-hidden="true"></span>
+              <span class="absolute -top-1 -bottom-1 border-l-2 border-primary" style="left:93.75%" aria-hidden="true"></span>
+            </div>
+          </div>
+          <table class="rpt-table">
+            <thead><tr><th>부품</th><th>전압 · 공급</th><th>전류 평균 / 피크</th><th>전력 평균 / 피크</th><th>피크 조건</th></tr></thead>
+            <tbody>
+              <tr><td>Radxa ZERO 3W</td><td class="whitespace-nowrap">5.0V · USB 직결</td><td class="whitespace-nowrap">550 / 1,100 mA</td><td class="whitespace-nowrap">2.75 / 5.50 W</td><td>부팅, NPU(<code>YOLO-seg</code>)+CPU 동시 최대 부하</td></tr>
+              <tr><td>IMX219 카메라</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">140 / 180 mA</td><td class="whitespace-nowrap">0.46 / 0.59 W</td><td>720p@30fps 스트리밍 + ISP</td></tr>
+              <tr><td>2.0&quot; IPS LCD</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">70 / 100 mA</td><td class="whitespace-nowrap">0.23 / 0.33 W</td><td>백라이트 100% + SPI 40MHz 갱신</td></tr>
+              <tr><td>MicroSD 32GB</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">30 / 80 mA</td><td class="whitespace-nowrap">0.10 / 0.26 W</td><td>로그·프레임 연속 쓰기</td></tr>
+              <tr class="rpt-tr-on"><td>합계 (5V 입력)</td><td class="whitespace-nowrap">5.0V · USB-C</td><td class="whitespace-nowrap font-bold text-on-surface">약 730 / 1,380 mA</td><td class="whitespace-nowrap font-bold text-on-surface">3.65 / 6.90 W</td><td>PMIC 변환 효율 약 88% 반영</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3. Communication Interfaces -->
+        <div class="rpt-box rpt-scroll">
+          <div class="px-space-md pt-space-md pb-1 flex flex-wrap items-baseline justify-between gap-2">
+            <h3 class="rpt-h3">3. 부품별 연결 상세 (구조도 ①~⑥)</h3>
+            <span class="rpt-cap">외부 연결은 USB-C 케이블 1개, 나머지는 보드 안쪽 버스</span>
+          </div>
+          <table class="rpt-table">
+            <thead><tr><th>연결</th><th>방식</th><th>물리 연결 (커넥터 · 핀)</th><th>속도 · 전압</th><th>전달 내용</th></tr></thead>
+            <tbody>
+              <tr><td>① 전원 입력<span class="block rpt-cap font-normal">PC → PMIC</span></td><td><b>USB VBUS</b></td><td>PC USB-C ↔ 보드 <b>USB-C 1번 포트</b>(전원 겸 OTG). 보드는 이 포트로만 전원을 받음</td><td>5V · 피크 1.38A</td><td>보드 전체 전원. 22AWG 전원선 케이블</td></tr>
+              <tr><td>② PC 연동<span class="block rpt-cap font-normal">RK3566 ↔ PC 앱</span></td><td><b>USB 2.0 OTG</b><br/>PoC: RNDIS+WebSocket<br/>양산: UVC+HID</td><td>①과 같은 케이블의 D+/D− 선</td><td>480Mbps</td><td><b>캘리브레이션</b>: 정면 프리뷰, 10초 영점 명령<br/><b>코칭 중</b>: 영상은 끊고 판정 이벤트·스누즈·통계(JSON)만</td></tr>
+              <tr><td>③ 영상 입력<span class="block rpt-cap font-normal">IMX219 → RK3566</span></td><td><b>MIPI CSI-2</b> 2-Lane + I2C</td><td>보드 <b>22핀 FPC</b>(0.5mm) ↔ 카메라 15핀, 라즈베리파이 Zero용 변환 케이블. 제어는 FPC 20·21번 핀(I2C2_M1), 전원은 22번 핀(3.3V)</td><td>레인당 최대 1Gbps<br/>I2C 3.3V</td><td>원본 영상을 CPU 없이 ISP·NPU 메모리(DMA)로. 노출·게인 잠금은 I2C(<code>0x10</code>)</td></tr>
+              <tr><td>④ 화면 출력<span class="block rpt-cap font-normal">RK3566 → LCD</span></td><td><b>4-Wire SPI</b> + GPIO 3핀</td><td><b>40핀 헤더 8핀</b>: SPI 19·23·24, DC 18, RST 22, BL 7, VCC 1, GND 6 (아래 핀맵)</td><td>32~40MHz<br/>3.3V</td><td>320×240 RGB565 1프레임(153.6KB) <b>약 31~38ms</b> → 알림 지연 ≤100ms 충족</td></tr>
+              <tr><td>⑤ 로컬 저장<span class="block rpt-cap font-normal">RK3566 ↔ MicroSD</span></td><td><b>SDIO 3.0</b></td><td>보드 내장 MicroSD 슬롯 (배선 없음)</td><td>최대 104MB/s<br/>3.3V / 1.8V</td><td>OS 부팅, RKNN 모델 가중치, SQLite 통계 로그</td></tr>
+              <tr><td>⑥ 3.3V 분배<span class="block rpt-cap font-normal">PMIC → 주변장치</span></td><td><b>3.3V 레일</b></td><td>카메라: FPC 22번 핀 · LCD: 헤더 1번 핀 · MicroSD: 슬롯 직결</td><td>3.3V · 피크 360mA</td><td>주변장치 3종 전원. 모두 같은 보드 GND 공유</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Expandable Details: GPIO Pinout & Hardware Risk Mitigation -->
+        <details class="rpt-det" open>
+          <summary><span>40핀 GPIO ↔ 2.0인치 SPI LCD 핀 연결 (Pinout)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <p class="rpt-p">40핀 헤더에는 <b>LCD 1개만</b> 연결합니다(카메라는 CSI FPC, PC는 USB-C OTG). 신호는 모두 보드 → LCD 단방향, 3.3V입니다. SPI3_M1은 기본 비활성이라 <code>rsetup</code>에서 오버레이를 켜야 하고, 디버그 UART(8·10번 핀)는 비워 둡니다.</p>
+            <!-- 40-pin header: column i holds odd pin 2i+1 (top) and even pin 2i+2 (bottom) -->
+            <div class="rpt-scroll">
+              <svg viewBox="0 0 760 148" class="w-full h-auto min-w-[560px]" role="img" aria-label="40핀 헤더 중 LCD가 쓰는 8핀: 1번 VCC, 6번 GND, 7번 BL, 18번 DC, 19번 MOSI, 22번 RST, 23번 SCLK, 24번 CS">
+                <rect x="20" y="44" width="720" height="72" rx="10" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+                <g class="fill-surface-container-high stroke-outline-variant" stroke-width="1">
+                  <circle cx="74" cy="64" r="9"/><circle cx="110" cy="64" r="9"/><circle cx="182" cy="64" r="9"/><circle cx="218" cy="64" r="9"/><circle cx="254" cy="64" r="9"/><circle cx="290" cy="64" r="9"/><circle cx="326" cy="64" r="9"/><circle cx="398" cy="64" r="9"/><circle cx="470" cy="64" r="9"/><circle cx="506" cy="64" r="9"/><circle cx="542" cy="64" r="9"/><circle cx="578" cy="64" r="9"/><circle cx="614" cy="64" r="9"/><circle cx="650" cy="64" r="9"/><circle cx="686" cy="64" r="9"/><circle cx="722" cy="64" r="9"/>
+                  <circle cx="38" cy="96" r="9"/><circle cx="74" cy="96" r="9"/><circle cx="146" cy="96" r="9"/><circle cx="182" cy="96" r="9"/><circle cx="218" cy="96" r="9"/><circle cx="254" cy="96" r="9"/><circle cx="290" cy="96" r="9"/><circle cx="362" cy="96" r="9"/><circle cx="470" cy="96" r="9"/><circle cx="506" cy="96" r="9"/><circle cx="542" cy="96" r="9"/><circle cx="578" cy="96" r="9"/><circle cx="614" cy="96" r="9"/><circle cx="650" cy="96" r="9"/><circle cx="686" cy="96" r="9"/><circle cx="722" cy="96" r="9"/>
+                </g>
+                <!-- used pins: power, ground, SPI, control GPIO -->
+                <circle cx="38" cy="64" r="11" class="fill-tertiary"/>
+                <circle cx="110" cy="96" r="11" class="fill-on-surface-variant"/>
+                <circle cx="362" cy="64" r="11" class="fill-primary"/>
+                <circle cx="434" cy="64" r="11" class="fill-primary"/>
+                <circle cx="434" cy="96" r="11" class="fill-primary"/>
+                <circle cx="146" cy="64" r="11" class="fill-primary-fixed-dim"/>
+                <circle cx="326" cy="96" r="11" class="fill-primary-fixed-dim"/>
+                <circle cx="398" cy="96" r="11" class="fill-primary-fixed-dim"/>
+                <g font-size="9" font-weight="700" text-anchor="middle" fill="#fff">
+                  <text x="38" y="67">1</text><text x="110" y="99">6</text><text x="362" y="67">19</text><text x="434" y="67">23</text><text x="434" y="99">24</text>
+                </g>
+                <g font-size="9" font-weight="700" text-anchor="middle" class="fill-on-primary-fixed">
+                  <text x="146" y="67">7</text><text x="326" y="99">18</text><text x="398" y="99">22</text>
+                </g>
+                <g font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">
+                  <text x="38" y="34">VCC</text><text x="146" y="34">BL</text><text x="362" y="34">MOSI</text><text x="434" y="34">SCLK</text>
+                  <text x="110" y="136">GND</text><text x="326" y="136">DC</text><text x="398" y="136">RST</text><text x="434" y="136">CS</text>
+                </g>
+                <g font-size="9" class="fill-outline">
+                  <text x="722" y="34" text-anchor="middle">39</text><text x="722" y="136" text-anchor="middle">40</text><text x="38" y="136" text-anchor="middle">2</text>
+                </g>
+              </svg>
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-wrap gap-x-space-md gap-y-1 rpt-cap">
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-tertiary"></span>3.3V 전원</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-on-surface-variant"></span>GND</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary"></span>SPI 버스 (CLK · MOSI · CS)</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span>제어 GPIO (DC · RST · BL)</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-surface-container-high border border-outline-variant"></span>미사용</li>
+            </ul>
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>LCD 핀</th><th>기능</th><th>헤더 핀</th><th>RK3566 핀 · 기능</th></tr></thead>
+              <tbody>
+                <tr><td><code>VCC</code></td><td>로직·백라이트 전원</td><td><b>Pin 1</b> (또는 17)</td><td>3.3V 전원</td></tr>
+                <tr><td><code>GND</code></td><td>공통 접지</td><td><b>Pin 6</b> (또는 9·14·20)</td><td>GND</td></tr>
+                <tr><td><code>SCL (SCLK)</code></td><td>SPI 클럭</td><td><b>Pin 23</b></td><td><code>GPIO4_C2</code> · SPI3_CLK_M1</td></tr>
+                <tr><td><code>SDA (MOSI)</code></td><td>SPI 데이터</td><td><b>Pin 19</b></td><td><code>GPIO4_C3</code> · SPI3_MOSI_M1</td></tr>
+                <tr><td><code>CS</code></td><td>SPI 칩 선택</td><td><b>Pin 24</b></td><td><code>GPIO4_C6</code> · SPI3_CS0_M1</td></tr>
+                <tr><td><code>DC (RS)</code></td><td>데이터(H) / 명령(L) 선택</td><td><b>Pin 18</b></td><td><code>GPIO3_B2</code> · 범용 출력</td></tr>
+                <tr><td><code>RST (RES)</code></td><td>하드웨어 리셋 (Active Low)</td><td><b>Pin 22</b></td><td><code>GPIO3_C1</code> · 범용 출력</td></tr>
+                <tr><td><code>BL (BLK)</code></td><td>백라이트 밝기 (PWM)</td><td><b>Pin 7</b></td><td><code>GPIO3_C4</code> · PWM14_M0</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det" open>
+          <summary><span>하드웨어 운용 리스크 및 설계 대책</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>리스크</th><th>원인</th><th>대책</th></tr></thead>
+              <tbody>
+                <tr><td>1. NPU 동시 추론 지연(&gt;100ms)</td><td>NPU(0.8 TOPS) 하나를 <code>YOLO-seg</code>와 얼굴 랜드마크가 나눠 쓰면 대기열 발생</td><td>두 모델 RKNN INT8 양자화, 상체 분할 <b>3~5fps</b> · 얼굴 <b>10~15fps</b>로 주기 분리</td></tr>
+                <tr><td>2. USB 전류 부족 재부팅</td><td>USB-A 2.0(0.5A) · 3.0(0.9A) 포트는 피크 1.38A에서 전압 강하로 보드 리셋</td><td><b>PC USB-C 포트(5V ≥1.5A)</b> 연결을 설치 필수 조건으로 안내(제조사 권장 2A), 22AWG 저저항 케이블</td></tr>
+                <tr><td>3. 8시간 연속 가동 발열</td><td>밀폐 케이스에서 SoC가 80°C를 넘으면 클럭 저하·프레임 드랍</td><td><b>알루미늄 히트싱크 + 써멀패드</b>, 케이스 상·하단 통풍구</td></tr>
+                <tr><td>4. 자동노출(AE) 지터</td><td>모니터 밝기 변화로 노출이 출렁이면 입술 경계(MAR) 좌표가 흔들림</td><td>10초 캘리브레이션 직후 <code>v4l2-ctl</code>로 노출(1/120s 배수)·게인 완만화 또는 고정</td></tr>
+                <tr><td>5. 상시 카메라 프라이버시</td><td>정면 카메라 상시 거치에 대한 거부감, 영상 노출 우려</td><td><b>물리 렌즈 슬라이더</b>, 캘리브레이션 후 PC로의 영상 전송 차단</td></tr>
+                <tr><td>6. NPU 동작 미보장</td><td>Radxa는 ZERO 3W 칩의 NPU를 검수하지 않아 동작을 보장하지 않음(대부분은 정상)</td><td>보드 입고 즉시 RKNN 샘플 모델로 NPU 동작부터 확인</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
         <a href="#pre" class="rpt-next rpt-next-alt"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
       </section>
     </div>
