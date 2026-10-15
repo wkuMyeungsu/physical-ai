@@ -316,6 +316,7 @@
           <li><a data-tab href="#yolo" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">3. YOLO 적용</a></li>
           <li><a data-tab href="#models" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">4. 모델 비교</a></li>
           <li><a data-tab href="#hw" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">5. 하드웨어 사양</a></li>
+          <li><a data-tab href="#engine" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">6. 추론 엔진 선택</a></li>
         </ol>
         <span class="hidden md:inline-flex shrink-0 text-[12px] text-on-surface-variant">계획 단계 · 수치는 시작값</span>
       </nav>
@@ -1218,6 +1219,95 @@
           </div>
         </details>
 
+        <a href="#pre" class="rpt-next rpt-next-alt"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
+      </section>
+
+      <!-- PAGE 6: INFERENCE ENGINE -->
+      <section data-page id="engine" class="rpt-page scroll-mt-40">
+        <header class="rpt-head">
+          <h2 class="rpt-h2">6. 추론 엔진 선택</h2>
+          <p class="rpt-lead">4개 후보 중 <b>ONNX Runtime</b>을 고릅니다. 보드의 NPU 가속은 이 4개가 아니라 RKNN이 맡고, ONNX Runtime은 같은 모델을 CPU에서 돌려 기준을 잡고 대비하는 엔진입니다.</p>
+        </header>
+
+        <figure class="rpt-fig">
+          <figcaption class="rpt-h3">보드에서 두 갈래: 기준·대비는 ONNX Runtime, 실배포 NPU는 RKNN</figcaption>
+          <ol class="rpt-flow list-none">
+            <li><b>학습 모델 .pt</b>PyTorch로 학습한 YOLO-seg · 얼굴 랜드마크</li>
+            <li><b>표준 파일 .onnx</b>프레임워크에 묶이지 않는 변환 기준 파일</li>
+            <li class="rpt-flow-on"><b>ONNX Runtime (CPU)</b>같은 .onnx를 CPU에서 실행해 결과를 비교</li>
+          </ol>
+          <ol class="rpt-flow list-none mt-2">
+            <li><b>같은 .onnx</b>위와 같은 파일에서 출발</li>
+            <li><b>RKNN-Toolkit2</b>INT8 양자화 후 RKNN 모델로 변환</li>
+            <li><b>RK3566 NPU (0.8 TOPS)</b>실제 추론 (PRD에서 정한 경로)</li>
+          </ol>
+        </figure>
+
+        <div class="rpt-box rpt-scroll">
+          <table class="rpt-table rpt-table-wide">
+            <thead><tr><th>엔진</th><th>만든 곳</th><th>RK3566 (ARM CPU) 적합도</th><th>우리 파이프라인과 맞는 점</th><th>판정</th></tr></thead>
+            <tbody>
+              <tr><td>ONNX Runtime</td><td>Microsoft</td><td>○ ARM64 CPU에서 실행 가능, NPU는 쓰지 못함</td><td>.onnx를 그대로 실행, RKNN 변환과 같은 출발점</td><td><span class="rpt-on">선택</span></td></tr>
+              <tr><td>NCNN</td><td>Tencent</td><td>◎ ARM NEON 최적화, 의존성이 적음</td><td>.onnx를 NCNN 형식으로 한 번 더 변환, 검증 흐름을 새로 만들어야 함</td><td><span class="rpt-off">2순위</span> CPU 속도가 목표에 못 미칠 때 전환</td></tr>
+              <tr><td>OpenVINO</td><td>Intel</td><td>△ Intel CPU·내장 GPU·NPU 전용, ARM 보드에서 이점 없음</td><td>Intel 노트북용 엔진, 이 보드와 무관</td><td><span class="rpt-off">제외</span></td></tr>
+              <tr><td>TFLite (LiteRT)</td><td>Google</td><td>○ ARM CPU 최적화(XNNPACK)</td><td>PyTorch 모델에 <code>.tflite</code> 변환 단계가 하나 더 붙음, 보드 NPU는 RKNN 사용</td><td><span class="rpt-off">제외</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ol class="rpt-box rpt-rows">
+          <li class="rpt-row">
+            <span class="rpt-num">1</span>
+            <div class="rpt-row-t"><b>변환 기준을 하나로</b><span class="rpt-on">.onnx</span></div>
+            <p class="rpt-row-d">RKNN 변환도 .onnx에서 출발합니다. 같은 파일을 ONNX Runtime에서 돌려 기준값을 잡아 두면, INT8 변환 뒤 오차를 PRD 기준대로 같은 방식으로 다시 잴 수 있습니다. <b>.onnx는 FP32, .rknn은 INT8</b>이라 변환하면 결과가 달라지므로, 기준은 항상 .onnx입니다.</p>
+            <p class="rpt-row-v">PyTorch ↔ ONNX ↔ RKNN 비교</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">2</span>
+            <div class="rpt-row-t"><b>바꿀 여지가 남음</b></div>
+            <p class="rpt-row-d">공통 출발점이 .onnx라서 NCNN으로 바꿔야 할 때는 변환 한 단계만 추가하면 됩니다. 엔진을 고른 뒤에도 근거가 되는 숫자는 보드에서 직접 잽니다.</p>
+            <p class="rpt-row-v">전환 비용 = 변환 스크립트 1개</p>
+          </li>
+        </ol>
+
+        <details class="rpt-det" open>
+          <summary><span>선택 기준 4가지 비교 (속도 · 정확도 · 모델 용량 · 생태계)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>기준</th><th>ONNX Runtime</th><th>NCNN</th></tr></thead>
+              <tbody>
+                <tr><td>속도</td><td>CPU에서 NCNN보다 느릴 수 있음. 보드에서 실측해야 앎</td><td>ARM NEON 최적화로 CPU에서 유리한 경향 (일반적 경향, 이 보드 실측 아님)</td></tr>
+                <tr><td>정확도</td><td>.onnx를 그대로 쓰므로 변환 오차가 가장 적음</td><td>변환을 한 번 더 거쳐 parity 확인이 한 번 더 필요</td></tr>
+                <tr><td>모델 용량</td><td>런타임 패키지가 더 큼. 32GB SD에서는 문제 없음</td><td>라이브러리가 작음</td></tr>
+                <tr><td>생태계</td><td>Python으로 바로 쓸 수 있고 예제가 많음</td><td>C++ 중심 문서, 우리 자료 없음</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det" open>
+          <summary><span>리스크 및 대책</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>리스크</th><th>대책</th></tr></thead>
+              <tbody>
+                <tr><td>1. CPU 속도가 ≤100ms를 못 맞춤</td><td>보드에서 실측 후 미달이면 NCNN 전환 검토 (변환 스크립트만 추가)</td></tr>
+                <tr><td>2. NPU가 못 받는 연산이 CPU로 떨어짐</td><td>RKNN 변환 로그에서 CPU로 실행되는 노드를 확인</td></tr>
+                <tr><td>3. ONNX Runtime 수치를 NPU 성능으로 착각</td><td>성능 판단은 RKNN INT8 모델을 보드에서 잰 값으로만 함</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>출처</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <ul class="rpt-det-body rpt-p list-disc pl-9 m-0">
+            <li><a class="underline" href="https://onnxruntime.ai/" target="_blank" rel="noopener">ONNX Runtime</a></li>
+            <li><a class="underline" href="https://github.com/Tencent/ncnn" target="_blank" rel="noopener">NCNN (GitHub)</a></li>
+            <li><a class="underline" href="https://docs.openvino.ai/" target="_blank" rel="noopener">OpenVINO 문서</a></li>
+            <li><a class="underline" href="https://ai.google.dev/edge/litert" target="_blank" rel="noopener">LiteRT (TFLite) 문서</a></li>
+          </ul>
+        </details>
         <a href="#pre" class="rpt-next rpt-next-alt"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
       </section>
     </div>
