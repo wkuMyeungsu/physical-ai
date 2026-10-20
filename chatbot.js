@@ -1,8 +1,8 @@
 // 제품 질문 챗봇 위젯 (index.html · report.html 공용). Supabase Edge Function "rag" 호출.
 // 대화·열림 상태·입력 중인 글·스크롤은 sessionStorage에 저장해서 페이지를 옮겨도(같은 탭) 이어진다.
 (function () {
-  var API = 'https://btwqbhckvhqllrntluli.supabase.co/functions/v1/rag';
-  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0d3FiaGNrdmhxbGxybnRsdWxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4Mjk1ODgsImV4cCI6MjEwNzQwNTU4OH0.3DbdaYXsIklojaGJiM0j9zFDs_pAANz--qtJeCdsB_o'; // public anon key (RLS protects data)
+  var API = 'https://aaikgkeympbtyrkyiccp.supabase.co/functions/v1/rag';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFhaWtna2V5bXBidHlya3lpY2NwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNDgyMTIsImV4cCI6MjEwNzYyNDIxMn0.iH6yvhY4xeHFGalkDAUW3aq9efasQKzAH0qsix2m_pM'; // public anon key (RLS protects data)
   var STORE = 'chatSession.v1', SET_KEY = 'chatSuggestSet', MAX_MSGS = 40;
   var ON_REPORT = /report\.html$/.test(location.pathname);
   var MOBILE = '(max-width: 639px)';
