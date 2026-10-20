@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="web_standard" name="shell-type"/>
-  <meta name="description" content="온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.2 기반 제품·기술 소개 페이지."/>
+  <meta name="description" content="온디바이스 에지 AI로 거북목과 입벌림을 감지해 LCD 캐릭터로 알려주는 데스크 자세 코치. PRD v1.4.1 기반 제품·기술 소개 페이지."/>
   <meta property="og:title" content="거북목 &amp; 입벌림 AI 코치 | 제품 및 기술 소개"/>
   <meta property="og:description" content="모니터 위에 얹어두는 온디바이스 AI 자세·호흡 코치. 핵심 기능, 작동 원리, 기술 아키텍처, 개발 범위를 소개합니다."/>
   <meta property="og:type" content="website"/>
@@ -254,6 +254,10 @@
       .rpt-table td:first-child::before { display: none; }
     }
 
+    /* Report tabs */
+    .rpt-tab { @apply flex items-center justify-center gap-1.5 h-10 px-3 rounded-xl font-label-md text-label-md whitespace-nowrap hover:text-on-surface transition-colors; }
+    .rpt-tab-n { @apply text-[11px] font-bold opacity-60; }
+
     .rpt-next { @apply self-end inline-flex items-center gap-1 px-space-lg py-3 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors; }
     .rpt-next-alt { @apply bg-surface-container-high text-on-surface hover:bg-surface-container-highest; }
     }
@@ -309,16 +313,19 @@
 
   <main class="w-full pt-20 bg-surface min-h-screen">
     <div class="max-w-[1120px] mx-auto px-margin-sm lg:px-margin pb-space-xl flex flex-col gap-space-md">
-      <nav aria-label="보고서 페이지" class="sticky top-20 z-40 -mx-margin-sm px-margin-sm lg:mx-0 lg:px-0 py-2 bg-surface/95 backdrop-blur flex items-center justify-between gap-space-sm">
-        <ol class="flex gap-1.5 overflow-x-auto list-none p-1.5 m-0 rounded-full bg-surface-container-low border border-surface-container/60 max-w-full">
-          <li><a data-tab href="#pre" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">1. 전처리 계획</a></li>
-          <li><a data-tab href="#post" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">2. 후처리 계획</a></li>
-          <li><a data-tab href="#yolo" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">3. YOLO 적용</a></li>
-          <li><a data-tab href="#models" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">4. 모델 비교</a></li>
-          <li><a data-tab href="#hw" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">5. 하드웨어 사양</a></li>
-          <li><a data-tab href="#engine" class="block px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:text-on-surface">6. 추론 엔진 선택</a></li>
+      <p class="rpt-cap pt-space-sm -mb-2">보고서 8편 · 계획 단계라 수치는 시작값입니다</p>
+      <!-- Report tabs: phone = one scrolling row, md = 4×2 grid, lg = 8 equal cells -->
+      <nav aria-label="보고서 페이지" class="sticky top-20 z-40 -mx-margin-sm px-margin-sm lg:mx-0 lg:px-0 py-2 bg-surface/95 backdrop-blur">
+        <ol id="rptTabs" class="relative flex md:grid md:grid-cols-4 lg:grid-cols-8 gap-1 overflow-x-auto md:overflow-visible list-none p-1 m-0 rounded-2xl bg-surface-container-low border border-surface-container/60 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <li class="shrink-0"><a data-tab href="#pre" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">1</span>전처리</a></li>
+          <li class="shrink-0"><a data-tab href="#post" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">2</span>후처리</a></li>
+          <li class="shrink-0"><a data-tab href="#yolo" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">3</span>YOLO 적용</a></li>
+          <li class="shrink-0"><a data-tab href="#models" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">4</span>모델 비교</a></li>
+          <li class="shrink-0"><a data-tab href="#hw" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">5</span>하드웨어</a></li>
+          <li class="shrink-0"><a data-tab href="#engine" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">6</span>추론 엔진</a></li>
+          <li class="shrink-0"><a data-tab href="#parts" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">7</span>부품 선정</a></li>
+          <li class="shrink-0"><a data-tab href="#containers" class="rpt-tab text-on-surface-variant"><span class="rpt-tab-n">8</span>컨테이너</a></li>
         </ol>
-        <span class="hidden md:inline-flex shrink-0 text-[12px] text-on-surface-variant">계획 단계 · 수치는 시작값</span>
       </nav>
 
       <!-- PAGE 1: PREPROCESS -->
@@ -700,22 +707,22 @@
       <section data-page id="hw" class="rpt-page scroll-mt-40">
         <header class="rpt-head">
           <h2 class="rpt-h2">5. 하드웨어 사양 · 전력 · 통신</h2>
-          <p class="rpt-lead">PC 컴패니언 앱과 연동하는 시제품의 부품 관계도, 핀 단위 설계도, 부품, 전력 예산, 연결 상세, GPIO 배선입니다.</p>
+          <p class="rpt-lead">기기 혼자 동작하고, PC · 휴대폰 브라우저와는 USB 또는 Wi-Fi로 연결되는 시제품의 부품 관계도, 핀 단위 설계도, 부품, 전력 예산, 연결 상세, GPIO 배선입니다. 전력과 단가는 추정치입니다.</p>
         </header>
 
         <dl class="rpt-box rpt-answers lg:grid-cols-5">
-          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">memory</span>메인 보드 (SBC)</dt><dd><b>Radxa ZERO 3W</b><span>RK3566 · 0.8 TOPS INT8 NPU</span></dd></div>
-          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">photo_camera</span>카메라 · 디스플레이</dt><dd><b>IMX219 + 2.0&quot; IPS</b><span>720p@30fps · 320×240 ST7789</span></dd></div>
-          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">bolt</span>전원 · 피크 전류</dt><dd><b>5.0V · 1.38A</b><span>평균 3.65W / 피크 6.90W</span></dd></div>
-          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">cable</span>통신 인터페이스</dt><dd><b>MIPI · SPI · USB</b><span>PC 컴패니언 앱 연동</span></dd></div>
-          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">payments</span>총 부품 단가 (BOM)</dt><dd><b>114,000원</b><span>목표 단가 120,000원 이내</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">memory</span>메인 보드 (SBC)</dt><dd><b>Radxa ZERO 3W</b><span>RK3566 · 0.8 TOPS INT8 NPU · eMMC 16GB</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">photo_camera</span>카메라 · 디스플레이 · 버튼</dt><dd><b>IMX219 + 2.0&quot; IPS</b><span>720p@30fps · 320×240 ST7789 · 버튼 1개</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">bolt</span>전원 · 피크 전류</dt><dd><b>5.0V · 1.31A</b><span>평균 3.53W / 피크 6.55W</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">cable</span>통신 인터페이스</dt><dd><b>MIPI · SPI · USB · Wi-Fi</b><span>PC · 휴대폰 브라우저 (부가 기능)</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">payments</span>총 부품 단가 (BOM)</dt><dd><b>110,000원</b><span>목표 단가 120,000원 이내</span></dd></div>
         </dl>
 
         <!-- System Power & Communication Architecture SVG -->
         <figure class="rpt-fig">
           <figcaption class="rpt-h3">전원 레일(5V / 3.3V) 및 통신 인터페이스 구조도</figcaption>
           <div class="rpt-scroll">
-          <svg viewBox="0 0 884 274" class="w-full h-auto min-w-[640px]" role="img" aria-label="PC와 보드를 USB-C 케이블 하나로 연결해 5V 전원과 USB 2.0 OTG 데이터를 함께 보낸다. 보드의 PMIC가 5V를 3.3V로 바꿔 카메라, LCD, MicroSD에 공급한다. 카메라는 MIPI CSI-2로, LCD는 SPI로, MicroSD는 SDIO로 RK3566 SoC와 데이터를 주고받는다.">
+          <svg viewBox="0 0 884 274" class="w-full h-auto min-w-[640px]" role="img" aria-label="PC와 보드를 USB-C 케이블 하나로 연결해 5V 전원과 USB 2.0 OTG 데이터를 함께 보낸다. USB-C 충전기에 연결하면 전원만 받고 데이터는 Wi-Fi로 주고받는다. 보드의 PMIC가 5V를 3.3V로 바꿔 카메라와 LCD에 공급한다. 카메라는 MIPI CSI-2로, LCD는 SPI로 RK3566 SoC와 연결되고, OS와 기록은 보드 내장 eMMC에 저장한다.">
             <defs>
               <marker id="hwArrD" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-primary"/></marker>
               <marker id="hwArrP" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-tertiary"/></marker>
@@ -726,11 +733,12 @@
             <text x="30" y="46" font-size="13" font-weight="700" class="fill-on-surface">사용자 PC</text>
             <text x="30" y="64" font-size="10.5" class="fill-on-surface-variant">USB-C 포트 · 5V ≥1.5A</text>
             <rect x="28" y="96" width="146" height="66" rx="8" class="fill-surface-container-lowest stroke-outline-variant"/>
-            <text x="40" y="116" font-size="11" font-weight="700" class="fill-primary">PC 컴패니언 앱</text>
-            <text x="40" y="134" font-size="10" class="fill-on-surface-variant">10초 영점 조절</text>
-            <text x="40" y="150" font-size="10" class="fill-on-surface-variant">스누즈 · 대시보드</text>
-            <text x="30" y="200" font-size="10" font-weight="700" class="fill-on-surface">입력 평균 730mA</text>
-            <text x="30" y="216" font-size="10" font-weight="700" class="fill-on-surface">입력 피크 1,380mA</text>
+            <text x="40" y="116" font-size="11" font-weight="700" class="fill-primary">PC 브라우저 (부가)</text>
+            <text x="40" y="134" font-size="10" class="fill-on-surface-variant">통계 · 세부 설정</text>
+            <text x="40" y="150" font-size="10" class="fill-on-surface-variant">실시간 보기 (허락 시)</text>
+            <text x="30" y="184" font-size="9.5" class="fill-on-surface-variant">충전기에 꽂으면 Wi-Fi 모드</text>
+            <text x="30" y="204" font-size="10" font-weight="700" class="fill-on-surface">입력 평균 710mA</text>
+            <text x="30" y="220" font-size="10" font-weight="700" class="fill-on-surface">입력 피크 1,310mA</text>
             <text x="30" y="238" font-size="9.5" class="fill-secondary">※ USB-A(0.5~0.9A)는 부족</text>
 
             <!-- One USB-C cable: power + data -->
@@ -748,23 +756,22 @@
             <text x="554" y="44" font-size="10" text-anchor="end" class="fill-on-surface-variant">65×30mm</text>
             <rect x="316" y="58" width="238" height="44" rx="8" class="fill-surface-container-lowest stroke-tertiary" stroke-width="1.2"/>
             <text x="328" y="76" font-size="11" font-weight="700" class="fill-tertiary">PMIC (전원 관리)</text>
-            <text x="328" y="93" font-size="10" class="fill-on-surface-variant">5V → 3.3V 레일 · 피크 360mA</text>
+            <text x="328" y="93" font-size="10" class="fill-on-surface-variant">5V → 3.3V 레일 · 피크 280mA</text>
             <rect x="316" y="114" width="238" height="80" rx="8" class="fill-surface-container-lowest stroke-primary" stroke-width="1.5"/>
             <text x="328" y="134" font-size="12" font-weight="700" class="fill-on-surface">RK3566 SoC</text>
             <text x="328" y="151" font-size="10.5" class="fill-on-surface-variant">CPU 4× A55 @1.6GHz · ISP</text>
             <text x="328" y="167" font-size="10.5" class="fill-on-surface-variant">NPU 0.8 TOPS (INT8)</text>
             <text x="328" y="184" font-size="10" font-weight="600" class="fill-primary">5V · 평균 550 / 피크 1,100mA</text>
             <line x1="470" y1="196" x2="470" y2="214" stroke-width="2" class="stroke-primary" marker-start="url(#hwArrD)" marker-end="url(#hwArrD)"/>
-            <text x="480" y="209" font-size="9.5" font-weight="700" class="fill-primary">⑤ SDIO 3.0</text>
+            <text x="480" y="209" font-size="9.5" font-weight="700" class="fill-primary">⑤ eMMC 5.1</text>
             <rect x="316" y="216" width="238" height="28" rx="8" class="fill-surface-container-lowest stroke-outline-variant"/>
-            <text x="328" y="234" font-size="10.5" font-weight="700" class="fill-on-surface">MicroSD 32GB <tspan font-weight="400" class="fill-on-surface-variant">· OS · 모델 · 로그</tspan></text>
+            <text x="328" y="234" font-size="10.5" font-weight="700" class="fill-on-surface">eMMC 16GB (내장) <tspan font-weight="400" class="fill-on-surface-variant">· OS · 모델 · 기록</tspan></text>
 
             <!-- 3.3V rail from PMIC to peripherals -->
             <line x1="554" y1="80" x2="652" y2="80" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary"/>
-            <line x1="652" y1="52" x2="652" y2="230" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary"/>
+            <line x1="652" y1="52" x2="652" y2="216" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary"/>
             <line x1="652" y1="52" x2="670" y2="52" stroke-width="2" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
             <line x1="652" y1="216" x2="670" y2="216" stroke-width="2" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
-            <line x1="652" y1="230" x2="556" y2="230" stroke-width="2" stroke-dasharray="6 4" class="stroke-tertiary" marker-end="url(#hwArrP)"/>
             <text x="640" y="46" font-size="10" font-weight="700" text-anchor="end" class="fill-tertiary">⑥ 3.3V</text>
 
             <!-- Data links SoC ↔ peripherals; white halo where they cross the rail -->
@@ -796,14 +803,14 @@
             <li class="flex items-center gap-1.5"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke-width="2.5" stroke-dasharray="6 4" class="stroke-tertiary"/></svg>전원 (5V 입력 → PMIC → 3.3V 레일)</li>
             <li class="flex items-center gap-1.5"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke-width="2" class="stroke-primary"/></svg>데이터 (화살표 = 전송 방향)</li>
           </ul>
-          <p class="rpt-cap"><b>5V 단일 입력</b>과 보드 내장 PMIC의 <b>3.3V 서브 레일</b>로 동작합니다. 영점 조절·스누즈는 PC 앱에서 USB로 제어합니다.</p>
+          <p class="rpt-cap"><b>5V 단일 입력</b>과 보드 내장 PMIC의 <b>3.3V 서브 레일</b>로 동작합니다. 캘리브레이션 · 스누즈는 본체 버튼으로 하고, PC 브라우저는 통계 · 설정 · 실시간 보기용 부가 기능입니다. USB-C 충전기에 꽂으면 전원만 받고 데이터는 보드 내장 Wi-Fi로 연결합니다.</p>
         </figure>
 
         <!-- Pin-level wiring schematic (generated; edit the generator, not the coordinates) -->
         <figure class="rpt-fig">
           <figcaption class="rpt-h3">하드웨어 설계도 (핀 단위 배선)</figcaption>
           <div class="rpt-scroll">
-          <svg viewBox="0 0 1000 544" class="w-full h-auto min-w-[760px]" role="img" aria-label="핀 단위 배선도. PC USB-C에서 VBUS, D+, D−, GND 4선이 보드 J1 USB-C 1번 포트로 들어간다. VBUS는 보드 PMIC로 가서 VCC_3V3을 만들고, D+와 D−는 RK3566 USB OTG로 간다. J2 CSI 22핀 FPC의 2·3·5·6·8·9번(데이터 2레인과 클럭), 17번(PDN), 20·21번(I2C2_M1), 22번(3.3V), GND가 IMX219 15핀의 2·3·5·6·8·9, 11, 13·14, 15, GND로 연결된다. J3 40핀 헤더의 6번 GND, 1번 3.3V, 23번 SPI3 클럭, 19번 MOSI, 24번 CS, 18번 DC, 22번 RST, 7번 PWM 백라이트가 LCD의 GND, VCC, SCL, SDA, CS, DC, RES, BLK로 연결된다. microSD 슬롯은 SDMMC0 6선으로 SoC에 붙는다.">
+          <svg viewBox="0 0 1000 624" class="w-full h-auto min-w-[760px]" role="img" aria-label="핀 단위 배선도. PC USB-C에서 VBUS, D+, D−, GND 4선이 보드 J1 USB-C 1번 포트로 들어간다. VBUS는 보드 PMIC로 가서 VCC_3V3을 만들고, D+와 D−는 RK3566 USB OTG로 간다. J2 CSI 22핀 FPC의 2·3·5·6·8·9번(데이터 2레인과 클럭), 17번(PDN), 20·21번(I2C2_M1), 22번(3.3V), GND가 IMX219 15핀의 2·3·5·6·8·9, 11, 13·14, 15, GND로 연결된다. J3 40핀 헤더의 6번 GND, 1번 3.3V, 23번 SPI3 클럭, 19번 MOSI, 24번 CS, 18번 DC, 22번 RST, 17번 3.3V가 LCD의 GND, VCC, SCL, SDA, CS, DC, RES, BLK로 연결된다. 택트 스위치는 J3 16번 GPIO 입력과 14번 GND 사이에 연결된다. eMMC는 보드에 납땜되어 있어 배선이 없다.">
             <rect x="20" y="30" width="130" height="100" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
             <text x="32" y="48" font-size="12" font-weight="700" text-anchor="start" class="fill-on-surface">PC (Host)</text>
             <text x="32" y="61" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">USB-C 포트 · 5V ≥1.5A</text>
@@ -828,7 +835,7 @@
             <text x="213" y="83" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">D+</text>
             <text x="213" y="99" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">D−</text>
             <text x="213" y="115" font-size="8" font-weight="700" text-anchor="middle" class="fill-on-surface-variant">GND</text>
-            <rect x="260" y="8" width="452" height="528" rx="14" class="fill-primary-fixed stroke-primary" fill-opacity="0.25" stroke-width="2" stroke-dasharray="8 4"/>
+            <rect x="260" y="8" width="452" height="608" rx="14" class="fill-primary-fixed stroke-primary" fill-opacity="0.25" stroke-width="2" stroke-dasharray="8 4"/>
             <text x="700" y="26" font-size="11" font-weight="800" text-anchor="end" class="fill-primary">Radxa ZERO 3W · 65×30mm</text>
             <rect x="276" y="52" width="60" height="76" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
             <text x="276" y="46" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J1 · USB-C 1</text>
@@ -846,11 +853,11 @@
             <rect x="400" y="44" width="160" height="56" rx="6" class="fill-surface-container-lowest stroke-tertiary" stroke-width="1.2"/>
             <text x="410" y="62" font-size="10" font-weight="700" text-anchor="start" class="fill-tertiary">U2 · PMIC (보드 내장)</text>
             <text x="410" y="77" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">VBUS 5V → VCC_3V3</text>
-            <text x="410" y="90" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">3.3V 피크 360mA</text>
+            <text x="410" y="90" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">3.3V 피크 280mA</text>
             <line x1="560" y1="72" x2="572" y2="72" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="2"/>
             <path d="M572,66 h46 l6,6 l-6,6 h-46 z" class="fill-tertiary-fixed stroke-tertiary" stroke-width="1"/>
             <text x="576" y="75" font-size="8" font-weight="700" text-anchor="start" class="fill-on-tertiary-fixed">VCC_3V3</text>
-            <rect x="400" y="140" width="160" height="386" rx="6" class="fill-surface-container-lowest stroke-primary" stroke-width="1.5"/>
+            <rect x="400" y="140" width="160" height="462" rx="6" class="fill-surface-container-lowest stroke-primary" stroke-width="1.5"/>
             <text x="408" y="176" font-size="8" text-anchor="start" class="fill-on-surface-variant">OTG_DP</text>
             <text x="408" y="192" font-size="8" text-anchor="start" class="fill-on-surface-variant">OTG_DM</text>
             <text x="480" y="340" font-size="13" font-weight="800" text-anchor="middle" class="fill-on-surface">U1 · RK3566</text>
@@ -859,14 +866,12 @@
             <rect x="430" y="384" width="100" height="22" rx="4" fill="none" class="stroke-outline" stroke-width="1" stroke-dasharray="3 2"/>
             <text x="480" y="399" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">히트싱크 + 써멀패드</text>
             <rect x="276" y="430" width="92" height="76" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
-            <text x="276" y="424" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J4 · microSD 슬롯</text>
-            <text x="284" y="450" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">SDIO 3.0 · 4-bit</text>
-            <text x="284" y="464" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">CLK · CMD · D0~3</text>
-            <text x="284" y="490" font-size="8.5" font-weight="700" text-anchor="start" class="fill-tertiary">VDD = VCC_3V3</text>
+            <text x="276" y="424" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">U5 · eMMC 16GB</text>
+            <text x="284" y="450" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">eMMC 5.1 · 내장</text>
+            <text x="284" y="464" font-size="8.5" text-anchor="start" class="fill-on-surface-variant">OS · 모델 · 기록</text>
+            <text x="284" y="490" font-size="8.5" font-weight="700" text-anchor="start" class="fill-on-surface-variant">보드에 납땜 · 배선 없음</text>
             <line x1="368" y1="470" x2="400" y2="470" class="stroke-primary" stroke-width="3"/>
-            <line x1="380" y1="476" x2="388" y2="464" class="stroke-primary" stroke-width="1.2"/>
-            <text x="384" y="462" font-size="8" font-weight="700" text-anchor="middle" class="fill-primary">6</text>
-            <text x="408" y="473" font-size="8" text-anchor="start" class="fill-on-surface-variant">SDMMC0</text>
+            <text x="408" y="473" font-size="8" text-anchor="start" class="fill-on-surface-variant">eMMC</text>
             <rect x="626" y="148" width="70" height="184" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
             <text x="626" y="142" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J2 · CSI 22핀 FPC</text>
             <rect x="796" y="108" width="188" height="230" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
@@ -972,7 +977,7 @@
             <text x="552" y="284" font-size="8" text-anchor="end" class="fill-on-surface-variant">I2C2_M1</text>
             <text x="748" y="120" font-size="8" text-anchor="middle" class="fill-on-surface-variant">FPC 케이블</text>
             <text x="748" y="131" font-size="8" text-anchor="middle" class="fill-on-surface-variant">22핀 → 15핀</text>
-            <rect x="626" y="398" width="70" height="136" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
+            <rect x="626" y="398" width="70" height="208" rx="6" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.2"/>
             <text x="626" y="392" font-size="9" font-weight="700" text-anchor="start" class="fill-on-surface">J3 · 40핀 헤더</text>
             <rect x="796" y="370" width="188" height="170" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
             <text x="806" y="386" font-size="11" font-weight="700" text-anchor="start" class="fill-on-surface">U4 · 2.0" IPS LCD</text>
@@ -1039,19 +1044,45 @@
             <rect x="797" y="503" width="6" height="6" class="fill-on-surface-variant"/>
             <text x="748.0" y="503" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">RST</text>
             <text x="808" y="509" font-size="8.5" text-anchor="start" class="fill-on-surface">RES (리셋, Low)</text>
-            <text x="661" y="525" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">7</text>
+            <text x="661" y="525" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">17</text>
             <rect x="623" y="519" width="6" height="6" class="fill-on-surface-variant"/>
             <rect x="693" y="519" width="6" height="6" class="fill-on-surface-variant"/>
-            <line x1="560" y1="522" x2="626" y2="522" class="stroke-primary" stroke-width="1.5"/>
-            <line x1="696" y1="522" x2="800" y2="522" class="stroke-primary" stroke-width="1.5"/>
+            <path d="M570,516 h46 l6,6 l-6,6 h-46 z" class="fill-tertiary-fixed stroke-tertiary" stroke-width="1"/>
+            <text x="574" y="525" font-size="8" font-weight="700" text-anchor="start" class="fill-on-tertiary-fixed">VCC_3V3</text>
+            <line x1="622" y1="522" x2="626" y2="522" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
+            <line x1="696" y1="522" x2="800" y2="522" class="stroke-tertiary" stroke-dasharray="5 3" stroke-width="1.5"/>
             <rect x="797" y="519" width="6" height="6" class="fill-on-surface-variant"/>
-            <text x="748.0" y="519" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">BL</text>
-            <text x="808" y="525" font-size="8.5" text-anchor="start" class="fill-on-surface">BLK (백라이트)</text>
+            <text x="748.0" y="519" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-tertiary">3V3</text>
+            <text x="808" y="525" font-size="8.5" text-anchor="start" class="fill-on-surface">BLK (백라이트, 항상 켬)</text>
             <text x="552" y="453" font-size="8" text-anchor="end" class="fill-on-surface-variant">SPI3_M1</text>
             <text x="552" y="475" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO3_B2</text>
             <text x="552" y="491" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO3_C1</text>
-            <text x="552" y="507" font-size="8" text-anchor="end" class="fill-on-surface-variant">PWM14_M0</text>
             <text x="748" y="382" font-size="8" text-anchor="middle" class="fill-on-surface-variant">점퍼선 8가닥</text>
+
+            <!-- Tact switch: J3 16 (GPIO in, pull-up) / 14 (GND) -->
+            <rect x="796" y="550" width="188" height="56" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="806" y="566" font-size="11" font-weight="700" text-anchor="start" class="fill-on-surface">SW1 · 택트 스위치</text>
+            <text x="661" y="581" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">16</text>
+            <rect x="623" y="575" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="575" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="560" y1="578" x2="626" y2="578" class="stroke-primary" stroke-width="1.5"/>
+            <line x1="696" y1="578" x2="800" y2="578" class="stroke-primary" stroke-width="1.5"/>
+            <rect x="797" y="575" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="575" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-primary">BTN</text>
+            <text x="808" y="581" font-size="8.5" text-anchor="start" class="fill-on-surface">단자 1 (누르면 Low)</text>
+            <text x="661" y="597" font-size="8.5" text-anchor="middle" class="fill-on-surface-variant">14</text>
+            <rect x="623" y="591" width="6" height="6" class="fill-on-surface-variant"/>
+            <rect x="693" y="591" width="6" height="6" class="fill-on-surface-variant"/>
+            <line x1="620" y1="594" x2="612" y2="594" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="612" y1="588" x2="612" y2="600" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="609" y1="590" x2="609" y2="598" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="606" y1="592" x2="606" y2="596" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="620" y1="594" x2="626" y2="594" class="stroke-outline" stroke-width="1.5"/>
+            <line x1="696" y1="594" x2="800" y2="594" class="stroke-outline" stroke-width="1.5"/>
+            <rect x="797" y="591" width="6" height="6" class="fill-on-surface-variant"/>
+            <text x="748.0" y="591" font-size="7.5" font-weight="700" text-anchor="middle" class="fill-on-surface-variant">GND</text>
+            <text x="808" y="597" font-size="8.5" text-anchor="start" class="fill-on-surface">단자 2 · GND</text>
+            <text x="552" y="581" font-size="8" text-anchor="end" class="fill-on-surface-variant">GPIO 입력 · 풀업</text>
           </svg>
           </div>
           <ul class="list-none p-0 m-0 flex flex-wrap gap-x-space-md gap-y-1 rpt-cap">
@@ -1060,30 +1091,30 @@
             <li class="flex items-center gap-1.5"><span class="w-6 h-0.5 bg-outline"></span>GND (모두 보드 공통 GND)</li>
             <li class="flex items-center gap-1.5"><span class="px-1.5 rounded-sm bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">VCC_3V3</span>같은 이름끼리 연결된 전원 (넷 라벨)</li>
           </ul>
-          <p class="rpt-cap">미사용 핀: J2 11·12·14·15(D2·D3 레인), 18(CIF_CLKOUT) · 카메라 12(CAM_IO1) · J3 21(MISO, LCD는 쓰기 전용). LCD 모듈 핀 순서는 제조사마다 달라 실물 실크 인쇄 기준으로 연결합니다. 디버그 UART(J3 8·10번)는 비워 둡니다.</p>
+          <p class="rpt-cap">미사용 핀: J2 11·12·14·15(D2·D3 레인), 18(CIF_CLKOUT) · 카메라 12(CAM_IO1) · J3 21(MISO, LCD는 쓰기 전용). LCD 백라이트는 시제품에서 3.3V(J3 17번)에 직결해 항상 켜 둡니다. LCD 모듈 핀 순서는 제조사마다 달라 실물 실크 인쇄 기준으로 연결합니다. J3 16번의 GPIO 이름과 내부 풀업 지원은 보드 핀맵에서 확인합니다. 디버그 UART(J3 8·10번)는 비워 둡니다.</p>
         </figure>
 
         <!-- 1. BOM -->
         <div class="rpt-box rpt-scroll">
           <div class="px-space-md pt-space-md pb-2 flex flex-wrap items-center justify-between gap-x-space-md gap-y-2">
             <h3 class="rpt-h3">1. 부품 리스트 (BOM · 각 1개)</h3>
-            <div class="flex items-center gap-2 text-[12px] text-on-surface-variant" title="114,000원 / 목표 120,000원 (95%)">
+            <div class="flex items-center gap-2 text-[12px] text-on-surface-variant" title="110,000원 / 목표 120,000원 (92%)">
               <span>목표 단가 대비</span>
-              <span class="relative w-28 h-2 rounded-full bg-surface-container-high overflow-hidden" aria-hidden="true"><span class="absolute inset-y-0 left-0 rounded-full bg-primary" style="width:95%"></span></span>
-              <span><b class="text-on-surface">95%</b> · 여유 6,000원</span>
+              <span class="relative w-28 h-2 rounded-full bg-surface-container-high overflow-hidden" aria-hidden="true"><span class="absolute inset-y-0 left-0 rounded-full bg-primary" style="width:92%"></span></span>
+              <span><b class="text-on-surface">92%</b> · 여유 10,000원</span>
             </div>
           </div>
           <table class="rpt-table">
             <thead><tr><th>부품</th><th>핵심 사양</th><th>역할</th><th class="md:text-right">단가</th></tr></thead>
             <tbody>
-              <tr><td>Radxa ZERO 3W<span class="block rpt-cap font-normal">컴퓨팅 · 동급 RK3566 대체 가능</span></td><td>RK3566 Quad A55 @1.6GHz, NPU 0.8 TOPS(INT8), LPDDR4 2~4GB, 65×30mm</td><td>RKNN 온디바이스 추론, USB 가젯 통신</td><td class="md:text-right whitespace-nowrap">50,000원</td></tr>
+              <tr><td>Radxa ZERO 3W<span class="block rpt-cap font-normal">컴퓨팅 · 2GB / eMMC 16GB 모델</span></td><td>RK3566 Quad A55 @1.6GHz, NPU 0.8 TOPS(INT8), LPDDR4 2GB, eMMC 16GB, Wi-Fi 6, 65×30mm</td><td>RKNN 온디바이스 추론, 판정, 웹 서버. eMMC라 MicroSD 없이 OS · 모델 · 기록 보관</td><td class="md:text-right whitespace-nowrap">55,000원</td></tr>
               <tr><td>Sony IMX219 카메라<span class="block rpt-cap font-normal">센싱</span></td><td>8MP, 720p@30fps 운용, HFOV 72~78° 저왜곡(&lt;1.5%) 렌즈</td><td>50~80cm에서 얼굴과 어깨선을 함께 포착</td><td class="md:text-right whitespace-nowrap">25,000원</td></tr>
-              <tr><td>MicroSD 32GB<span class="block rpt-cap font-normal">저장</span></td><td>SanDisk High Endurance, Class 10 · A1/A2</td><td>OS, RKNN 가중치, SQLite 로그·오탐 프레임</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
-              <tr><td>2.0&quot; IPS LCD<span class="block rpt-cap font-normal">출력</span></td><td>320×240, ST7789, SPI, 시야각 178°</td><td>내려다봐도 색 반전 없음, 감지 후 ≤100ms 캐릭터 전환</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
+              <tr><td>2.0&quot; IPS LCD<span class="block rpt-cap font-normal">출력</span></td><td>320×240, ST7789, SPI, 시야각 178°</td><td>캐릭터 경고(감지 후 ≤100ms), 캘리브레이션 안내</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
+              <tr><td>택트 스위치<span class="block rpt-cap font-normal">입력</span></td><td>6×6mm, 케이스 상단 노출</td><td>짧게 = 스누즈, 3초 = 캘리브레이션, 10초 = 설정 메뉴</td><td class="md:text-right whitespace-nowrap">1,000원</td></tr>
               <tr><td>클립형 하우징<span class="block rpt-cap font-normal">기구 · 3D 프린트</span></td><td>PLA/PETG, 모니터 클립 + 렌즈 슬라이더 일체형</td><td>눈높이 고정, 통풍구, 미사용 시 렌즈 가림</td><td class="md:text-right whitespace-nowrap">10,000원</td></tr>
-              <tr><td>USB-C 데이터 케이블<span class="block rpt-cap font-normal">전원 · 통신</span></td><td>USB 2.0 480Mbps, 5V/3A(22AWG), 1.5~2.0m, 페라이트 코어</td><td>케이블 하나로 전원 공급과 PC 앱 통신</td><td class="md:text-right whitespace-nowrap">6,000원</td></tr>
+              <tr><td>USB-C 데이터 케이블<span class="block rpt-cap font-normal">전원 · 통신</span></td><td>C to C, USB 2.0 480Mbps, 5V/3A(22AWG), 1.5~2.0m, 페라이트 코어</td><td>PC 또는 USB-C 충전기와 연결하는 유일한 케이블</td><td class="md:text-right whitespace-nowrap">6,000원</td></tr>
               <tr><td>히트싱크 + 써멀패드<span class="block rpt-cap font-normal">방열</span></td><td>알루미늄 20×14×6mm, 써멀패드 6.0W/m·K</td><td>8시간 연속 가동 시 쓰로틀링·프레임 드랍(≤1%) 방지</td><td class="md:text-right whitespace-nowrap">3,000원</td></tr>
-              <tr class="rpt-tr-on"><td>합계 (7종)</td><td>목표 단가 120,000원</td><td>여유 6,000원</td><td class="md:text-right whitespace-nowrap font-bold text-on-surface">114,000원</td></tr>
+              <tr class="rpt-tr-on"><td>합계 (7종)</td><td>목표 단가 120,000원</td><td>여유 10,000원</td><td class="md:text-right whitespace-nowrap font-bold text-on-surface">110,000원</td></tr>
             </tbody>
           </table>
         </div>
@@ -1092,10 +1123,10 @@
         <div class="rpt-box rpt-scroll">
           <div class="px-space-md pt-space-md pb-1 flex flex-wrap items-baseline justify-between gap-2">
             <h3 class="rpt-h3">2. 전력 예산 (Power Budget)</h3>
-            <span class="rpt-cap">설계 기준은 <b>피크 전류</b> · PC USB-C 포트(5V ≥1.5A) 필수, 제조사 권장 5V/2A</span>
+            <span class="rpt-cap">설계 기준은 <b>피크 전류</b> · USB-C 전용: PC USB-C 포트(5V ≥1.5A) 또는 USB-C 충전기(5V ≥2A)</span>
           </div>
           <!-- 5V input current vs. USB port supply limits; x scale 0–1,600mA -->
-          <div class="px-space-md pb-2 grid grid-cols-[2.25rem_1fr] gap-x-2 text-[11px]" role="img" aria-label="5V 입력 전류: 평균 730mA, 피크 1,380mA. USB 2.0 표준 한계 500mA와 USB 3.0 표준 한계 900mA를 넘고, USB-C 1.5A 한계 안에 들어온다.">
+          <div class="px-space-md pb-2 grid grid-cols-[2.25rem_1fr] gap-x-2 text-[11px]" role="img" aria-label="5V 입력 전류: 평균 710mA, 피크 1,310mA. USB 2.0 표준 한계 500mA와 USB 3.0 표준 한계 900mA를 넘고, USB-C 1.5A 한계 안에 들어온다.">
             <span></span>
             <div class="relative h-7 leading-tight">
               <span class="absolute bottom-1 whitespace-nowrap -translate-x-1/2 text-center text-secondary font-bold" style="left:31.25%">USB 2.0<br/>0.5A</span>
@@ -1104,8 +1135,8 @@
             </div>
             <div class="flex flex-col gap-1.5 text-on-surface-variant font-semibold"><span class="h-5 flex items-center">평균</span><span class="h-5 flex items-center">피크</span></div>
             <div class="relative flex flex-col gap-1.5">
-              <div class="h-5 rounded-r bg-primary-container text-on-primary flex items-center justify-end pr-2 font-bold" style="width:45.625%" title="평균 730mA · 3.65W">730mA</div>
-              <div class="h-5 rounded-r bg-primary text-on-primary flex items-center justify-end pr-2 font-bold" style="width:86.25%" title="피크 1,380mA · 6.90W">1,380mA</div>
+              <div class="h-5 rounded-r bg-primary-container text-on-primary flex items-center justify-end pr-2 font-bold" style="width:44.375%" title="평균 710mA · 3.53W">710mA</div>
+              <div class="h-5 rounded-r bg-primary text-on-primary flex items-center justify-end pr-2 font-bold" style="width:81.875%" title="피크 1,310mA · 6.55W">1,310mA</div>
               <span class="absolute -top-1 -bottom-1 border-l-2 border-dashed border-secondary" style="left:31.25%" aria-hidden="true"></span>
               <span class="absolute -top-1 -bottom-1 border-l-2 border-dashed border-secondary" style="left:56.25%" aria-hidden="true"></span>
               <span class="absolute -top-1 -bottom-1 border-l-2 border-primary" style="left:93.75%" aria-hidden="true"></span>
@@ -1114,11 +1145,11 @@
           <table class="rpt-table">
             <thead><tr><th>부품</th><th>전압 · 공급</th><th>전류 평균 / 피크</th><th>전력 평균 / 피크</th><th>피크 조건</th></tr></thead>
             <tbody>
-              <tr><td>Radxa ZERO 3W</td><td class="whitespace-nowrap">5.0V · USB 직결</td><td class="whitespace-nowrap">550 / 1,100 mA</td><td class="whitespace-nowrap">2.75 / 5.50 W</td><td>부팅, NPU(<code>YOLO-seg</code>)+CPU 동시 최대 부하</td></tr>
+              <tr><td>Radxa ZERO 3W (eMMC 포함)</td><td class="whitespace-nowrap">5.0V · USB-C</td><td class="whitespace-nowrap">550 / 1,100 mA</td><td class="whitespace-nowrap">2.75 / 5.50 W</td><td>부팅, NPU(<code>YOLO-seg</code>)+CPU 동시 최대 부하. 보수적 추정 (공식 최대 3.3W, USB 주변기기 제외)</td></tr>
               <tr><td>IMX219 카메라</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">140 / 180 mA</td><td class="whitespace-nowrap">0.46 / 0.59 W</td><td>720p@30fps 스트리밍 + ISP</td></tr>
               <tr><td>2.0&quot; IPS LCD</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">70 / 100 mA</td><td class="whitespace-nowrap">0.23 / 0.33 W</td><td>백라이트 100% + SPI 40MHz 갱신</td></tr>
-              <tr><td>MicroSD 32GB</td><td class="whitespace-nowrap">3.3V · PMIC</td><td class="whitespace-nowrap">30 / 80 mA</td><td class="whitespace-nowrap">0.10 / 0.26 W</td><td>로그·프레임 연속 쓰기</td></tr>
-              <tr class="rpt-tr-on"><td>합계 (5V 입력)</td><td class="whitespace-nowrap">5.0V · USB-C</td><td class="whitespace-nowrap font-bold text-on-surface">약 730 / 1,380 mA</td><td class="whitespace-nowrap font-bold text-on-surface">3.65 / 6.90 W</td><td>PMIC 변환 효율 약 88% 반영</td></tr>
+              <tr><td>택트 스위치</td><td class="whitespace-nowrap">3.3V · GPIO 풀업</td><td class="whitespace-nowrap">0 / ≈0 mA</td><td class="whitespace-nowrap">0 / 0 W</td><td>누를 때만 풀업 저항으로 수십 µA</td></tr>
+              <tr class="rpt-tr-on"><td>합계 (5V 입력)</td><td class="whitespace-nowrap">5.0V · USB-C</td><td class="whitespace-nowrap font-bold text-on-surface">약 710 / 1,310 mA</td><td class="whitespace-nowrap font-bold text-on-surface">3.53 / 6.55 W</td><td>PMIC 변환 효율 약 88% 반영. Wi-Fi 모드는 Wi-Fi · 스트리밍 몫이 더해짐 (충전기 5V ≥2A라 여유 충분)</td></tr>
             </tbody>
           </table>
         </div>
@@ -1126,53 +1157,56 @@
         <!-- 3. Communication Interfaces -->
         <div class="rpt-box rpt-scroll">
           <div class="px-space-md pt-space-md pb-1 flex flex-wrap items-baseline justify-between gap-2">
-            <h3 class="rpt-h3">3. 부품별 연결 상세 (구조도 ①~⑥)</h3>
-            <span class="rpt-cap">외부 연결은 USB-C 케이블 1개, 나머지는 보드 안쪽 버스</span>
+            <h3 class="rpt-h3">3. 부품별 연결 상세 (구조도 ①~⑥ + 버튼)</h3>
+            <span class="rpt-cap">외부 연결은 USB-C 케이블 1개 (+ Wi-Fi 모드의 무선), 나머지는 보드 안쪽 버스</span>
           </div>
           <table class="rpt-table">
             <thead><tr><th>연결</th><th>방식</th><th>물리 연결 (커넥터 · 핀)</th><th>속도 · 전압</th><th>전달 내용</th></tr></thead>
             <tbody>
-              <tr><td>① 전원 입력<span class="block rpt-cap font-normal">PC → PMIC</span></td><td><b>USB VBUS</b></td><td>PC USB-C ↔ 보드 <b>USB-C 1번 포트</b>(전원 겸 OTG). 보드는 이 포트로만 전원을 받음</td><td>5V · 피크 1.38A</td><td>보드 전체 전원. 22AWG 전원선 케이블</td></tr>
-              <tr><td>② PC 연동<span class="block rpt-cap font-normal">RK3566 ↔ PC 앱</span></td><td><b>USB 2.0 OTG</b><br/>PoC: RNDIS+WebSocket<br/>양산: UVC+HID</td><td>①과 같은 케이블의 D+/D− 선</td><td>480Mbps</td><td><b>캘리브레이션</b>: 정면 프리뷰, 10초 영점 명령<br/><b>코칭 중</b>: 영상은 끊고 판정 이벤트·스누즈·통계(JSON)만</td></tr>
+              <tr><td>① 전원 입력<span class="block rpt-cap font-normal">PC · 충전기 → PMIC</span></td><td><b>USB VBUS</b></td><td>PC USB-C 포트 또는 USB-C 충전기 ↔ 보드 <b>USB-C 1번 포트</b>(전원 겸 OTG). 보드는 이 포트로만 전원을 받음</td><td>5V · 피크 1.31A</td><td>보드 전체 전원. 22AWG 전원선 케이블</td></tr>
+              <tr><td>② 브라우저 연동<span class="block rpt-cap font-normal">RK3566 ↔ PC · 휴대폰</span></td><td><b>USB 모드</b>: USB 2.0 OTG 가상 네트워크(RNDIS/NCM) + HTTPS<br/><b>Wi-Fi 모드</b>: 보드 내장 Wi-Fi 6 + HTTPS</td><td>USB 모드: ①과 같은 케이블의 D+/D− 선 (Wi-Fi 끔)<br/>Wi-Fi 모드: 충전기 연결 시, 같은 공유기에서 <code>coach.local</code></td><td>480Mbps</td><td>통계 · 세부 설정, 실시간 보기(사용자가 켤 때만, LCD에 "영상 보기 중" 표시). 기기는 PC 없이도 코칭함</td></tr>
               <tr><td>③ 영상 입력<span class="block rpt-cap font-normal">IMX219 → RK3566</span></td><td><b>MIPI CSI-2</b> 2-Lane + I2C</td><td>보드 <b>22핀 FPC</b>(0.5mm) ↔ 카메라 15핀, 라즈베리파이 Zero용 변환 케이블. 제어는 FPC 20·21번 핀(I2C2_M1), 전원은 22번 핀(3.3V)</td><td>레인당 최대 1Gbps<br/>I2C 3.3V</td><td>원본 영상을 CPU 없이 ISP·NPU 메모리(DMA)로. 노출·게인 잠금은 I2C(<code>0x10</code>)</td></tr>
-              <tr><td>④ 화면 출력<span class="block rpt-cap font-normal">RK3566 → LCD</span></td><td><b>4-Wire SPI</b> + GPIO 3핀</td><td><b>40핀 헤더 8핀</b>: SPI 19·23·24, DC 18, RST 22, BL 7, VCC 1, GND 6 (아래 핀맵)</td><td>32~40MHz<br/>3.3V</td><td>320×240 RGB565 1프레임(153.6KB) <b>약 31~38ms</b> → 알림 지연 ≤100ms 충족</td></tr>
-              <tr><td>⑤ 로컬 저장<span class="block rpt-cap font-normal">RK3566 ↔ MicroSD</span></td><td><b>SDIO 3.0</b></td><td>보드 내장 MicroSD 슬롯 (배선 없음)</td><td>최대 104MB/s<br/>3.3V / 1.8V</td><td>OS 부팅, RKNN 모델 가중치, SQLite 통계 로그</td></tr>
-              <tr><td>⑥ 3.3V 분배<span class="block rpt-cap font-normal">PMIC → 주변장치</span></td><td><b>3.3V 레일</b></td><td>카메라: FPC 22번 핀 · LCD: 헤더 1번 핀 · MicroSD: 슬롯 직결</td><td>3.3V · 피크 360mA</td><td>주변장치 3종 전원. 모두 같은 보드 GND 공유</td></tr>
+              <tr><td>④ 화면 출력<span class="block rpt-cap font-normal">RK3566 → LCD</span></td><td><b>4-Wire SPI</b> + GPIO 2핀</td><td><b>40핀 헤더 8핀</b>: SPI 19·23·24, DC 18, RST 22, VCC 1, BL 17(3.3V), GND 6 (아래 핀맵)</td><td>32~40MHz<br/>3.3V</td><td>320×240 RGB565 1프레임(153.6KB) <b>약 31~38ms</b> → 알림 지연 ≤100ms 충족</td></tr>
+              <tr><td>⑤ 로컬 저장<span class="block rpt-cap font-normal">RK3566 ↔ eMMC</span></td><td><b>eMMC 5.1</b></td><td>보드에 납땜된 eMMC 16GB (배선 없음)</td><td>—</td><td>OS, RKNN 모델, SQLite 기록. MicroSD보다 연속 쓰기 신뢰성이 높고 접촉 불량이 없음</td></tr>
+              <tr><td>⑥ 3.3V 분배<span class="block rpt-cap font-normal">PMIC → 주변장치</span></td><td><b>3.3V 레일</b></td><td>카메라: FPC 22번 핀 · LCD: 헤더 1 · 17번 핀</td><td>3.3V · 피크 280mA</td><td>카메라 · LCD 전원. 모두 같은 보드 GND 공유</td></tr>
+              <tr><td>버튼 입력<span class="block rpt-cap font-normal">택트 스위치 → RK3566</span></td><td><b>GPIO 입력</b></td><td>헤더 16번(GPIO, 내부 풀업) · 14번(GND)</td><td>3.3V</td><td>짧게 = 스누즈, 3초 = 캘리브레이션, 10초 = 설정 메뉴. 소프트웨어 디바운스 20~50ms</td></tr>
             </tbody>
           </table>
         </div>
 
         <!-- Expandable Details: GPIO Pinout & Hardware Risk Mitigation -->
         <details class="rpt-det" open>
-          <summary><span>40핀 GPIO ↔ 2.0인치 SPI LCD 핀 연결 (Pinout)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <summary><span>40핀 GPIO ↔ 2.0인치 SPI LCD · 버튼 핀 연결 (Pinout)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
           <div class="rpt-det-body">
-            <p class="rpt-p">40핀 헤더에는 <b>LCD 1개만</b> 연결합니다(카메라는 CSI FPC, PC는 USB-C OTG). 신호는 모두 보드 → LCD 단방향, 3.3V입니다. SPI3_M1은 기본 비활성이라 <code>rsetup</code>에서 오버레이를 켜야 하고, 디버그 UART(8·10번 핀)는 비워 둡니다.</p>
+            <p class="rpt-p">40핀 헤더에는 <b>LCD와 버튼 1개</b>를 연결합니다(카메라는 CSI FPC, PC는 USB-C OTG). LCD 신호는 모두 보드 → LCD 단방향, 3.3V이고, 백라이트는 시제품에서 3.3V에 직결합니다. SPI3_M1은 기본 비활성이라 <code>rsetup</code>에서 오버레이를 켜야 하고, 디버그 UART(8·10번 핀)는 비워 둡니다.</p>
             <!-- 40-pin header: column i holds odd pin 2i+1 (top) and even pin 2i+2 (bottom) -->
             <div class="rpt-scroll">
-              <svg viewBox="0 0 760 148" class="w-full h-auto min-w-[560px]" role="img" aria-label="40핀 헤더 중 LCD가 쓰는 8핀: 1번 VCC, 6번 GND, 7번 BL, 18번 DC, 19번 MOSI, 22번 RST, 23번 SCLK, 24번 CS">
+              <svg viewBox="0 0 760 148" class="w-full h-auto min-w-[560px]" role="img" aria-label="40핀 헤더 중 쓰는 10핀: LCD는 1번 VCC, 6번 GND, 17번 BL(3.3V), 18번 DC, 19번 MOSI, 22번 RST, 23번 SCLK, 24번 CS. 버튼은 16번 GPIO 입력과 14번 GND">
                 <rect x="20" y="44" width="720" height="72" rx="10" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
                 <g class="fill-surface-container-high stroke-outline-variant" stroke-width="1">
-                  <circle cx="74" cy="64" r="9"/><circle cx="110" cy="64" r="9"/><circle cx="182" cy="64" r="9"/><circle cx="218" cy="64" r="9"/><circle cx="254" cy="64" r="9"/><circle cx="290" cy="64" r="9"/><circle cx="326" cy="64" r="9"/><circle cx="398" cy="64" r="9"/><circle cx="470" cy="64" r="9"/><circle cx="506" cy="64" r="9"/><circle cx="542" cy="64" r="9"/><circle cx="578" cy="64" r="9"/><circle cx="614" cy="64" r="9"/><circle cx="650" cy="64" r="9"/><circle cx="686" cy="64" r="9"/><circle cx="722" cy="64" r="9"/>
-                  <circle cx="38" cy="96" r="9"/><circle cx="74" cy="96" r="9"/><circle cx="146" cy="96" r="9"/><circle cx="182" cy="96" r="9"/><circle cx="218" cy="96" r="9"/><circle cx="254" cy="96" r="9"/><circle cx="290" cy="96" r="9"/><circle cx="362" cy="96" r="9"/><circle cx="470" cy="96" r="9"/><circle cx="506" cy="96" r="9"/><circle cx="542" cy="96" r="9"/><circle cx="578" cy="96" r="9"/><circle cx="614" cy="96" r="9"/><circle cx="650" cy="96" r="9"/><circle cx="686" cy="96" r="9"/><circle cx="722" cy="96" r="9"/>
+                  <circle cx="74" cy="64" r="9"/><circle cx="110" cy="64" r="9"/><circle cx="146" cy="64" r="9"/><circle cx="182" cy="64" r="9"/><circle cx="218" cy="64" r="9"/><circle cx="254" cy="64" r="9"/><circle cx="290" cy="64" r="9"/><circle cx="398" cy="64" r="9"/><circle cx="470" cy="64" r="9"/><circle cx="506" cy="64" r="9"/><circle cx="542" cy="64" r="9"/><circle cx="578" cy="64" r="9"/><circle cx="614" cy="64" r="9"/><circle cx="650" cy="64" r="9"/><circle cx="686" cy="64" r="9"/><circle cx="722" cy="64" r="9"/>
+                  <circle cx="38" cy="96" r="9"/><circle cx="74" cy="96" r="9"/><circle cx="146" cy="96" r="9"/><circle cx="182" cy="96" r="9"/><circle cx="218" cy="96" r="9"/><circle cx="362" cy="96" r="9"/><circle cx="470" cy="96" r="9"/><circle cx="506" cy="96" r="9"/><circle cx="542" cy="96" r="9"/><circle cx="578" cy="96" r="9"/><circle cx="614" cy="96" r="9"/><circle cx="650" cy="96" r="9"/><circle cx="686" cy="96" r="9"/><circle cx="722" cy="96" r="9"/>
                 </g>
-                <!-- used pins: power, ground, SPI, control GPIO -->
+                <!-- used pins: power, ground, SPI, control GPIO, button -->
                 <circle cx="38" cy="64" r="11" class="fill-tertiary"/>
+                <circle cx="326" cy="64" r="11" class="fill-tertiary"/>
                 <circle cx="110" cy="96" r="11" class="fill-on-surface-variant"/>
+                <circle cx="254" cy="96" r="11" class="fill-on-surface-variant"/>
                 <circle cx="362" cy="64" r="11" class="fill-primary"/>
                 <circle cx="434" cy="64" r="11" class="fill-primary"/>
                 <circle cx="434" cy="96" r="11" class="fill-primary"/>
-                <circle cx="146" cy="64" r="11" class="fill-primary-fixed-dim"/>
+                <circle cx="290" cy="96" r="11" class="fill-primary-fixed-dim"/>
                 <circle cx="326" cy="96" r="11" class="fill-primary-fixed-dim"/>
                 <circle cx="398" cy="96" r="11" class="fill-primary-fixed-dim"/>
                 <g font-size="9" font-weight="700" text-anchor="middle" fill="#fff">
-                  <text x="38" y="67">1</text><text x="110" y="99">6</text><text x="362" y="67">19</text><text x="434" y="67">23</text><text x="434" y="99">24</text>
+                  <text x="38" y="67">1</text><text x="326" y="67">17</text><text x="110" y="99">6</text><text x="254" y="99">14</text><text x="362" y="67">19</text><text x="434" y="67">23</text><text x="434" y="99">24</text>
                 </g>
                 <g font-size="9" font-weight="700" text-anchor="middle" class="fill-on-primary-fixed">
-                  <text x="146" y="67">7</text><text x="326" y="99">18</text><text x="398" y="99">22</text>
+                  <text x="290" y="99">16</text><text x="326" y="99">18</text><text x="398" y="99">22</text>
                 </g>
                 <g font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">
-                  <text x="38" y="34">VCC</text><text x="146" y="34">BL</text><text x="362" y="34">MOSI</text><text x="434" y="34">SCLK</text>
-                  <text x="110" y="136">GND</text><text x="326" y="136">DC</text><text x="398" y="136">RST</text><text x="434" y="136">CS</text>
+                  <text x="38" y="34">VCC</text><text x="326" y="34">BL</text><text x="362" y="34">MOSI</text><text x="434" y="34">SCLK</text>
+                  <text x="110" y="136">GND</text><text x="254" y="136">GND</text><text x="290" y="136">BTN</text><text x="326" y="136">DC</text><text x="398" y="136">RST</text><text x="434" y="136">CS</text>
                 </g>
                 <g font-size="9" class="fill-outline">
                   <text x="722" y="34" text-anchor="middle">39</text><text x="722" y="136" text-anchor="middle">40</text><text x="38" y="136" text-anchor="middle">2</text>
@@ -1180,14 +1214,14 @@
               </svg>
             </div>
             <ul class="list-none p-0 m-0 flex flex-wrap gap-x-space-md gap-y-1 rpt-cap">
-              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-tertiary"></span>3.3V 전원</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-tertiary"></span>3.3V 전원 (VCC · BL)</li>
               <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-on-surface-variant"></span>GND</li>
               <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary"></span>SPI 버스 (CLK · MOSI · CS)</li>
-              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span>제어 GPIO (DC · RST · BL)</li>
+              <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span>GPIO (DC · RST 출력, 버튼 입력)</li>
               <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-surface-container-high border border-outline-variant"></span>미사용</li>
             </ul>
             <div class="rpt-scroll"><table class="rpt-table">
-              <thead><tr><th>LCD 핀</th><th>기능</th><th>헤더 핀</th><th>RK3566 핀 · 기능</th></tr></thead>
+              <thead><tr><th>부품 핀</th><th>기능</th><th>헤더 핀</th><th>RK3566 핀 · 기능</th></tr></thead>
               <tbody>
                 <tr><td><code>VCC</code></td><td>로직·백라이트 전원</td><td><b>Pin 1</b> (또는 17)</td><td>3.3V 전원</td></tr>
                 <tr><td><code>GND</code></td><td>공통 접지</td><td><b>Pin 6</b> (또는 9·14·20)</td><td>GND</td></tr>
@@ -1196,7 +1230,9 @@
                 <tr><td><code>CS</code></td><td>SPI 칩 선택</td><td><b>Pin 24</b></td><td><code>GPIO4_C6</code> · SPI3_CS0_M1</td></tr>
                 <tr><td><code>DC (RS)</code></td><td>데이터(H) / 명령(L) 선택</td><td><b>Pin 18</b></td><td><code>GPIO3_B2</code> · 범용 출력</td></tr>
                 <tr><td><code>RST (RES)</code></td><td>하드웨어 리셋 (Active Low)</td><td><b>Pin 22</b></td><td><code>GPIO3_C1</code> · 범용 출력</td></tr>
-                <tr><td><code>BL (BLK)</code></td><td>백라이트 밝기 (PWM)</td><td><b>Pin 7</b></td><td><code>GPIO3_C4</code> · PWM14_M0</td></tr>
+                <tr><td><code>BL (BLK)</code></td><td>백라이트 (시제품은 항상 켬)</td><td><b>Pin 17</b> (3.3V)</td><td>3.3V 전원 직결. PWM 밝기 제어(Pin 7)는 컨테이너 권한이 커져서 쓰지 않음</td></tr>
+                <tr><td><code>버튼 단자 1</code></td><td>버튼 입력 (누르면 Low)</td><td><b>Pin 16</b></td><td>GPIO 입력 · 내부 풀업 (GPIO 이름은 보드 핀맵에서 확인)</td></tr>
+                <tr><td><code>버튼 단자 2</code></td><td>접지</td><td><b>Pin 14</b></td><td>GND</td></tr>
               </tbody>
             </table></div>
           </div>
@@ -1208,18 +1244,32 @@
             <div class="rpt-scroll"><table class="rpt-table">
               <thead><tr><th>리스크</th><th>원인</th><th>대책</th></tr></thead>
               <tbody>
-                <tr><td>1. NPU 동시 추론 지연(&gt;100ms)</td><td>NPU(0.8 TOPS) 하나를 <code>YOLO-seg</code>와 얼굴 랜드마크가 나눠 쓰면 대기열 발생</td><td>두 모델 RKNN INT8 양자화, 상체 분할 <b>3~5fps</b> · 얼굴 <b>10~15fps</b>로 주기 분리</td></tr>
-                <tr><td>2. USB 전류 부족 재부팅</td><td>USB-A 2.0(0.5A) · 3.0(0.9A) 포트는 피크 1.38A에서 전압 강하로 보드 리셋</td><td><b>PC USB-C 포트(5V ≥1.5A)</b> 연결을 설치 필수 조건으로 안내(제조사 권장 2A), 22AWG 저저항 케이블</td></tr>
-                <tr><td>3. 8시간 연속 가동 발열</td><td>밀폐 케이스에서 SoC가 80°C를 넘으면 클럭 저하·프레임 드랍</td><td><b>알루미늄 히트싱크 + 써멀패드</b>, 케이스 상·하단 통풍구</td></tr>
-                <tr><td>4. 자동노출(AE) 지터</td><td>모니터 밝기 변화로 노출이 출렁이면 입술 경계(MAR) 좌표가 흔들림</td><td>10초 캘리브레이션 직후 <code>v4l2-ctl</code>로 노출(1/120s 배수)·게인 완만화 또는 고정</td></tr>
-                <tr><td>5. 상시 카메라 프라이버시</td><td>정면 카메라 상시 거치에 대한 거부감, 영상 노출 우려</td><td><b>물리 렌즈 슬라이더</b>, 캘리브레이션 후 PC로의 영상 전송 차단</td></tr>
-                <tr><td>6. NPU 동작 미보장</td><td>Radxa는 ZERO 3W 칩의 NPU를 검수하지 않아 동작을 보장하지 않음(대부분은 정상)</td><td>보드 입고 즉시 RKNN 샘플 모델로 NPU 동작부터 확인</td></tr>
+                <tr><td>1. 후처리 지연으로 목표 fps 미달</td><td>NPU 모델 계산은 약 35ms(<code>yolov8n-seg</code>, RKNN Model Zoo)지만 마스크 후처리는 CPU가 함. Zero 3에서 전체 2~3fps였다는 사용자 보고</td><td>두 모델 RKNN INT8, 마스크는 얼굴 · 상체 1개씩 낮은 해상도로, 상체 분할 <b>3~5fps</b> · 얼굴 <b>10~15fps</b>로 주기 분리. 모자라면 입력 640 → 416/320</td></tr>
+                <tr><td>2. USB 가젯 동작 미검증</td><td>ZERO 3W에서 USB 가상 네트워크(RNDIS) 동작 사례를 아직 찾지 못함</td><td>보드를 받으면 NCM/ECM → RNDIS 순서로 시험. 끝내 안 되면 PC 직결 때도 Wi-Fi 모드로 동작</td></tr>
+                <tr><td>3. USB 전류 부족 재부팅</td><td>USB-A 2.0(0.5A) · 3.0(0.9A) 포트는 피크 1.31A(추정)에서 전압 강하로 보드 리셋</td><td><b>USB-C 전용</b>: PC USB-C 포트(5V ≥1.5A) 또는 USB-C 충전기(5V ≥2A), 22AWG 저저항 케이블, USB 전력계로 실측</td></tr>
+                <tr><td>4. 8시간 연속 가동 발열</td><td>밀폐 케이스에서 SoC가 80°C를 넘으면 클럭 저하·프레임 드랍</td><td><b>알루미늄 히트싱크 + 써멀패드</b>, 케이스 상·하단 통풍구</td></tr>
+                <tr><td>5. 자동노출(AE) 지터</td><td>모니터 밝기 변화로 노출이 출렁이면 입술 경계(MAR) 좌표가 흔들림</td><td>10초 캘리브레이션 직후 <code>v4l2-ctl</code>로 노출(1/120s 배수)·게인 완만화 또는 고정</td></tr>
+                <tr><td>6. 상시 카메라 프라이버시</td><td>정면 카메라 상시 거치에 대한 거부감, Wi-Fi로 영상이 보일 수 있다는 우려</td><td><b>물리 렌즈 슬라이더</b>. 실시간 보기는 사용자가 켤 때만, LCD에 "영상 보기 중" 표시, 최대 5분. Wi-Fi 모드는 기기 화면의 4자리 코드로 PC 등록 (8번 탭)</td></tr>
+                <tr><td>7. NPU 동작 미보장</td><td>Radxa는 ZERO 3W 칩의 NPU를 검수하지 않아 동작을 보장하지 않음(대부분은 정상)</td><td>보드 입고 즉시 <code>rsetup</code>에서 NPU를 켜고 RKNN 샘플 모델로 동작부터 확인</td></tr>
               </tbody>
             </table></div>
           </div>
         </details>
 
-        <a href="#pre" class="rpt-next rpt-next-alt"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
+        <details class="rpt-det">
+          <summary><span>출처</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <ul class="rpt-det-body rpt-p list-disc pl-9 m-0">
+            <li><a class="underline" href="https://www.cnx-software.com/2023/12/08/radxa-zero-3w-sbc-rockchip-rk3566-8gb-ram-wifi6-raspberry-pi-zero-2-w-form-factor/?amp=1" target="_blank" rel="noopener">Radxa ZERO 3W 사양 (CNX Software)</a></li>
+            <li><a class="underline" href="https://docs.radxa.com/en/zero/zero3/accessories/camera" target="_blank" rel="noopener">Radxa ZERO 3 지원 카메라 (Radxa 공식 문서)</a></li>
+            <li><a class="underline" href="https://docs.radxa.com/en/accessories/camera_8m_219" target="_blank" rel="noopener">Radxa Camera 8M 219 사양 — 수평 화각 62° (Radxa 공식 문서)</a></li>
+            <li><a class="underline" href="https://github.com/airockchip/rknn_model_zoo" target="_blank" rel="noopener">RKNN Model Zoo 벤치마크 (Rockchip 공식 GitHub)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/energy-consumption/12404" target="_blank" rel="noopener">보드 소비전력 (Radxa 공식 포럼)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/zero-3w-rndis-and-g-ether-on-debian-desktop-os/19998" target="_blank" rel="noopener">ZERO 3W USB 가젯(RNDIS) 질문 (Radxa 공식 포럼)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/optimizing-object-detection-on-radxa-zero-3-rk3566-performance-issues/25700" target="_blank" rel="noopener">Zero 3 실사용 속도 보고 (Radxa 공식 포럼)</a></li>
+          </ul>
+        </details>
+
+        <a href="#engine" class="rpt-next">다음: 6. 추론 엔진 선택 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
       </section>
 
       <!-- PAGE 6: INFERENCE ENGINE -->
@@ -1308,6 +1358,323 @@
             <li><a class="underline" href="https://ai.google.dev/edge/litert" target="_blank" rel="noopener">LiteRT (TFLite) 문서</a></li>
           </ul>
         </details>
+        <a href="#parts" class="rpt-next">다음: 7. SBC · MCU 선정 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 7: SBC / MCU SELECTION (report/hardware_spec_report.md v2.0.0) -->
+      <section data-page id="parts" class="rpt-page scroll-mt-40">
+        <header class="rpt-head">
+          <h2 class="rpt-h2">7. SBC · MCU 부품 선정</h2>
+          <p class="rpt-lead">SBC는 <b>Radxa ZERO 3W</b>, MCU는 <b>쓰지 않습니다.</b> 모니터 위에 얹을 만큼 작고, PC의 USB-C 하나로 전원을 받으면서, 카메라 1대의 AI를 기기 안에서 돌릴 수 있는 보드를 골랐습니다.</p>
+        </header>
+
+        <dl class="rpt-box rpt-answers">
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">memory</span>SBC</dt><dd><b>Radxa ZERO 3W</b><span>RK3566 · NPU 0.8 TOPS · RAM 2GB · eMMC 16GB</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">developer_board_off</span>MCU</dt><dd><b>사용 안 함</b><span>모터 · 배터리 · 여러 센서가 없음</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">bolt</span>전원</dt><dd><b>USB-C 하나</b><span>평균 약 3.5W · 피크 약 6.5W (추정)</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">payments</span>부품 단가 (BOM)</dt><dd><b>110,000원</b><span>목표 120,000원 이내 (추정)</span></dd></div>
+        </dl>
+
+        <div class="rpt-box rpt-scroll">
+          <table class="rpt-table">
+            <thead><tr><th>제품 조건</th><th>내용</th><th>부품 선택에 주는 영향</th></tr></thead>
+            <tbody>
+              <tr><td>설치</td><td>모니터 위 가운데에 클립으로 얹음</td><td>작고 가벼워야 함</td></tr>
+              <tr><td>전원</td><td>USB-C 케이블 하나 (PC 포트 또는 충전기), 배터리 없음</td><td>소비전력이 PC USB-C 포트(5V 1.5A) 안이어야 함</td></tr>
+              <tr><td>AI</td><td>카메라 1대, 상체 분할 3~5fps + 얼굴·입술 랜드마크 10~15fps, 전부 기기 안에서</td><td>NPU가 있으면 좋음, 큰 GPU는 불필요</td></tr>
+              <tr><td>소프트웨어</td><td>리눅스 + Docker 컨테이너 3개 (8번 탭)</td><td>RAM 1GB 이상</td></tr>
+              <tr><td>실시간 제어</td><td>없음 (모터 · 비상정지 없음)</td><td>MCU가 필요 없음</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rpt-box rpt-scroll">
+          <table class="rpt-table rpt-table-wide">
+            <thead><tr><th>후보</th><th>크기</th><th>전원</th><th>AI</th><th>판정</th></tr></thead>
+            <tbody>
+              <tr><td>Raspberry Pi 5</td><td>85×56mm</td><td>5V/5A 권장</td><td>NPU 없음 (CPU 추론)</td><td><span class="rpt-off">제외</span> PC USB-C 하나로 전원 공급이 어렵고, 모니터 위에 얹기엔 큼</td></tr>
+              <tr><td>Pi 5 + AI HAT+</td><td>Pi 5 + HAT</td><td>Pi 5보다 큼</td><td>13~26 TOPS</td><td><span class="rpt-off">제외</span> 성능은 남고 크기 · 전력이 더 커짐</td></tr>
+              <tr><td>Jetson Orin Nano</td><td>큼</td><td>7~25W</td><td>67 TOPS</td><td><span class="rpt-off">제외</span> 카메라 1대 제품에는 과함, 가격 · 발열 부담</td></tr>
+              <tr><td>RK3588 보드</td><td>신용카드 크기</td><td>수 W~10W 이상</td><td>6 TOPS</td><td><span class="rpt-off">제외</span> 성능은 남고 크기 · 전력이 맞지 않음</td></tr>
+              <tr><td>Pi Zero 2 W</td><td>65×30mm</td><td>1W 안팎</td><td>NPU 없음, RAM 512MB</td><td><span class="rpt-off">제외</span> 크기는 맞지만 AI · 컨테이너 여러 개가 어려움</td></tr>
+              <tr class="rpt-tr-on"><td>Radxa ZERO 3W</td><td>65×30mm</td><td>공식 최대 3.3W</td><td>NPU 0.8 TOPS (INT8), RAM 2GB</td><td><span class="rpt-on">선정</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ol class="rpt-box rpt-rows">
+          <li class="rpt-row">
+            <span class="rpt-num">1</span>
+            <div class="rpt-row-t"><b>크기</b></div>
+            <p class="rpt-row-d">Zero 2 W와 같은 65×30mm라 모니터 위 클립 케이스에 들어갑니다.</p>
+            <p class="rpt-row-v">손가락만 한 크기</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">2</span>
+            <div class="rpt-row-t"><b>전원</b></div>
+            <p class="rpt-row-d">USB-C OTG 포트 하나로 전원과 데이터(USB 가상 네트워크)를 함께 받습니다. 공식 최대 소비전력 3.3W(USB 주변기기 제외)라 PC USB-C 포트로 충분합니다.</p>
+            <p class="rpt-row-v">케이블 1개</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">3</span>
+            <div class="rpt-row-t"><b>AI</b><span class="rpt-on">NPU</span></div>
+            <p class="rpt-row-d">RK3566 NPU에서 <code>yolov8n-seg</code>(640×640, INT8)가 RKNN Model Zoo 기준 약 28.9 FPS입니다. 모델 계산만 잰 값이라 실제로는 훨씬 느리지만, 목표가 3~5fps라 범위 안입니다.</p>
+            <p class="rpt-row-v">목표 3~5fps</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">4</span>
+            <div class="rpt-row-t"><b>Docker · 연결 · 저장</b></div>
+            <p class="rpt-row-d">RAM 2GB면 컨테이너 3개(합계 약 1GB)와 OS를 함께 올립니다. CSI 카메라, 40핀 GPIO(SPI LCD · 버튼), Wi-Fi 6이 보드에 있고, eMMC 모델이라 MicroSD 없이 OS · 모델 · 기록을 보관합니다.</p>
+            <p class="rpt-row-v">컨테이너 3개 + OS</p>
+          </li>
+        </ol>
+
+        <details class="rpt-det" open>
+          <summary><span>MCU를 쓰지 않는 이유</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>MCU가 맡는 대표적인 일</th><th>이 제품에서는</th></tr></thead>
+              <tbody>
+                <tr><td>즉시 반응하는 안전 제어</td><td>모터 · 액추에이터가 없음</td></tr>
+                <tr><td>여러 센서 값 상시 수집</td><td>센서는 카메라 하나이고 CSI로 SBC에 직결</td></tr>
+                <tr><td>배터리로 오래 버티기</td><td>배터리 없음, 항상 USB 전원</td></tr>
+                <tr><td>화면 · 버튼</td><td>2인치 LCD는 SBC의 SPI로 1프레임 약 31~38ms, 버튼 1개는 GPIO로 충분</td></tr>
+              </tbody>
+            </table></div>
+            <p class="rpt-p">카메라와 TinyML을 지원하는 <b>ESP32-S3</b>만으로 만드는 구성도 검토했지만, 얼굴 검출 정도는 되어도 상체 분할과 입술 랜드마크를 함께 돌리기엔 연산 · 메모리가 부족해서 제외했습니다. MCU를 넣으면 펌웨어, 보드 간 통신, 전원 경로만 늘어나므로 <b>SBC 단독 구성</b>으로 갑니다. 나중에 배터리형으로 바꾸거나 진동 모터 같은 액추에이터를 달면 그때 ESP32-C3급 MCU를 추가합니다.</p>
+          </div>
+        </details>
+
+        <details class="rpt-det" open>
+          <summary><span>알아 둘 약점과 대책</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>약점</th><th>내용</th><th>대책</th></tr></thead>
+              <tbody>
+                <tr><td>1. 실제 속도</td><td>Zero 3에서 YOLO11n을 RKNNLite로 돌렸을 때 프레임당 700~800ms(2~3fps)였다는 사용자 보고. CPU에서 하는 전처리 · 마스크 후처리가 병목</td><td>마스크는 얼굴 · 상체 1개씩 낮은 해상도로, 분할 3~5fps · 랜드마크 10~15fps로 주기 분리. 모자라면 입력을 640 → 416/320으로 축소</td></tr>
+                <tr><td>2. 모델 준비</td><td>RK3566용으로 변환된 얼굴 랜드마크 모델을 찾지 못함</td><td>PC(x86)에서 ONNX → RKNN으로 직접 변환 (RKNN 변환은 x86에서만 됨)</td></tr>
+                <tr><td>3. 자료가 적음</td><td>라즈베리 파이보다 커뮤니티와 예제가 적음</td><td>보드를 받으면 NPU(<code>rsetup</code> → Overlays) · 카메라 · USB 가젯부터 확인</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>참고 대안: Pi Zero 2 W + Raspberry Pi AI Camera (보류)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <p class="rpt-p">AI Camera(Sony IMX500)는 <b>카메라 센서 안에서 추론</b>을 해서 Zero 2 W의 약점(NPU 없음)을 메울 수 있고, 라즈베리 파이라 자료가 많습니다(약 $70). 다만 센서 안 메모리가 약 8MB(펌웨어 · 가중치 · 작업 메모리 공유), INT8, 입력 최대 640×640이라 분할 모델과 얼굴 랜드마크 두 개를 함께 올리기 빡빡하고, Zero 2 W의 RAM 512MB도 컨테이너 3개에 부족합니다. ZERO 3W에서 속도가 끝내 안 나오면 다시 검토합니다.</p>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>시제품 부품 목록 (BOM, 추정 단가)</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>부품</th><th>사양</th><th>역할</th><th>단가 (원)</th></tr></thead>
+              <tbody>
+                <tr><td>Radxa ZERO 3W</td><td>RK3566, NPU 0.8 TOPS, 2GB, eMMC 16GB, Wi-Fi 6</td><td>AI 추론, 판정, 웹 서버</td><td>55,000</td></tr>
+                <tr><td>IMX219 + 광각 렌즈</td><td>720p@30fps, 수평 화각 72~78°</td><td>얼굴과 어깨선 함께 촬영 (공식 모듈 62°는 좁음)</td><td>25,000</td></tr>
+                <tr><td>2.0" IPS LCD</td><td>320×240, ST7789, SPI</td><td>캐릭터 경고, 캘리브레이션 안내</td><td>10,000</td></tr>
+                <tr><td>택트 스위치</td><td>6×6mm</td><td>스누즈 · 캘리브레이션 · 설정 메뉴</td><td>1,000</td></tr>
+                <tr><td>USB-C 케이블</td><td>C to C, 5V/3A, USB 2.0</td><td>전원 + 데이터</td><td>6,000</td></tr>
+                <tr><td>히트싱크 + 써멀패드</td><td>알루미늄 20×14×6mm</td><td>8시간 연속 추론 발열 관리</td><td>3,000</td></tr>
+                <tr><td>클립형 케이스</td><td>3D 프린팅, 렌즈 슬라이더</td><td>모니터 위 고정, 렌즈 가림</td><td>10,000</td></tr>
+                <tr class="rpt-tr-on"><td>합계</td><td></td><td></td><td><b>110,000</b></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>출처</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <ul class="rpt-det-body rpt-p list-disc pl-9 m-0">
+            <li><a class="underline" href="https://www.cnx-software.com/2023/12/08/radxa-zero-3w-sbc-rockchip-rk3566-8gb-ram-wifi6-raspberry-pi-zero-2-w-form-factor/?amp=1" target="_blank" rel="noopener">Radxa ZERO 3W 사양 (CNX Software)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/energy-consumption/12404" target="_blank" rel="noopener">보드 소비전력 (Radxa 공식 포럼)</a></li>
+            <li><a class="underline" href="https://docs.radxa.com/en/accessories/camera_8m_219" target="_blank" rel="noopener">Radxa Camera 8M 219 사양 — 수평 화각 62° (Radxa 공식 문서)</a></li>
+            <li><a class="underline" href="https://github.com/airockchip/rknn_model_zoo" target="_blank" rel="noopener">RKNN Model Zoo 벤치마크 (Rockchip 공식 GitHub)</a></li>
+            <li><a class="underline" href="https://docs.ultralytics.com/integrations/rockchip-rknn/" target="_blank" rel="noopener">Rockchip RKNN 내보내기 (Ultralytics 공식 문서)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/optimizing-object-detection-on-radxa-zero-3-rk3566-performance-issues/25700" target="_blank" rel="noopener">Zero 3 실사용 속도 보고 (Radxa 공식 포럼)</a></li>
+            <li><a class="underline" href="https://forum.radxa.com/t/how-to-enable-npu-in-overlays-for-radxa-zero-3w/23533" target="_blank" rel="noopener">ZERO 3W NPU 켜기 (Radxa 공식 포럼)</a></li>
+            <li><a class="underline" href="https://www.cnx-software.com/2024/10/01/raspberry-pi-ai-camera-with-sony-imx500-ai-sensor-and-rp2040-mcu/" target="_blank" rel="noopener">Raspberry Pi AI Camera 사양 · 센서 메모리 (CNX Software)</a></li>
+          </ul>
+        </details>
+        <a href="#containers" class="rpt-next">다음: 8. 컨테이너 구조 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+      </section>
+
+      <!-- PAGE 8: SBC CONTAINER ARCHITECTURE (report/container_architecture.md v2.0.0) -->
+      <section data-page id="containers" class="rpt-page scroll-mt-40">
+        <header class="rpt-head">
+          <h2 class="rpt-h2">8. SBC 컨테이너 구조</h2>
+          <p class="rpt-lead">보드 안의 소프트웨어를 Docker 컨테이너 <b>3개</b>로 나눕니다. 모터나 비상정지가 없는 제품이라, 가장 중요한 기준은 <b>"얼굴 영상이 밖으로 나갈 수 있는가"</b>입니다. 영상이 있는 곳과 네트워크가 있는 곳을 서로 다른 컨테이너에 둡니다.</p>
+        </header>
+
+        <dl class="rpt-box rpt-answers">
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">deployed_code</span>컨테이너</dt><dd><b>3개</b><span>vision · coach · web</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">lan</span>네트워크가 있는 곳</dt><dd><b>web 하나</b><span>vision · coach는 네트워크 없음</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">shield</span>가장 중요한 기준</dt><dd><b>보안</b><span>하드웨어 접근 권한</span></dd></div>
+          <div><dt class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" aria-hidden="true">hub</span>컨테이너 간 통신</dt><dd><b>공유 RAM · Unix 소켓</b><span>보드 안에서만, 네트워크 없이</span></dd></div>
+        </dl>
+
+        <figure class="rpt-fig">
+          <figcaption class="rpt-h3">컨테이너 관계도</figcaption>
+          <div class="rpt-scroll">
+          <svg viewBox="0 0 960 300" class="w-full h-auto min-w-[720px]" role="img" aria-label="Radxa ZERO 3W 안에 컨테이너 3개가 있다. ① vision은 카메라와 NPU를 쓰고 네트워크가 없으며, ② coach에 특징값을 보내고 coach에게서 보기 영상과 노출 명령을 받는다. ② coach는 판정, 기록, LCD와 버튼을 맡고 네트워크가 없으며, ③ web에 현재 상태를 주고 web에게서 요청을 받는다. ③ web만 네트워크가 있어 PC나 휴대폰 브라우저와 HTTPS로 연결된다. 실시간 보기 영상은 coach가 허락한 동안만 vision에서 web으로 간다.">
+            <defs>
+              <marker id="ctArr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-primary"/></marker>
+              <marker id="ctArrM" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" class="fill-outline"/></marker>
+            </defs>
+
+            <!-- Hardware -->
+            <rect x="16" y="62" width="128" height="40" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="80" y="87" font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">IMX219 카메라</text>
+            <rect x="16" y="130" width="128" height="40" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="80" y="155" font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">RK3566 NPU</text>
+            <line x1="144" y1="82" x2="188" y2="96" stroke-width="1.5" class="stroke-outline" marker-end="url(#ctArrM)"/>
+            <line x1="144" y1="150" x2="188" y2="136" stroke-width="1.5" class="stroke-outline" marker-start="url(#ctArrM)" marker-end="url(#ctArrM)"/>
+
+            <!-- Board -->
+            <rect x="170" y="20" width="620" height="200" rx="14" class="fill-primary-fixed stroke-primary" fill-opacity="0.25" stroke-width="1.5"/>
+            <text x="186" y="208" font-size="11" font-weight="700" class="fill-on-surface-variant">Radxa ZERO 3W (Host OS + Docker)</text>
+
+            <!-- ① vision -->
+            <rect x="190" y="66" width="160" height="104" rx="10" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.5"/>
+            <text x="204" y="88" font-size="12.5" font-weight="800" class="fill-on-surface">① vision</text>
+            <text x="204" y="107" font-size="10.5" class="fill-on-surface-variant">캡처 + AI 추론 (RKNN)</text>
+            <text x="204" y="123" font-size="10.5" class="fill-on-surface-variant">원본 영상은 RAM에만</text>
+            <text x="204" y="156" font-size="10" font-weight="700" class="fill-on-surface-variant">네트워크 없음</text>
+
+            <!-- ② coach -->
+            <rect x="420" y="66" width="160" height="104" rx="10" class="fill-surface-container-lowest stroke-outline-variant" stroke-width="1.5"/>
+            <text x="434" y="88" font-size="12.5" font-weight="800" class="fill-on-surface">② coach</text>
+            <text x="434" y="107" font-size="10.5" class="fill-on-surface-variant">판정 · 기록(eMMC)</text>
+            <text x="434" y="123" font-size="10.5" class="fill-on-surface-variant">LCD · 버튼 · 보기 허락</text>
+            <text x="434" y="156" font-size="10" font-weight="700" class="fill-on-surface-variant">네트워크 없음</text>
+
+            <!-- ③ web -->
+            <rect x="650" y="66" width="124" height="104" rx="10" class="fill-surface-container-lowest stroke-primary" stroke-width="2"/>
+            <text x="664" y="88" font-size="12.5" font-weight="800" class="fill-on-surface">③ web</text>
+            <text x="664" y="107" font-size="10.5" class="fill-on-surface-variant">웹 페이지</text>
+            <text x="664" y="123" font-size="10.5" class="fill-on-surface-variant">(FastAPI)</text>
+            <text x="664" y="156" font-size="10" font-weight="700" class="fill-primary">네트워크 있음</text>
+
+            <!-- vision ⇄ coach -->
+            <line x1="350" y1="100" x2="418" y2="100" stroke-width="2" class="stroke-primary" marker-end="url(#ctArr)"/>
+            <text x="385" y="93" font-size="10" font-weight="700" text-anchor="middle" class="fill-primary">특징값</text>
+            <line x1="420" y1="138" x2="352" y2="138" stroke-width="1.5" class="stroke-outline" marker-end="url(#ctArrM)"/>
+            <text x="385" y="154" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">명령</text>
+
+            <!-- coach ⇄ web -->
+            <line x1="580" y1="100" x2="648" y2="100" stroke-width="2" class="stroke-primary" marker-end="url(#ctArr)"/>
+            <text x="615" y="93" font-size="10" font-weight="700" text-anchor="middle" class="fill-primary">상태</text>
+            <line x1="650" y1="138" x2="582" y2="138" stroke-width="1.5" class="stroke-outline" marker-end="url(#ctArrM)"/>
+            <text x="615" y="154" font-size="9.5" text-anchor="middle" class="fill-on-surface-variant">요청</text>
+
+            <!-- preview vision → web, only while allowed -->
+            <path d="M270,66 C270,36 712,36 712,64" fill="none" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-outline" marker-end="url(#ctArrM)"/>
+            <text x="491" y="34" font-size="10" text-anchor="middle" class="fill-on-surface-variant">실시간 보기 영상 (② 허락 + LCD "영상 보기 중" 표시 동안만)</text>
+
+            <!-- coach → LCD -->
+            <line x1="500" y1="170" x2="500" y2="244" stroke-width="1.5" class="stroke-outline" marker-start="url(#ctArrM)" marker-end="url(#ctArrM)"/>
+            <text x="508" y="236" font-size="9.5" class="fill-on-surface-variant">SPI · GPIO</text>
+            <rect x="420" y="246" width="160" height="40" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="500" y="271" font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">2.0" LCD · 버튼</text>
+
+            <!-- web ⇄ PC -->
+            <line x1="774" y1="118" x2="826" y2="118" stroke-width="2" class="stroke-primary" marker-start="url(#ctArr)" marker-end="url(#ctArr)"/>
+            <text x="800" y="110" font-size="10" font-weight="700" text-anchor="middle" class="fill-primary">HTTPS</text>
+            <rect x="828" y="88" width="116" height="60" rx="8" class="fill-surface-container-low stroke-outline-variant" stroke-width="1.5"/>
+            <text x="886" y="113" font-size="11" font-weight="700" text-anchor="middle" class="fill-on-surface">PC · 휴대폰</text>
+            <text x="886" y="130" font-size="10" text-anchor="middle" class="fill-on-surface-variant">브라우저</text>
+          </svg>
+          </div>
+          <p class="rpt-cap">③ web은 카메라에 직접 명령할 수 없습니다. 실시간 보기는 ③이 요청 → ②가 허락하고 LCD에 "영상 보기 중" 표시 → ②가 ①에 보기 영상을 켜라고 함, 순서로만 시작됩니다. Wi-Fi 켜기 · 끄기는 컨테이너가 아니라 호스트 OS가 합니다.</p>
+        </figure>
+
+        <div class="rpt-box rpt-scroll">
+          <table class="rpt-table rpt-table-wide">
+            <thead><tr><th>컨테이너</th><th>하는 일</th><th>장치</th><th>네트워크</th><th>재시작</th></tr></thead>
+            <tbody>
+              <tr><td>① vision</td><td>카메라 캡처 → 품질 검사 → RKNN 추론(상체 분할, 얼굴 · 입술 랜드마크) → 특징값 전송</td><td>카메라, NPU</td><td>없음</td><td><code>on-failure</code> + <code>mem_limit</code></td></tr>
+              <tr><td>② coach</td><td>거북목 · 입벌림 판정, 캘리브레이션, SQLite 기록, LCD 캐릭터, 버튼, 영상 보기 허락</td><td>SPI, GPIO</td><td>없음</td><td><code>always</code></td></tr>
+              <tr class="rpt-tr-on"><td>③ web</td><td>통계 · 설정 웹 페이지, 실시간 보기 중계</td><td>없음</td><td><b>있음</b></td><td><code>always</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ol class="rpt-box rpt-rows">
+          <li class="rpt-row">
+            <span class="rpt-num">1</span>
+            <div class="rpt-row-t"><b>실패(패닉) 영향도</b></div>
+            <p class="rpt-row-d">메모리를 많이 쓰는 건 ①뿐입니다. ①이 OOM으로 죽어도 ②가 LCD에 <b>"대기"</b> 화면을 띄우고 ①은 자동 재시작됩니다. 잠깐 멈춰도 되는 구역을 한 컨테이너에 모아 나머지를 지키는 구조입니다. 멈춤(hang)도 재시작되도록 ①은 5초 동안 프레임을 처리하지 못하면 스스로 종료합니다.</p>
+            <p class="rpt-row-v">틀린 경고가 굳지 않게</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">2</span>
+            <div class="rpt-row-t"><b>하드웨어 접근 권한 · 보안</b><span class="rpt-on">가장 중요</span></div>
+            <p class="rpt-row-d">원본 영상은 ①에만 있고 ①에는 네트워크가 없습니다. 밖과 닿는 곳은 ③ 하나뿐이고, ③은 카메라 · 기록에 직접 손대지 못합니다. 모든 컨테이너에 <code>cap_drop: ALL</code>을 주고, <code>privileged</code> 대신 필요한 장치만 연결합니다.</p>
+            <p class="rpt-row-v">①이 뚫려도 영상이 못 나감</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">3</span>
+            <div class="rpt-row-t"><b>데이터 라이프사이클 · 역할</b></div>
+            <p class="rpt-row-d">수집 · 추론(①) → 판단 · 출력(②) → 외부 창구(③). 원본 프레임은 ① 안의 RAM에서 수십 ms만 살고, 특징값은 쓰고 버리며, 기록 · 기준값 · 설정의 주인은 ② 하나입니다.</p>
+            <p class="rpt-row-v">eMMC에는 기록 · 설정만</p>
+          </li>
+          <li class="rpt-row">
+            <span class="rpt-num">4</span>
+            <div class="rpt-row-t"><b>라이브러리 의존성</b></div>
+            <p class="rpt-row-d">①은 <code>rknnlite</code> · OpenCV(NPU 런타임 버전을 커널 드라이버에 맞춰야 해서 따로), ②는 <code>python:3.11-slim</code> · NumPy · spidev · gpiod(PC에서도 그대로 시험 가능), ③은 FastAPI · uvicorn입니다.</p>
+            <p class="rpt-row-v">버전 충돌 없음</p>
+          </li>
+        </ol>
+
+        <details class="rpt-det" open>
+          <summary><span>하나가 멈췄을 때</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>멈춘 것</th><th>사용자에게 보이는 것</th><th>복구</th></tr></thead>
+              <tbody>
+                <tr><td>① vision</td><td>특징값이 2초 넘게 안 오면 ②가 LCD에 "대기" 화면, 틀린 경고 없음</td><td>자동 재시작</td></tr>
+                <tr><td>② coach</td><td>LCD 갱신이 멈춤. ①은 ②의 신호가 끊기면 보기 영상을 스스로 끔</td><td>자동 재시작, eMMC의 기준값을 다시 읽음</td></tr>
+                <tr><td>③ web</td><td>브라우저 연결만 끊김, 기기 코칭은 그대로</td><td>자동 재시작</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>컨테이너 간 통신</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>통로</th><th>방향</th><th>방식</th><th>내용</th></tr></thead>
+              <tbody>
+                <tr><td><code>features.sock</code></td><td>① → ②</td><td>Unix 데이터그램 소켓</td><td>랜드마크 좌표, 분할 통계, 영상 품질 (약 12Hz)</td></tr>
+                <tr><td><code>vision.json</code></td><td>② → ①</td><td>RAM 공유 볼륨 파일</td><td>노출 고정값, 보기 · 위치 잡기 영상 켜기/끄기</td></tr>
+                <tr><td><code>state.json</code></td><td>② → ③</td><td>RAM 공유 볼륨 파일</td><td>현재 상태, 페어링 코드, 보기 상태</td></tr>
+                <tr><td><code>control.sock</code></td><td>③ → ②</td><td>Unix 스트림 소켓</td><td>설정 · 통계 · 캘리브레이션 · PC 등록 · 보기 요청</td></tr>
+                <tr><td><code>preview.jpg</code></td><td>① → ③</td><td>RAM 공유 볼륨 파일</td><td>보기 중에만 320×240 JPEG</td></tr>
+                <tr><td><code>lcd-preview</code></td><td>① → ②</td><td>RAM 공유 볼륨 파일</td><td>캘리브레이션 위치 잡기 중에만 거울 화면</td></tr>
+              </tbody>
+            </table></div>
+            <p class="rpt-p">모든 통로가 보드 안의 공유 RAM 볼륨과 Unix 소켓이라, ① vision과 ② coach는 네트워크 없이도 서로 데이터를 주고받습니다.</p>
+          </div>
+        </details>
+
+        <details class="rpt-det">
+          <summary><span>컨테이너별 단독 시험 방법</span><span class="material-symbols-outlined chev text-primary" aria-hidden="true">expand_more</span></summary>
+          <div class="rpt-det-body">
+            <div class="rpt-scroll"><table class="rpt-table">
+              <thead><tr><th>컨테이너</th><th>먼저 고정할 인터페이스</th><th>단독 시험 방법</th></tr></thead>
+              <tbody>
+                <tr><td>① vision</td><td><code>features.sock</code> JSON 형식</td><td>저장된 영상 파일을 카메라 대신 넣기</td></tr>
+                <tr><td>② coach</td><td><code>state.json</code> 형식, <code>control.sock</code> 명령</td><td>녹화한 특징값을 다시 보내 판정 확인 (PC에서 가능)</td></tr>
+                <tr><td>③ web</td><td>웹 API, 화면</td><td>가짜 <code>state.json</code>과 가짜 <code>control.sock</code> 응답기</td></tr>
+              </tbody>
+            </table></div>
+            <p class="rpt-p">통로 형식을 먼저 고정하면 컨테이너를 따로 개발한 뒤 <code>docker compose up</code>으로 합칠 수 있습니다.</p>
+          </div>
+        </details>
+
         <a href="#pre" class="rpt-next rpt-next-alt"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">first_page</span> 처음으로: 1. 전처리 계획</a>
       </section>
     </div>
@@ -1342,6 +1709,12 @@
           t.classList.toggle('text-on-surface-variant', !on);
           if (on) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
         });
+        // Phone layout scrolls the tab row; keep the current tab centered in it
+        var row = document.getElementById('rptTabs');
+        var cur = row.querySelector('[aria-current]');
+        if (cur && row.scrollWidth > row.clientWidth) {
+          row.scrollLeft = cur.parentNode.offsetLeft - (row.clientWidth - cur.parentNode.offsetWidth) / 2;
+        }
       }
       function go() { show(); window.scrollTo(0, 0); }
       window.addEventListener('hashchange', go);
