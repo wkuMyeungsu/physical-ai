@@ -186,9 +186,8 @@ main {
   padding: var(--gutter) var(--gutter) calc(var(--tab-h) + 24px + env(safe-area-inset-bottom));
   max-width: 1100px; margin-inline: auto;
 }
-.panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; align-content: start; }
-.panel > .span-all { grid-column: 1 / -1; }
-.panel > .action-card { grid-column: 1 / -1; align-self: start; }
+.panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; align-content: start; }
+.stat-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 .panel.enter { animation: panelIn .28s var(--ease); }
 
 .card {
@@ -471,16 +470,18 @@ main {
 }
 @media (min-width: 768px) {
   :root { --gutter: 1.5rem; }
-  .panel { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
-  .panel > .stat { grid-column: span 1; }
-  .panel > .action-card { grid-column: span 2; }
-  .hero { padding: 1.75rem; }
+  .panel { display: block; max-width: 760px; margin-inline: auto; }
+  .panel > * { margin-bottom: 1rem; }
+  .stat-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  .hero { padding: 1.75rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "top top" "body foot"; column-gap: 2rem; align-items: center; }
+  .hero-top { grid-area: top; }
+  .hero-body { grid-area: body; }
+  .hero-foot { grid-area: foot; margin: 0; padding: 0 0 0 2rem; border-top: 0; border-left: 1px solid var(--line); flex-direction: column; align-items: flex-start; justify-content: center; gap: 1rem; min-width: 210px; }
   .hero h1 { font-size: 3rem; }
   .hero-media { max-width: 260px; }
 
   .top { margin-left: var(--rail-w); }
   main { margin-left: var(--rail-w); padding-bottom: 3rem; max-width: none; padding-right: var(--gutter); }
-  main > .panel { max-width: 1100px; }
   .tabbar { inset: 0 auto 0 0; width: var(--rail-w); padding: 6.5rem .5rem 0; border-top: 0; border-right: 1px solid var(--line); box-shadow: none; }
   .tabbar-in { grid-template-columns: 1fr; grid-template-rows: repeat(3, 76px); }
   .pill { width: 100%; height: 76px; bottom: auto; padding: 2px 0; transform: translateY(calc(var(--i) * 100%)); }
@@ -492,9 +493,9 @@ main {
   .logview { height: 26rem; }
 }
 @media (min-width: 1024px) {
-  .panel > .span-all:not(.hero):not(#chartCard):not(#logCard) { grid-column: span 2; }
-  .panel > .hero { grid-column: 1 / -1; }
-  #chartCard { grid-column: span 2; }
+  .panel { max-width: 1180px; column-count: 2; column-gap: 1rem; }
+  .panel > * { break-inside: avoid; }
+  .panel > .hero, .panel > .stat-row { column-span: all; }
   .gauges { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -518,3 +519,9 @@ main {
 .sheet .chips-wrap { margin: .4rem 0 0; }
 .stale-bar { align-items: flex-start; }
 .stale-bar .material-symbols-outlined { margin-top: 1px; flex: none; }
+
+/* ===== Connection chip ===== */
+#modeChip { cursor: pointer; }
+.chip-addr { display: none; }
+@media (min-width: 480px) { .chip-addr { display: inline; } }
+@media (min-width: 768px) { .chart { max-height: 260px; } }

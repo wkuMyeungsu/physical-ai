@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="appbar-actions">
-      <span class="chip chip-slate" id="modeChip"><span class="material-symbols-outlined" aria-hidden="true">wifi</span><span>Wi-Fi · coach.local</span></span>
+      <button class="chip chip-slate" id="modeChip" type="button" aria-label="연결 정보 보기"><span class="material-symbols-outlined" aria-hidden="true">wifi</span><span>Wi-Fi</span></button>
       <button class="icon-btn" id="refreshBtn" type="button" aria-label="새로고침"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
     </div>
   </header>
@@ -72,10 +72,12 @@
       </div>
     </article>
 
+    <div class="stat-row span-all">
     <article class="card stat"><p class="label">거북목 누적</p><p class="value"><span id="statTurtle">0</span></p><p class="small muted">오늘</p></article>
     <article class="card stat"><p class="label">입벌림 누적</p><p class="value"><span id="statMouth">0</span></p><p class="small muted">오늘</p></article>
     <article class="card stat"><p class="label">바른 자세 비율</p><p class="value"><span id="statGood">0</span><small>%</small></p><p class="small muted">판정 시간 중</p></article>
     <article class="card stat"><p class="label">마지막 캘리브레이션</p><p class="value sm" id="statCalib">3일 전</p><p class="small muted" id="statCalibSub"></p></article>
+    </div>
 
     <article class="card span-all" id="chartCard">
       <div class="card-head">

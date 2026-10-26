@@ -609,7 +609,8 @@
     const m = NET_META[D.net.mode], chip = $('#modeChip');
     const off = offline && D.net.mode !== 'lost';
     chip.className = `chip ${off ? 'chip-bad' : m.cls}`;
-    chip.innerHTML = `<span class="material-symbols-outlined" aria-hidden="true">${off ? 'cloud_off' : m.icon}</span><span>${off ? '오프라인' : m.chip}</span>`;
+    const [a, b] = (off ? '오프라인' : m.chip).split(' · ');
+    chip.innerHTML = `<span class="material-symbols-outlined" aria-hidden="true">${off ? 'cloud_off' : m.icon}</span><span>${a}${b ? `<span class="chip-addr"> · ${b}</span>` : ''}</span>`;
   }
   function renderNet() {
     const n = D.net, m = NET_META[n.mode];
@@ -715,6 +716,17 @@
     toast(n.ap.open ? '기기 자체 Wi-Fi가 10분 동안 열렸어요' : '기기 자체 Wi-Fi를 닫았어요', 'wifi');
   }
 
+  function showConn() {
+    const n = D.net, m = NET_META[n.mode];
+    const rows = [['연결 모드', { usb: 'USB 모드', wifi: 'Wi-Fi 모드', lost: '연결 끊김' }[n.mode]], ['접속 주소', m.addr]];
+    if (n.mode === 'wifi') rows.push(['네트워크', netSsid()], ['기기 IP', n.ip]);
+    openSheet({
+      title: '연결 정보',
+      body: rows.map(([k, v]) => `<div class="c-row"><span>${k}</span><b>${esc(v)}</b></div>`).join(''),
+      actions: [{ label: '닫기', cls: 'btn-ghost' }],
+    });
+  }
+
   /* ===================== 시연 도구 ===================== */
   function openDemo() {
     const st = Object.entries(STATUS).map(([k, v]) => `<button type="button" class="chip chip-btn${D.status === k ? ' on' : ''}" data-demo="status:${k}">${v.label}</button>`).join('');
@@ -780,7 +792,7 @@
       el.classList.add('in');
       setTimeout(() => { el.style.transitionDelay = ''; }, 900);
     }), { threshold: .06 });
-    $$('.panel > .card').forEach(c => { c.classList.add('reveal'); io.observe(c); });
+    $$('.panel > .card, .panel > .stat-row').forEach(c => { c.classList.add('reveal'); io.observe(c); });
   }
 
   /* ===================== events ===================== */
@@ -798,6 +810,7 @@
     });
 
     $('#demoBtn').addEventListener('click', openDemo);
+    $('#modeChip').addEventListener('click', showConn);
     $('#sheetBody').addEventListener('click', e => {
       const b = e.target.closest('[data-demo]'); if (!b) return;
       sheet.close();
