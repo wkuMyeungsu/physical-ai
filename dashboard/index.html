@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#FBF9F5"/>
+  <meta name="description" content="거북목 & 입벌림 AI 코치의 상태, 시스템, 접근 관리를 휴대폰에서 확인하는 관리 화면."/>
+  <title>거북목 &amp; 입벌림 AI 코치 | 기기 관리</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"/>
+  <link href="./style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="top">
+  <div class="sim-banner" id="simBanner">
+    <span class="material-symbols-outlined" aria-hidden="true">science</span>
+    <span>시뮬레이션 데이터입니다. 실제 기기와 연결되어 있지 않습니다.</span>
+    <button class="link-btn" id="demoBtn" type="button">시연 도구</button>
+  </div>
+  <header class="appbar">
+    <div class="brand">
+      <img src="./assets/logo.svg" alt="" width="30" height="30"/>
+      <div>
+        <strong>Desk Posture Coach</strong>
+        <span id="deviceName">Coach-A1B2</span>
+      </div>
+    </div>
+    <div class="appbar-actions">
+      <span class="chip chip-slate" id="modeChip"><span class="material-symbols-outlined" aria-hidden="true">wifi</span><span>Wi-Fi · coach.local</span></span>
+      <button class="icon-btn" id="refreshBtn" type="button" aria-label="새로고침"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
+    </div>
+  </header>
+  <div class="stale-bar" id="staleBar" hidden>
+    <span class="material-symbols-outlined" aria-hidden="true">cloud_off</span>
+    <span id="staleMsg"></span>
+  </div>
+</div>
+
+<main id="main" class="is-loading">
+
+  <!-- ============ 기능 ============ -->
+  <section id="panel-function" class="panel" role="tabpanel" aria-labelledby="tab-function">
+
+    <article class="card hero tone-ok span-all" id="hero">
+      <div class="hero-top">
+        <span class="live"><i class="dot"></i>실시간</span>
+        <span class="muted small">갱신 <span id="lastUpdate">--:--:--</span></span>
+      </div>
+      <div class="hero-body">
+        <div class="hero-media" id="heroMedia"></div>
+        <div class="hero-text">
+          <p class="eyebrow">현재 상태</p>
+          <h1 id="heroLabel">정상</h1>
+          <p id="heroMsg" class="hero-msg"></p>
+          <p class="small muted"><span id="heroDur">0초</span> 째</p>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <div class="hero-count">
+          <span class="counter" id="heroAlerts">0</span><span class="counter-unit">회</span>
+          <p class="small muted">오늘 알림</p>
+        </div>
+        <div class="chips">
+          <span class="chip chip-soft" id="chipTurtleRule">거북목 30초</span>
+          <span class="chip chip-soft" id="chipMouthRule">입벌림 8초</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card stat"><p class="label">거북목 누적</p><p class="value"><span id="statTurtle">0</span></p><p class="small muted">오늘</p></article>
+    <article class="card stat"><p class="label">입벌림 누적</p><p class="value"><span id="statMouth">0</span></p><p class="small muted">오늘</p></article>
+    <article class="card stat"><p class="label">바른 자세 비율</p><p class="value"><span id="statGood">0</span><small>%</small></p><p class="small muted">판정 시간 중</p></article>
+    <article class="card stat"><p class="label">마지막 캘리브레이션</p><p class="value sm" id="statCalib">3일 전</p><p class="small muted" id="statCalibSub"></p></article>
+
+    <article class="card span-all" id="chartCard">
+      <div class="card-head">
+        <h2>거북목 시간</h2>
+        <div class="seg" role="radiogroup" aria-label="기간">
+          <button type="button" role="radio" aria-checked="true" data-range="day">오늘</button>
+          <button type="button" role="radio" aria-checked="false" data-range="week">주간</button>
+          <button type="button" role="radio" aria-checked="false" data-range="month">월간</button>
+        </div>
+      </div>
+      <svg id="chart" class="chart" viewBox="0 0 320 160" role="img" aria-label="거북목 시간 막대그래프"></svg>
+      <p class="small muted" id="chartCap">막대를 누르면 값을 볼 수 있어요.</p>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head">
+        <h2>알림 이력</h2>
+        <span class="small muted" id="alertSummary"></span>
+      </div>
+      <ol class="timeline" id="alertList"></ol>
+    </article>
+
+    <section class="card acc open span-all" data-acc>
+      <button class="acc-head" type="button" aria-expanded="true">
+        <span class="acc-title"><span class="material-symbols-outlined" aria-hidden="true">tune</span>판정 설정</span>
+        <span class="material-symbols-outlined chev" aria-hidden="true">expand_more</span>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="small muted">정해진 허용 범위 안에서만 바꿀 수 있습니다. 변경은 기기에 요청되고, 기기가 범위를 다시 검사합니다.</p>
+        <div id="settingRows" class="setting-rows"></div>
+        <div class="row-end"><button class="btn btn-ghost" id="settingReset" type="button">되돌리기</button><button class="btn btn-primary" id="settingSave" type="button" disabled>저장</button></div>
+      </div></div>
+    </section>
+
+    <article class="card action-card">
+      <div class="action-ico tone-slate"><span class="material-symbols-outlined" aria-hidden="true">center_focus_strong</span></div>
+      <div class="action-text"><h2>다시 맞추기</h2><p class="small muted">카메라 위치나 조명이 바뀌었을 때 개인 기준 자세를 새로 잡습니다.</p></div>
+      <button class="btn btn-soft" id="calibBtn" type="button">시작</button>
+    </article>
+
+    <article class="card action-card" id="previewCard">
+      <div class="action-ico tone-clay"><span class="material-symbols-outlined" aria-hidden="true">videocam</span></div>
+      <div class="action-text">
+        <h2>실시간 영상 보기</h2>
+        <p class="small muted" id="previewDesc">저해상도(320×240)로 최대 5분. 기기 화면에 "영상 보기 중"이 표시되고 녹화하지 않습니다.</p>
+      </div>
+      <button class="btn btn-soft" id="previewBtn" type="button">보기</button>
+      <div class="preview-box" id="previewBox" hidden>
+        <div class="preview-screen"><span class="material-symbols-outlined" aria-hidden="true">person</span><span class="small">시뮬레이션 영상</span></div>
+        <div class="preview-meta"><span class="live"><i class="dot"></i>보기 중</span><span class="small">남은 시간 <b id="previewLeft">5:00</b></span></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 시스템 ============ -->
+  <section id="panel-system" class="panel" role="tabpanel" aria-labelledby="tab-system" hidden>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>자원</h2><span class="small muted">가동 <span id="uptime">0분</span></span></div>
+      <div class="gauges" id="gauges"></div>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>컨테이너</h2><span class="small muted">3개</span></div>
+      <div id="containers" class="containers"></div>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>추론 성능</h2><span class="small muted">최근 40초</span></div>
+      <div class="perf-stats">
+        <div><p class="label">처리 속도</p><p class="value"><span id="perfFps">0</span><small>fps</small></p></div>
+        <div><p class="label">p50</p><p class="value"><span id="perfP50">0</span><small>ms</small></p></div>
+        <div><p class="label">p95</p><p class="value"><span id="perfP95">0</span><small>ms</small></p></div>
+        <div><p class="label">max</p><p class="value"><span id="perfMax">0</span><small>ms</small></p></div>
+      </div>
+      <svg id="spark" class="spark" viewBox="0 0 300 90" role="img" aria-label="추론 지연 시간 추이">
+        <line x1="0" y1="20" x2="300" y2="20" class="grid-line"/><line x1="0" y1="50" x2="300" y2="50" class="grid-line"/><line x1="0" y1="80" x2="300" y2="80" class="grid-line"/>
+        <path id="sparkArea" class="spark-area" d=""/>
+        <path id="sparkP95" class="spark-p95" d=""/>
+        <path id="sparkP50" class="spark-p50" d=""/>
+      </svg>
+      <div class="legend small"><span><i class="sw sw-primary"></i>p50</span><span><i class="sw sw-clay"></i>p95</span><span class="muted">목표 3~5fps</span></div>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>입력 품질</h2><span class="small muted">최근 1시간</span></div>
+      <div class="stack" id="qualityBar" role="img" aria-label="입력 품질 비율"></div>
+      <ul class="legend-list small" id="qualityLegend"></ul>
+    </article>
+
+    <article class="card span-all" id="netCard">
+      <div class="card-head"><h2>네트워크</h2><span class="chip chip-slate" id="netBadge"></span></div>
+      <ul class="kv" id="netList"></ul>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>하드웨어</h2></div>
+      <ul class="kv" id="hwList"></ul>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head">
+        <h2>로그</h2>
+        <button class="chip chip-btn" id="logPause" type="button" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">pause</span><span>일시정지</span></button>
+      </div>
+      <div class="seg seg-full" role="radiogroup" aria-label="로그 레벨" id="logLevel">
+        <button type="button" role="radio" aria-checked="true" data-v="all">전체</button>
+        <button type="button" role="radio" aria-checked="false" data-v="INFO">INFO</button>
+        <button type="button" role="radio" aria-checked="false" data-v="WARNING">WARNING</button>
+        <button type="button" role="radio" aria-checked="false" data-v="ERROR">ERROR</button>
+      </div>
+      <div class="chips chips-wrap" id="logSrc" role="group" aria-label="컨테이너 필터">
+        <button type="button" class="chip chip-btn on" data-v="all" aria-pressed="true">전체</button>
+        <button type="button" class="chip chip-btn" data-v="vision" aria-pressed="false">vision</button>
+        <button type="button" class="chip chip-btn" data-v="coach" aria-pressed="false">coach</button>
+        <button type="button" class="chip chip-btn" data-v="web" aria-pressed="false">web</button>
+      </div>
+      <div class="logview" id="logView" tabindex="0" aria-label="로그 목록" aria-live="off"></div>
+    </article>
+  </section>
+
+  <!-- ============ 관리 ============ -->
+  <section id="panel-admin" class="panel" role="tabpanel" aria-labelledby="tab-admin" hidden>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>등록된 기기</h2><span class="small muted" id="deviceCount"></span></div>
+      <ul class="list" id="deviceList"></ul>
+      <p class="small muted">Wi-Fi 모드에서는 기기 화면의 4자리 코드를 입력해 등록한 기기만 접속할 수 있습니다.</p>
+    </article>
+
+    <article class="card span-all" id="wifiCard">
+      <div class="card-head"><h2>Wi-Fi 관리</h2><span class="chip chip-slate" id="wifiBadge"></span></div>
+      <ul class="list" id="wifiList"></ul>
+      <div class="note"><span class="material-symbols-outlined" aria-hidden="true">info</span><p class="small" id="wifiNote"></p></div>
+    </article>
+
+    <article class="card span-all" id="adminPreview">
+      <div class="card-head"><h2>영상 보기 통제</h2></div>
+      <div class="row-between">
+        <div><p id="adminPreviewState" class="strong">보기 중 아님</p><p class="small muted" id="adminPreviewSub">영상은 요청이 있을 때만 켜지고 저장되지 않습니다.</p></div>
+        <button class="btn btn-danger" id="adminPreviewStop" type="button" disabled>강제 종료</button>
+      </div>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>보안 점검</h2><span class="small" id="secSummary"></span></div>
+      <ul class="checklist" id="secList"></ul>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>접속 · 변경 기록</h2></div>
+      <ol class="timeline" id="auditList"></ol>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>업데이트</h2></div>
+      <ul class="kv">
+        <li><span>펌웨어</span><b>0.1.0</b></li>
+        <li><span>자세 분할 모델</span><b>posture-seg-v1.rknn</b></li>
+        <li><span>얼굴 랜드마크 모델</span><b>face-lmk-v1.rknn</b></li>
+        <li><span>이 화면</span><b>0.1.0</b></li>
+      </ul>
+      <p class="small muted">기기는 인터넷에 연결되지 않으므로, 서명된 업데이트 파일을 직접 올려 적용합니다.</p>
+      <label class="file-pick" id="filePick">
+        <input type="file" id="updateFile" accept=".bin,.tar,.sig"/>
+        <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+        <span id="fileName">업데이트 파일 선택</span>
+      </label>
+      <div class="progress" id="updateProgress" hidden><i></i></div>
+      <div class="row-end"><button class="btn btn-primary" id="updateApply" type="button" disabled>서명 확인 후 적용</button></div>
+    </article>
+
+    <article class="card span-all">
+      <div class="card-head"><h2>데이터 관리</h2></div>
+      <ul class="kv">
+        <li><span>알림 기록 보관</span><b>기기 내부 (eMMC)</b></li>
+        <li><span>얼굴 영상</span><b>저장 안 함</b></li>
+        <li><span>기록 용량</span><b id="dbSize">12.4 MB</b></li>
+      </ul>
+      <div class="note"><span class="material-symbols-outlined" aria-hidden="true">info</span><p class="small">초기화는 기기 앞에서만 할 수 있습니다. 기기 버튼을 10초 눌러 설정 메뉴에서 "초기화"를 고르세요. 저장된 Wi-Fi, 등록 기기, 개인 기준값, 알림 기록이 모두 지워집니다.</p></div>
+    </article>
+  </section>
+</main>
+
+<nav class="tabbar" aria-label="화면 전환">
+  <div class="tabbar-in" role="tablist" id="tablist" style="--i:0">
+    <i class="pill" aria-hidden="true"></i>
+    <button class="tab" id="tab-function" role="tab" aria-selected="true" aria-controls="panel-function" data-tab="function" type="button"><span class="material-symbols-outlined" aria-hidden="true">accessibility_new</span><span>기능</span></button>
+    <button class="tab" id="tab-system" role="tab" aria-selected="false" aria-controls="panel-system" data-tab="system" type="button"><span class="material-symbols-outlined" aria-hidden="true">memory</span><span>시스템</span></button>
+    <button class="tab" id="tab-admin" role="tab" aria-selected="false" aria-controls="panel-admin" data-tab="admin" type="button"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span><span>관리</span></button>
+  </div>
+</nav>
+
+<dialog id="sheet" class="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet-grip" aria-hidden="true"></div>
+  <h2 id="sheetTitle"></h2>
+  <div id="sheetBody" class="sheet-body"></div>
+  <div class="sheet-actions" id="sheetActions"></div>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="true"></div>
+
+<script src="./app.js"></script>
+</body>
+</html>
